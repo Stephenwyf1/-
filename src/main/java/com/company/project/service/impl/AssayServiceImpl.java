@@ -68,7 +68,17 @@ public class AssayServiceImpl extends ServiceImpl<AssayMapper, AssayEntity> impl
 
     @Override
     public void insertStuAssayInfo(AssayEntity assayEntity) {
-        assayMapper.insert(assayEntity);
+
+        System.out.println( assayMapper.selectById(assayEntity.getStuId()) );
+
+        if( assayMapper.selectById(assayEntity.getStuId()) == null )
+        {
+            assayMapper.insert(assayEntity);
+        }
+        else
+        {
+            assayMapper.updateById(assayEntity);
+        }
     }
 
 }

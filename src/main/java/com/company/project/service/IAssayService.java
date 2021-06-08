@@ -23,7 +23,7 @@ public interface IAssayService extends IService<AssayEntity> {
     //获取特定学生的Assay信息
     List<Map<String, Object>> getStuAssayInfo(int Stu_id);
 
-    //插入学生的Assay信息
+    //插入学生的Assay信息(如果存在则更新)
     void insertStuAssayInfo(AssayEntity assayEntity);
 
 }
