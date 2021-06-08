@@ -45,21 +45,21 @@
             </fieldset>
             <form class="layui-form layui-form-pane layui-col-md3" action="" lay-filter="deptInfo" style="width: 700px;margin-top: 10px;position: center">
                 <div class="layui-form-item">
-                    <label class="layui-form-label">胸部放射检查</label>
+                    <label class="layui-form-label">化验检查</label>
                     <div class="layui-input-block" style="  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
-                        <input  type="text" name="length" lay-verify="title" autocomplete="off" placeholder="请输入患者身长" class="layui-input WithUnit">
+                        <input  type="text" v-model = "Assay_test" name="length" lay-verify="title" autocomplete="off" placeholder="请输入化验检查" class="layui-input WithUnit">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">医师意见</label>
                     <div class="layui-input-block">
-                        <input  type="text" name="weight" lay-verify="title" autocomplete="off" placeholder="请输入患者体重" class="layui-input WithUnit">
+                        <input  type="text" name="weight" v-model="Assay_idea" lay-verify="title" autocomplete="off" placeholder="请输入医师意见" class="layui-input WithUnit">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">检查医生id</label>
                     <div class="layui-input-block">
-                        <input type="text" name="circle" lay-verify="title" autocomplete="off" placeholder="请输入患者腰围" class="layui-input WithUnit">
+                        <input type="text" name="circle" v-model= "Assay_doctor_id" lay-verify="title" autocomplete="off" placeholder="请输入检查医生id" class="layui-input WithUnit">
                     </div>
                 </div>
 
@@ -158,44 +158,57 @@
 
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<!--表单提交-->
 <script>
+    var form = layui.form;
+    var token = CoreUtil.getData("access_token");
+    form.on('submit(save)', function(data) {
+        $.ajax({
+            url: '/assay/insertAssayInfo',
+            method: 'post',
+            data: data.field,
+            dataType: 'JSON',
+            success: function (res) {
+                if (res.code = '0') {
+                    parent.closeIframe(res.msg);
+                } else
+                    alert(res.msg);
+            },
+            error: function (data) {
+
+            }
+        });
+    })
     var app = new Vue({
         el:"#app",
         data:{
-
+            Assay_test:"",
+            Assay_idea:"",
+            Assay_doctor_id:""
         },
         methods:{
+            save:function() {
+                $.ajax({
+                    url: '/assay/insertAssayInfo',
+                    method: 'post',
+                    headers: {"authorization": token},
+                    data: {"Assay_doctor_id": this.Assay_doctor_id,"Assay_idea":this.Assay_idea,"Assay_test":this.Assay_test,"Stu_id":2},
+                    dataType: 'JSON',
+                    success: function (res) {
+                        if (res.code = '0') {
+                            console.log(res);
+                        } else
+                            alert(res.msg);
+                    },
+                    error: function (data) {
 
-            save:function(){
-                var form = layui.form;
-                var table = layui.table;
-                var token = CoreUtil.getData("access_token");
-                form.on('submit(save)', function(data){
-                    $.ajax({
-                        url:'/assay/insertAssayInfo',
-                        method:'post',
-                        headers: {"authorization": token},
-                        data:data.field,
-                        dataType:'JSON',
-                        success:function(res){
-                            if(res.code='0'){
-                                // parent.closeIframe(res.msg);
-                                // cancel();
-                                console.log(res);
-                            }
-                            else
-                                alert(res.msg);
-                        },
-                        error:function (data) {
-
-                        }
-                    }) ;
-
+                    }
                 });
 
-
             }
-        }
+
+
+        },
     })
 </script>
 <script type="text/html" id="barDemo">
