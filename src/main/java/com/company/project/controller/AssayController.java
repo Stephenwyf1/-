@@ -54,12 +54,12 @@ public class AssayController {
         AssayEntity assayEntity = new AssayEntity();
 
         assayEntity.setAssayDoctorId( request.getParameter("Assay_doctor_id") );
-        assayEntity.setAssayOperationTime( LocalDateTime.parse(request.getParameter("Assay_operation_time")) );
+        assayEntity.setAssayOperationTime( LocalDateTime.now() );
         assayEntity.setAssayTest( request.getParameter("Assay_test") );
         assayEntity.setAssayIdea( request.getParameter("Assay_idea") );
-        assayEntity.setAssayAll( request.getParameter("Assay_all") );
+        assayEntity.setAssayAll( "1" );
         assayEntity.setStuId(Integer.parseInt( request.getParameter("Stu_id") ));
-        assayEntity.setAssayError( request.getParameter("Assay_error") );
+        assayEntity.setAssayError( "0" );
 
         iAssayService.insertStuAssayInfo(assayEntity);
 
