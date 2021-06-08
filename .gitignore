@@ -1,8 +1,0 @@
-# Created by .ignore support plugin (hsz.mobi)
-.DS_Store
-.idea/*
-.mvn/
-aitangbao.iml
-log/
-target/
-src/main/resources/application-dev.yml;
