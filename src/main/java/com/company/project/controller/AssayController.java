@@ -42,10 +42,13 @@ public class AssayController {
 
     @RequestMapping("/getAssayInfo")
     public void getAssayInfo(HttpServletResponse response, HttpServletRequest request) throws JSONException{
+        System.out.println("--------------------In getAssayInfo Controller--------------------");
         int Stu_id = Integer.parseInt(request.getParameter("Stu_id"));
         List<Map<String, Object>> DataList = iAssayService.getStuAssayInfo(Stu_id);
         JSONObject ResultJSON = JSONUtil.CreateJSON(0,"ok", DataList.size(),DataList);
 
+        System.out.println("--------------------JSON--------------------");
+        System.out.println(ResultJSON);
         JSONUtil.JSONToResponse(response, ResultJSON);
     }
 
