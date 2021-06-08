@@ -58,7 +58,7 @@ public class AssayController {
         assayEntity.setAssayTest( request.getParameter("Assay_test") );
         assayEntity.setAssayIdea( request.getParameter("Assay_idea") );
         assayEntity.setAssayAll( "1" );
-        assayEntity.setStuId(Integer.parseInt( request.getParameter("Stu_id") ));
+        assayEntity.setStuId( Integer.parseInt( request.getParameter("Stu_id") ));
         assayEntity.setAssayError( "0" );
 
         iAssayService.insertStuAssayInfo(assayEntity);

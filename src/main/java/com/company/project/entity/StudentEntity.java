@@ -46,7 +46,7 @@ public class StudentEntity extends BaseEntity implements Serializable{
     /**
      * 学院
      */
-    @TableField("Std_college")
+    @TableField("Stu_college")
     private String stdCollege;
 
     /**
