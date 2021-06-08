@@ -46,6 +46,7 @@ public class UserController {
     @Resource
     private HttpSessionService httpSessionService;
 
+
     @PostMapping(value = "/user/login")
     @ApiOperation(value = "用户登录接口")
     public DataResult login(@RequestBody @Valid SysUser vo, HttpServletRequest request) {
