@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -33,7 +34,7 @@ public class AssayServiceImpl extends ServiceImpl<AssayMapper, AssayEntity> impl
     private StudentMapper studentMapper;
 
     @Override
-    public List<Map<String, Object>> getStuInfoList() {
+    public List<Map<String, Object>> getStuInfoList(int Stu_id) {
 
         LambdaQueryWrapper<StudentEntity> StudentQueryWrapper = Wrappers.lambdaQuery();
         LambdaQueryWrapper<AssayEntity> AssayQueryWrapper = Wrappers.lambdaQuery();
@@ -56,6 +57,20 @@ public class AssayServiceImpl extends ServiceImpl<AssayMapper, AssayEntity> impl
                     }
                 }
             }
+        }
+
+        if(Stu_id != -1)
+        {
+            List<Map<String, Object>> SearchResultStudentMaps = new ArrayList<>();
+            for(Map<String, Object> StudentEntityMap : StudentEntityMaps)
+            {
+                if( (int)StudentEntityMap.get("Stu_id") == Stu_id)
+                {
+                    SearchResultStudentMaps.add(StudentEntityMap);
+
+                }
+            }
+            return SearchResultStudentMaps;
         }
 
         return StudentEntityMaps;

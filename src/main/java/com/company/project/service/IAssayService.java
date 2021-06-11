@@ -18,7 +18,7 @@ import java.util.Map;
 public interface IAssayService extends IService<AssayEntity> {
 
     //获取Assay科体检学生列表
-    List<Map<String, Object>> getStuInfoList();
+    List<Map<String, Object>> getStuInfoList(int Stu_id);
 
     //获取特定学生的Assay信息
     List<Map<String, Object>> getStuAssayInfo(int Stu_id);

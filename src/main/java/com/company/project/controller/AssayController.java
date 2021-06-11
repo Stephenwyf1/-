@@ -9,6 +9,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -34,32 +35,31 @@ public class AssayController {
     private IAssayService iAssayService;
 
     @RequestMapping("/getStuList")
-    public void getList(HttpServletResponse response, HttpServletRequest request) throws JSONException{
+    public void getList(HttpServletResponse response, @RequestParam(name = "Stu_id", required = false, defaultValue = "-1") int Stu_id) throws JSONException{
         System.out.println("--------------------In getStuList Controller--------------------");
 
-        List<Map<String, Object>> DataList = iAssayService.getStuInfoList();
+        List<Map<String, Object>> DataList = iAssayService.getStuInfoList(Stu_id);
         JSONObject ResultJSON = JSONUtil.CreateJSON(0,"ok",DataList.size(),DataList);
 
-        System.out.println("--------------------JSON--------------------");
-        System.out.println(ResultJSON);
+        System.out.println("--------------------JSON--------------------\n"+ResultJSON);
 
         JSONUtil.JSONToResponse(response, ResultJSON);
     }
 
     @RequestMapping("/getAssayInfo")
-    public void getAssayInfo(HttpServletResponse response, HttpServletRequest request) throws JSONException{
+    public void getAssayInfo(HttpServletResponse response, @RequestParam(name = "Stu_id") int Stu_id) throws JSONException{
         System.out.println("--------------------In getAssayInfo Controller--------------------");
-        int Stu_id = Integer.parseInt(request.getParameter("Stu_id"));
+
         List<Map<String, Object>> DataList = iAssayService.getStuAssayInfo(Stu_id);
         JSONObject ResultJSON = JSONUtil.CreateJSON(0,"ok", DataList.size(),DataList);
 
-        System.out.println("--------------------JSON--------------------");
-        System.out.println(ResultJSON);
+        System.out.println("--------------------JSON--------------------\n"+ResultJSON);
+
         JSONUtil.JSONToResponse(response, ResultJSON);
     }
 
     @RequestMapping("/insertAssayInfo")
-    public void insertAssayInfo(HttpServletResponse response, HttpServletRequest request, AssayEntity assayEntity) throws JSONException{
+    public void insertAssayInfo(HttpServletResponse response, AssayEntity assayEntity) throws JSONException{
         System.out.println("--------------------In insertAssayInfo Controller--------------------");
 
         assayEntity.setAssayAll("1");
@@ -68,8 +68,8 @@ public class AssayController {
 
         JSONObject jsonObject = JSONUtil.CreateJSON(0,"ok",0,null);
 
-        System.out.println("--------------------JSON--------------------");
-        System.out.println(jsonObject);
+        System.out.println("--------------------JSON--------------------\n"+jsonObject);
+
         JSONUtil.JSONToResponse(response, jsonObject);
     }
 }
