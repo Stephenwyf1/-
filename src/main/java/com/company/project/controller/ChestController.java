@@ -3,11 +3,12 @@ package com.company.project.controller;
 
 import com.company.project.common.utils.JSONUtil;
 import com.company.project.entity.AssayEntity;
-
-import com.company.project.service.IAssayService;
+import com.company.project.entity.ChestEntity;
+import com.company.project.service.IChestService;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -19,24 +20,24 @@ import java.util.Map;
 
 /**
  * <p>
- * 化验 前端控制器
+ * 胸部 前端控制器
  * </p>
  *
  * @author wyf
  * @since 2021-06-06
  */
 @RestController
-@RequestMapping("/assay")
-public class AssayController {
+@RequestMapping("/chest")
+public class ChestController {
 
     @Resource
-    private IAssayService iAssayService;
+    IChestService iChestService;
 
     @RequestMapping("/getStuList")
-    public void getList(HttpServletResponse response, HttpServletRequest request) throws JSONException{
+    public void getList(HttpServletResponse response) throws JSONException {
         System.out.println("--------------------In getStuList Controller--------------------");
 
-        List<Map<String, Object>> DataList = iAssayService.getStuInfoList();
+        List<Map<String, Object>> DataList = iChestService.getStuInfoList();
         JSONObject ResultJSON = JSONUtil.CreateJSON(0,"ok",DataList.size(),DataList);
 
         System.out.println("--------------------JSON--------------------");
@@ -45,11 +46,11 @@ public class AssayController {
         JSONUtil.JSONToResponse(response, ResultJSON);
     }
 
-    @RequestMapping("/getAssayInfo")
+    @RequestMapping("/getChestInfo")
     public void getAssayInfo(HttpServletResponse response, HttpServletRequest request) throws JSONException{
-        System.out.println("--------------------In getAssayInfo Controller--------------------");
+        System.out.println("--------------------In getChestInfo Controller--------------------");
         int Stu_id = Integer.parseInt(request.getParameter("Stu_id"));
-        List<Map<String, Object>> DataList = iAssayService.getStuAssayInfo(Stu_id);
+        List<Map<String, Object>> DataList = iChestService.getStuChestInfo(Stu_id);
         JSONObject ResultJSON = JSONUtil.CreateJSON(0,"ok", DataList.size(),DataList);
 
         System.out.println("--------------------JSON--------------------");
@@ -57,20 +58,20 @@ public class AssayController {
         JSONUtil.JSONToResponse(response, ResultJSON);
     }
 
-    @RequestMapping("/insertAssayInfo")
-    public void insertAssayInfo(HttpServletResponse response, HttpServletRequest request, AssayEntity assayEntity) throws JSONException{
-        System.out.println("--------------------In insertAssayInfo Controller--------------------");
-//        AssayEntity assayEntity = new AssayEntity();
-//
-//        assayEntity.setAssayDoctorId( request.getParameter("Assay_doctor_id") );
-//        assayEntity.setAssayOperationTime( LocalDateTime.now() );
-//        assayEntity.setAssayTest( request.getParameter("Assay_test") );
-//        assayEntity.setAssayIdea( request.getParameter("Assay_idea") );
-//        assayEntity.setAssayAll( "1" );
-//        assayEntity.setStuId( Integer.parseInt( request.getParameter("Stu_id") ));
-//        assayEntity.setAssayError( "0" );
+    @RequestMapping("/insertChestInfo")
+    public void insertAssayInfo(HttpServletResponse response, HttpServletRequest request) throws JSONException{
+        System.out.println("--------------------In insertChestInfo Controller--------------------");
+        ChestEntity chestEntity = new ChestEntity();
 
-        iAssayService.insertStuAssayInfo(assayEntity);
+        chestEntity.setChestDoctorId( request.getParameter("Assay_doctor_id") );
+        chestEntity.setChestOperationTime( LocalDateTime.now() );
+        chestEntity.setChestTest( request.getParameter("Assay_test") );
+        chestEntity.setChestIdea( request.getParameter("Assay_idea") );
+        chestEntity.setChestAll( "1" );
+        chestEntity.setStuId( Integer.parseInt( request.getParameter("Stu_id") ));
+        chestEntity.setChestError( "0" );
+
+        iChestService.insertStuChestInfo(chestEntity);
 
         JSONObject jsonObject = JSONUtil.CreateJSON(0,"ok",0,null);
 
@@ -78,4 +79,5 @@ public class AssayController {
         System.out.println(jsonObject);
         JSONUtil.JSONToResponse(response, jsonObject);
     }
+
 }

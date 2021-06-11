@@ -38,7 +38,6 @@ public class AssayServiceImpl extends ServiceImpl<AssayMapper, AssayEntity> impl
         LambdaQueryWrapper<StudentEntity> StudentQueryWrapper = Wrappers.lambdaQuery();
         LambdaQueryWrapper<AssayEntity> AssayQueryWrapper = Wrappers.lambdaQuery();
         StudentQueryWrapper.orderByAsc(StudentEntity::getStuId);
-        JSONObject ResultJSON = new JSONObject();
 
         List<Map<String, Object>> StudentEntityMaps = studentMapper.selectMaps(StudentQueryWrapper);
         List<Map<String, Object>> AssayEntityMaps = assayMapper.selectMaps(AssayQueryWrapper);
@@ -51,6 +50,10 @@ public class AssayServiceImpl extends ServiceImpl<AssayMapper, AssayEntity> impl
                 if(AssayEntityMap.get("Stu_id") == StudentEntityMap.get("Stu_id"))
                 {
                     StudentEntityMap.put("Assay_all", "1");
+                    if( Integer.parseInt( (String)AssayEntityMap.get("Assay_error") ) == 1)
+                    {
+                        StudentEntityMap.put("Assay_all", "2");
+                    }
                 }
             }
         }
