@@ -34,7 +34,7 @@ public class AssayController {
 
     @RequestMapping("/getStuList")
     public void getList(HttpServletResponse response, HttpServletRequest request) throws JSONException{
-        System.out.println("--------------------In getAssayInfo Controller--------------------");
+        System.out.println("--------------------In getStuList Controller--------------------");
 
         List<Map<String, Object>> DataList = iAssayService.getStuInfoList();
         JSONObject ResultJSON = JSONUtil.CreateJSON(0,"ok",DataList.size(),DataList);
