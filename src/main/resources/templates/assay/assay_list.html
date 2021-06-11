@@ -27,45 +27,54 @@
                     化验体检表
                 </legend>
                 <div class="layui-row">
-                    <div  class="layui-col-md6">
-                        <legend  style="font-size: 17px;font-weight: bolder;font-family: 华文宋体">
-                            <div align="center"  >
-                                学号：<nobr id="ii" ></nobr>
+                    <div class="layui-col-md6">
+                        <legend style="font-size: 17px;font-weight: bolder;font-family: 华文宋体">
+                            <div align="center">
+                                编号：
+                                <nobr id="ii"></nobr>
                             </div>
                         </legend>
                     </div>
-                    <div  class="layui-col-md6">
-                        <legend  style="font-size: 17px;font-weight: bolder;font-family: 华文宋体">
-                            <div align="center" >
-                                姓名：<nobr id="bb"></nobr>
+                    <div class="layui-col-md6">
+                        <legend style="font-size: 17px;font-weight: bolder;font-family: 华文宋体">
+                            <div align="center">
+                                姓名：
+                                <nobr id="bb"></nobr>
                             </div>
                         </legend>
                     </div>
                 </div>
             </fieldset>
-            <form class="layui-form layui-form-pane layui-col-md3" action="" lay-filter="deptInfo" style="width: 700px;margin-top: 10px;position: center">
+            <form class="layui-form layui-form-pane layui-col-md3" action="" lay-filter="deptInfo"
+                  style="width: 700px;margin-top: 10px;position: center">
                 <div class="layui-form-item">
-                    <label class="layui-form-label" >化验检查</label>
-                    <div class="layui-input-block" style="  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
-                        <input  id="Assay_test" type="text" v-model = "Assay_test" name="length" lay-verify="title" autocomplete="off" placeholder="请输入化验检查" class="layui-input WithUnit">
+                    <label class="layui-form-label">化验检查</label>
+                    <div class="layui-input-block"
+                         style="  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
+                        <input id="Assay_test" type="text" v-model="Assay_test" name="length" lay-verify="title"
+                               autocomplete="off" placeholder="请输入化验检查" class="layui-input WithUnit">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">医师意见</label>
                     <div class="layui-input-block">
-                        <input  id="Assay_idea" type="text" name="weight" v-model="Assay_idea" lay-verify="title" autocomplete="off" placeholder="请输入医师意见" class="layui-input WithUnit">
+                        <input id="Assay_idea" type="text" name="weight" v-model="Assay_idea" lay-verify="title"
+                               autocomplete="off" placeholder="请输入医师意见" class="layui-input WithUnit">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">检查医生id</label>
                     <div class="layui-input-block">
-                        <input id="Assay_doctor_id"  type="text" name="circle" v-model= "Assay_doctor_id" lay-verify="title" autocomplete="off" placeholder="请输入检查医生id" class="layui-input WithUnit">
+                        <input id="Assay_doctor_id" type="text" name="circle" v-model="Assay_doctor_id"
+                               lay-verify="title" autocomplete="off" placeholder="请输入检查医生id"
+                               class="layui-input WithUnit">
                     </div>
                 </div>
 
                 <div class="layui-form-item">
                     <div class="layui-input-block">
-                        <button type="submit" class="layui-btn" lay-submit="" lay-filter="save" @click="save">保存</button>
+                        <button type="submit" class="layui-btn" lay-submit="" lay-filter="save" @click="save">保存
+                        </button>
                         <button class="layui-btn layui-btn-primary" id="btn_cancel" onclick="cancel()">返回</button>
                     </div>
                 </div>
@@ -85,11 +94,11 @@
 
 <!--表单规范-->
 <script>
-    layui.use(['form', 'layedit', 'laydate'], function(){
+    layui.use(['form', 'layedit', 'laydate'], function () {
         var form = layui.form
-            ,layer = layui.layer
-            ,layedit = layui.layedit
-            ,laydate = layui.laydate;
+            , layer = layui.layer
+            , layedit = layui.layedit
+            , laydate = layui.laydate;
 
         //日期
         laydate.render({
@@ -104,30 +113,30 @@
 
         //自定义验证规则
         form.verify({
-            title: function(value){
-                if(value.length < 5){
+            title: function (value) {
+                if (value.length < 5) {
                     return '标题至少得5个字符啊';
                 }
             }
-            ,pass: [
+            , pass: [
                 /^[\S]{6,12}$/
-                ,'密码必须6到12位，且不能出现空格'
+                , '密码必须6到12位，且不能出现空格'
             ]
-            ,content: function(value){
+            , content: function (value) {
                 layedit.sync(editIndex);
             }
         });
 
         //监听指定开关
-        form.on('switch(switchTest)', function(data){
-            layer.msg('开关checked：'+ (this.checked ? 'true' : 'false'), {
+        form.on('switch(switchTest)', function (data) {
+            layer.msg('开关checked：' + (this.checked ? 'true' : 'false'), {
                 offset: '6px'
             });
             layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF', data.othis)
         });
 
         //监听提交
-        form.on('submit(demo1)', function(data){
+        form.on('submit(demo1)', function (data) {
             layer.alert(JSON.stringify(data.field), {
                 title: '最终的提交信息'
             })
@@ -135,20 +144,20 @@
         });
 
         //表单赋值
-        layui.$('#LAY-component-form-setval').on('click', function(){
+        layui.$('#LAY-component-form-setval').on('click', function () {
             form.val('example', {
                 "username": "贤心" // "name": "value"
-                ,"password": "123456"
-                ,"interest": 1
-                ,"like[write]": true //复选框选中状态
-                ,"close": true //开关状态
-                ,"sex": "女"
-                ,"desc": "我爱 layui"
+                , "password": "123456"
+                , "interest": 1
+                , "like[write]": true //复选框选中状态
+                , "close": true //开关状态
+                , "sex": "女"
+                , "desc": "我爱 layui"
             });
         });
 
         //表单取值
-        layui.$('#LAY-component-form-getval').on('click', function(){
+        layui.$('#LAY-component-form-getval').on('click', function () {
             var data = form.val('example');
             alert(JSON.stringify(data));
         });
@@ -162,7 +171,7 @@
 
 <script type="text/html" id="barDemo">
     <!--    class="layui-btn layui-btn-xs"-->
-    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+    <!--    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>-->
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
@@ -176,54 +185,54 @@
 <script>
     var tabledata;//表格中的数据
     var token = CoreUtil.getData("access_token");//header的token
-    layui.use('table', function(){
+    layui.use('table', function () {
         var table = layui.table;
         var token = CoreUtil.getData("access_token");
         // var table = layui.table;
         //第一个实例
         table.render({
             elem: '#useruv'
-            ,height: 312
+            , height: 312
             , headers: {"authorization": token}
-            ,url: '/assay/getStuList' //数据接口
-            ,page: true //开启分页
+            , url: '/assay/getStuList' //数据接口
+            , page: true //开启分页
 
-            ,cols: [
+            , cols: [
                 [ //表头
                     {checkbox: true, fixed: true}
-                    ,{field: 'Stu_id', title: '编号', width:80, sort: true, fixed: 'true'}
-                    ,{field: 'Stu_name', title: '姓名', width:80}
-                    ,{field: 'Stu_card', title: '身份证', width:80, sort: true}
-                    ,{field: 'Stu_college', title: '学院', width:80}
-                    ,{field: 'Stu_major', title: '专业', width: 80}
-                    ,{field: 'Stu_class', title: '班级', width: 80, sort: true}
-                    ,{field: 'Stu_num', title: '学号', width: 80, sort: true}
-                    ,{field: 'Stu_sex', title: '性别', width: 80}
-                    ,{field: 'Stu_birth', title: '出生年月日', width: 135, sort: true}
-                    ,{
-                        field: 'Assay_all', title: '状态', width: 100, templet: function (item) {
-                            if (item.status === 1) {
-                                return '  <input type="checkbox" lay-skin="switch" lay-text="正常|弃用" checked disabled>';
-                            }
-                            if (item.status === 0) {
-                                return '  <input type="checkbox" lay-skin="switch" lay-text="正常|弃用" disabled>';
-                            }
+                    , {field: 'Stu_id', title: '编号', width: 80, sort: true, fixed: 'true'}
+                    , {field: 'Stu_name', title: '姓名', width: 80, sort: true}
+                    , {field: 'Stu_card', title: '身份证', width: 80, sort: true}
+                    , {field: 'Stu_college', title: '学院', width: 80, sort: true}
+                    , {field: 'Stu_major', title: '专业', width: 80, sort: true}
+                    , {field: 'Stu_class', title: '班级', width: 80, sort: true}
+                    , {field: 'Stu_num', title: '学号', width: 80, sort: true}
+                    , {field: 'Stu_sex', title: '性别', width: 80, sort: true}
+                    , {field: 'Stu_birth', title: '出生年月日', width: 135, sort: true}
+                    , {
+                    field: 'Assay_all', title: '状态', width: 100, templet: function (item) {
+                        if (item.Assay_all === "1") {
+                            return '  <input type="checkbox" lay-skin="switch" lay-text="已填|未填" checked disabled>';
                         }
-                    },
-                    ,{field:'right', title: '操作', width:178,toolbar:"#barDemo"}
+                        if (item.Assay_all === "0") {
+                            return '  <input type="checkbox" lay-skin="switch" lay-text="已填|未填" disabled>';
+                        }
+                    }
+                },
+                    , {field: 'right', title: '操作', width: 178, toolbar: "#barDemo"}
                 ]
             ]
-            ,id: 'testReload'
-            ,page: true
-            ,height: 400
+            , id: 'testReload'
+            , page: true
+            , height: 400
         });
         var $ = layui.$, active = {
-            reload: function(){
+            reload: function () {
                 var demoReload = $('#demoReload');
 
                 table.reload('testReload', {
-                    page:{
-                        curr:1
+                    page: {
+                        curr: 1
                     },
                     where: {
                         Stu_id: demoReload.val()
@@ -233,100 +242,74 @@
         };
 
 
-
         //监听表格复选框选择
-        table.on('checkbox(useruv)', function(obj){
+        table.on('checkbox(useruv)', function (obj) {
             console.log(obj)
         });
         //监听工具条
-        table.on('tool(useruv)', function(obj){
+        table.on('tool(useruv)', function (obj) {
             var data = obj.data;
-            if(obj.event === 'detail'){
-                layer.msg('ID：'+ data.id + ' 的查看操作');
-            } else if(obj.event === 'del'){
-                layer.confirm('真的删除行么', function(index){
+            console.log(data);
+            if (obj.event === 'detail') {
+                layer.msg('ID：' + data.Stu_id + ' 的查看操作');
+            } else if (obj.event === 'del') {
+                layer.confirm('真的删除行么', function (index) {
                     console.log(data);
                     $.ajax({
                         url: "UVServlet",
                         type: "POST",
-                        data:{"uvid":data.id,"memthodname":"deleteuv","aid":data.aid},
+                        data: {"uvid": data.id, "memthodname": "deleteuv", "aid": data.aid},
                         dataType: "json",
-                        success: function(data){
+                        success: function (data) {
 
-                            if(data.state==1){
+                            if (data.state == 1) {
                                 obj.del();
                                 layer.close(index);
                                 layer.msg("删除成功", {icon: 6});
-                            }else{
+                            } else {
                                 layer.msg("删除失败", {icon: 5});
                             }
                         }
 
                     });
                 });
-            } else if(obj.event === 'edit'){
-
-                layer.prompt({
-                    formType: 2
-                    ,title: '修改 ID 为 ['+ data.id +'] 的访问量'
-                    ,value: data.uv
-                }, function(value, index){
-                    EidtUv(data,value,index,obj);
-
-
-
-                });
-
+            } else if (obj.event === 'edit') {
+                EidtUv(data, obj);
+                // layer.prompt({
+                //     formType: 2
+                //     , title: '修改 ID 为 [' + data.id + '] 的访问量'
+                //     , value: data.uv
+                // }, function (value, index) {
+                //     EidtUv(data, value, index, obj);
+                //
+                //
+                // });
 
 
             }
         });
 
-        $('.demoTable .layui-btn').on('click', function(){
+        $('.demoTable .layui-btn').on('click', function () {
             var type = $(this).data('type');
             active[type] ? active[type].call(this) : '';
         });
 
-        function  EidtUv(data,value,index,obj) {
-            $.ajax({
-                url: "UVServlet",
-                type: "POST",
-                data:{"uvid":data.id,"memthodname":"edituv","aid":data.aid,"uv":value},
-                dataType: "json",
-                success: function(data){
-
-                    if(data.state==1){
-
-                        layer.close(index);
-                        //同步更新表格和缓存对应的值
-                        obj.update({
-                            uv: value
-                        });
-                        layer.msg("修改成功", {icon: 6});
-                    }else{
-                        layer.msg("修改失败", {icon: 5});
-                    }
-                }
-
-            });
-        }
-
-
-        table.on('row(useruv)', function(obj){
-            tabledata = obj.data;
+        function EidtUv(data,  obj) {
+            // var datd = obj.data;
             $(".operation_dept").show();
 
             $(".demoTable").hide();
 
-            $("#ii").html(tabledata.Stu_id);
-            $("#bb").html(tabledata.Stu_name);
+            $("#ii").html(data.Stu_id);
+            $("#bb").html(data.Stu_name);
             $.ajax({
-                url: '/assay/getAssayInfo',
-                method: 'post',
+                url: "/assay/getAssayInfo",
+                type: "POST",
                 headers: {"authorization": token},
-                data: {"Stu_id":tabledata.Stu_id},
-                dataType: 'JSON',
+                data: {"Stu_id": data.Stu_id},
+                dataType: "json",
                 success: function (res) {
+
                     if (res.code = '0') {
                         // console.log("getAssayInfo:"+res.toString());
                         console.log(res.msg);
@@ -343,33 +326,34 @@
                 error: function (data) {
 
                 }
-            });
-            // layer.alert(JSON.stringify(data), {
-            //     title: '当前行数据：'
-            // });
 
-            //标注选中样式
-            obj.tr.addClass('layui-table-click').siblings().removeClass('layui-table-click');
-        });
+            });
+        }
+
+
     });
 
 
-
-
     var app = new Vue({
-        el:"#app",
-        data:{
-            Assay_test:"",
-            Assay_idea:"",
-            Assay_doctor_id:""
+        el: "#app",
+        data: {
+            Assay_test: "",
+            Assay_idea: "",
+            Assay_doctor_id: ""
         },
-        methods:{
-            save:function() {
+        methods: {
+            save: function () {
                 $.ajax({
                     url: '/assay/insertAssayInfo',
                     method: 'post',
                     headers: {"authorization": token},
-                    data: {"Assay_doctor_id": this.Assay_doctor_id,"Assay_idea":this.Assay_idea,"Assay_test":this.Assay_test,"Stu_id":tabledata.Stu_id},
+                    data: {
+                        "assayDoctorId": this.Assay_doctor_id,
+                        "assayIdea": this.Assay_idea,
+                        "assayTest": this.Assay_test,
+                        "stuId": tabledata.Stu_id
+
+                    },
                     dataType: 'JSON',
                     success: function (res) {
                         if (res.code = '0') {
