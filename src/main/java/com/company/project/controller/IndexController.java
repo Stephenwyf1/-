@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 视图
@@ -59,6 +60,11 @@ public class IndexController {
     @GetMapping("/assay")
     public String assayList() {
         return "assay/assay_list" ;
+    }
+
+    @GetMapping("/chest")
+    public String chestList() {
+        return "chest/chest_list" ;
     }
 
     @GetMapping("/users")
