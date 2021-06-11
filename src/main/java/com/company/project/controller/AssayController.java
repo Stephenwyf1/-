@@ -3,7 +3,7 @@ package com.company.project.controller;
 
 import com.company.project.common.utils.JSONUtil;
 import com.company.project.entity.AssayEntity;
-import com.company.project.entity.StudentEntity;
+
 import com.company.project.service.IAssayService;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,8 +34,13 @@ public class AssayController {
 
     @RequestMapping("/getStuList")
     public void getList(HttpServletResponse response, HttpServletRequest request) throws JSONException{
+        System.out.println("--------------------In getAssayInfo Controller--------------------");
+
         List<Map<String, Object>> DataList = iAssayService.getStuInfoList();
         JSONObject ResultJSON = JSONUtil.CreateJSON(0,"ok",DataList.size(),DataList);
+
+        System.out.println("--------------------JSON--------------------");
+        System.out.println(ResultJSON);
 
         JSONUtil.JSONToResponse(response, ResultJSON);
     }

@@ -14,4 +14,6 @@ import com.company.project.entity.AssayEntity;
  */
 public interface AssayMapper extends BaseMapper<AssayEntity> {
 
+
+
 }

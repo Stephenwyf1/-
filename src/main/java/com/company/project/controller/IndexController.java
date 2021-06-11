@@ -57,7 +57,7 @@ public class IndexController {
     }
 
     @GetMapping("/assay")
-    public String surgeryList() {
+    public String assayList() {
         return "assay/assay_list" ;
     }
 
