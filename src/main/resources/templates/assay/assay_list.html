@@ -86,7 +86,7 @@
 <div class="demoTable">
     搜索ID：
     <div class="layui-inline">
-        <input class="layui-input" name="id" id="demoReload" autocomplete="off">
+        <input class="layui-input" type="number" name="id" id="demoReload" autocomplete="off">
     </div>
     <button class="layui-btn" data-type="reload" id="searchID">搜索</button>
     <table class="layui-hide" id="useruv" lay-filter="useruv"></table>
@@ -192,7 +192,7 @@
         //第一个实例
         table.render({
             elem: '#useruv'
-            , height: 312
+            , height: 350
             , headers: {"authorization": token}
             , url: '/assay/getStuList' //数据接口
             // , page: true //开启分页
@@ -234,9 +234,7 @@
                 var demoReload = $('#demoReload');
 
                 table.reload('testReload', {
-                    page: {
-                        curr: 1
-                    },
+
                     where: {
                         Stu_id: demoReload.val()
                     }

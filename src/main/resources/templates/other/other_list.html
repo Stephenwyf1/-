@@ -51,21 +51,21 @@
                     <label class="layui-form-label ">胸部放射检查</label>
                     <div class="layui-input-block">
 <!--                         style="  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">-->
-                        <input id="Chest_test" type="text"  name="length" lay-verify="title"
+                        <input id="Other_test" type="text"  name="length" lay-verify="title"
                                autocomplete="off" placeholder="请输入胸部放射检查" class="layui-input WithUnit">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">医师意见</label>
                     <div class="layui-input-block">
-                        <input id="Chest_idea" type="text" name="weight" lay-verify="title"
+                        <input id="Other_idea" type="text" name="weight" lay-verify="title"
                                autocomplete="off" placeholder="请输入医师意见" class="layui-input WithUnit">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">检查医生id</label>
                     <div class="layui-input-block">
-                        <input id="Chest_doctor_id" type="text" name="circle"
+                        <input id="Other_doctor_id" type="text" name="circle"
                                lay-verify="title" autocomplete="off" placeholder="请输入检查医生id"
                                class="layui-input WithUnit">
                     </div>
@@ -86,7 +86,7 @@
 <div class="demoTable">
     搜索ID：
     <div class="layui-inline">
-        <input class="layui-input" name="id" id="demoReload" autocomplete="off">
+        <input class="layui-input" type="number" name="id" id="demoReload" autocomplete="off">
     </div>
     <button class="layui-btn" data-type="reload" id="searchID">搜索</button>
     <table class="layui-hide" id="useruv" lay-filter="useruv"></table>
@@ -192,9 +192,9 @@
         //第一个实例
         table.render({
             elem: '#useruv'
-            , height: 312
+            , height: 350
             , headers: {"authorization": token}
-            , url: '/chest/getStuList' //数据接口
+            , url: '/other/getStuList' //数据接口
             // , page: true //开启分页
 
             , cols: [
@@ -210,23 +210,23 @@
                     , {field: 'Stu_sex', title: '性别', width: 80, sort: true}
                     , {field: 'Stu_birth', title: '出生年月日', width: 135, sort: true}
                     , {
-                    field: 'Assay_all', title: '状态', width: 80, sort:true,  templet: function (item) {
-                        if (item.Chest_all === "1") {
+                    field: 'Other_all', title: '状态', width: 80, sort:true,  templet: function (item) {
+                        if (item.Other_all === "1") {
                             return ' <button type="button" class="layui-btn layui-btn-xs layui-btn-radius layui-btn-normal">已填</button>';
                         }
-                        if (item.Chest_all === "0") {
+                        if (item.Other_all === "0") {
                             return '<button type="button" class="layui-btn layui-btn-xs layui-btn-radius  layui-btn-primary">未填</button>';
                         }
-                        if (item.Chest_all === "2") {
+                        if (item.Other_all === "2") {
                             return '<button type="button" class="layui-btn layui-btn-xs layui-btn-radius layui-btn-danger">驳回</button>';
                         }
                     }
                 },
-                    , {field: 'right', title: '操作', width: 190, toolbar: "#barDemo"}
+                    , {field: 'right', title: '操作', width: 150, toolbar: "#barDemo"}
                 ]
             ]
             , id: 'testReload'
-            // , page: true
+            , page: false
             // , height: 400
         });
         var $ = layui.$, active = {
@@ -234,9 +234,7 @@
                 var demoReload = $('#demoReload');
 
                 table.reload('testReload', {
-                    page: {
-                        curr: 1
-                    },
+
                     where: {
                         Stu_id: demoReload.val()
                     }
@@ -305,7 +303,7 @@
             $("#ii").html(data.Stu_id);
             $("#bb").html(data.Stu_name);
             $.ajax({
-                url: "/chest/getChestInfo",
+                url: "/other/getOtherInfo",
                 type: "POST",
                 headers: {"authorization": token},
                 data: {"Stu_id": data.Stu_id},
@@ -316,12 +314,12 @@
                         // console.log("getAssayInfo:"+res.toString());
                         console.log(res.msg);
                         console.log(res.data);
-                        var Chest_test = res.data[0].Chest_test;
-                        var Chest_idea = res.data[0].Chest_idea;
-                        var Chest_doctor_id = res.data[0].Chest_doctor_id;
-                        $("#Chest_doctor_id").val(Chest_doctor_id);
-                        $("#Chest_idea").val(Chest_idea);
-                        $("#Chest_test").val(Chest_test);
+                        var Other_test = res.data[0].Other_test;
+                        var Other_idea = res.data[0].Other_idea;
+                        var Other_doctor_id = res.data[0].Other_doctor_id;
+                        $("#Other_doctor_id").val(Other_doctor_id);
+                        $("#Other_idea").val(Other_idea);
+                        $("#Other_test").val(Other_test);
                     } else
                         alert(res.msg);
                 },
@@ -346,13 +344,13 @@
         methods: {
             save: function () {
                 $.ajax({
-                    url: '/chest/insertChestInfo',
+                    url: '/other/insertOtherInfo',
                     method: 'post',
                     headers: {"authorization": token},
                     data: {
-                        "chestDoctorId": $("#Chest_doctor_id").val(),
-                        "chestIdea": $("#Chest_idea").val(),
-                        "chestTest": $("#Chest_test").val(),
+                        "otherDoctorId": $("#Other_doctor_id").val(),
+                        "otherIdea": $("#Other_idea").val(),
+                        "otherTest": $("#Other_test").val(),
                         "stuId": tabledata.Stu_id
                         // "assayAll":"1",
                         // "assayError":"0"
