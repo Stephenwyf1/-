@@ -27,7 +27,7 @@ public class OtherEntity implements Serializable {
      * 检查的医生ID
      */
     @TableField("Other_doctor_id")
-    private String otherDoctorId;
+    private int otherDoctorId;
 
     /**
      * 体检信息提交时间
