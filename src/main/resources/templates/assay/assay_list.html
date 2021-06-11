@@ -21,7 +21,7 @@
     <div class="layui-fluid">
         <div class="panel panel-default operation_dept " hidden>
             <div class="panel-heading title"></div>
-            <fieldset class="layui-elem-field layui-field-title " style="margin-top: 25px;">
+            <fieldset class="layui-elem-field layui-field-title  " style="margin-top: 25px;">
 
                 <legend style="font-size: 25px;">
                     化验体检表
@@ -45,33 +45,33 @@
                     </div>
                 </div>
             </fieldset>
-            <form class="layui-form layui-form-pane layui-col-md3" action="" lay-filter="deptInfo"
-                  style="width: 700px;margin-top: 10px;position: center">
-                <div class="layui-form-item">
-                    <label class="layui-form-label">化验检查</label>
-                    <div class="layui-input-block"
-                         style="  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
-                        <input id="Assay_test" type="text" v-model="Assay_test" name="length" lay-verify="title"
+            <form class="layui-form layui-form-pane layui-col-md3 " action="" lay-filter="deptInfo"
+                  style="width: 900px;margin-top: 10px;position: center">
+                <div class="layui-form-item ">
+                    <label class="layui-form-label ">化验检查</label>
+                    <div class="layui-input-block">
+<!--                         style="  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">-->
+                        <input id="Assay_test" type="text"  name="length" lay-verify="title"
                                autocomplete="off" placeholder="请输入化验检查" class="layui-input WithUnit">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">医师意见</label>
                     <div class="layui-input-block">
-                        <input id="Assay_idea" type="text" name="weight" v-model="Assay_idea" lay-verify="title"
+                        <input id="Assay_idea" type="text" name="weight" lay-verify="title"
                                autocomplete="off" placeholder="请输入医师意见" class="layui-input WithUnit">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">检查医生id</label>
                     <div class="layui-input-block">
-                        <input id="Assay_doctor_id" type="text" name="circle" v-model="Assay_doctor_id"
+                        <input id="Assay_doctor_id" type="text" name="circle"
                                lay-verify="title" autocomplete="off" placeholder="请输入检查医生id"
                                class="layui-input WithUnit">
                     </div>
                 </div>
 
-                <div class="layui-form-item">
+                <div class="layui-form-item"  align="center">
                     <div class="layui-input-block">
                         <button type="submit" class="layui-btn" lay-submit="" lay-filter="save" @click="save">保存
                         </button>
@@ -88,7 +88,7 @@
     <div class="layui-inline">
         <input class="layui-input" name="id" id="demoReload" autocomplete="off">
     </div>
-    <button class="layui-btn" data-type="reload">搜索</button>
+    <button class="layui-btn" data-type="reload" id="searchID">搜索</button>
     <table class="layui-hide" id="useruv" lay-filter="useruv"></table>
 </div>
 
@@ -114,8 +114,8 @@
         //自定义验证规则
         form.verify({
             title: function (value) {
-                if (value.length < 5) {
-                    return '标题至少得5个字符啊';
+                if (value.length < 1) {
+                    return '请填写完所有信息';
                 }
             }
             , pass: [
@@ -172,8 +172,8 @@
 <script type="text/html" id="barDemo">
     <!--    class="layui-btn layui-btn-xs"-->
     <!--    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>-->
-    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit">录入体检信息</a>
+<!--    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>-->
 </script>
 <table id="demo" lay-filter="test"></table>
 
@@ -195,14 +195,14 @@
             , height: 312
             , headers: {"authorization": token}
             , url: '/assay/getStuList' //数据接口
-            , page: true //开启分页
+            // , page: true //开启分页
 
             , cols: [
                 [ //表头
-                    {checkbox: true, fixed: true}
-                    , {field: 'Stu_id', title: '编号', width: 80, sort: true, fixed: 'true'}
+                    // {checkbox: true, fixed: true}
+                     {field: 'Stu_id', title: '编号', width: 80, sort: true, fixed: 'true'}
                     , {field: 'Stu_name', title: '姓名', width: 80, sort: true}
-                    , {field: 'Stu_card', title: '身份证', width: 80, sort: true}
+                    , {field: 'Stu_card', title: '身份证', width: 120, sort: true}
                     , {field: 'Stu_college', title: '学院', width: 80, sort: true}
                     , {field: 'Stu_major', title: '专业', width: 80, sort: true}
                     , {field: 'Stu_class', title: '班级', width: 80, sort: true}
@@ -210,21 +210,24 @@
                     , {field: 'Stu_sex', title: '性别', width: 80, sort: true}
                     , {field: 'Stu_birth', title: '出生年月日', width: 135, sort: true}
                     , {
-                    field: 'Assay_all', title: '状态', width: 100, templet: function (item) {
+                    field: 'Assay_all', title: '状态', width: 80, sort:true,  templet: function (item) {
                         if (item.Assay_all === "1") {
-                            return '  <input type="checkbox" lay-skin="switch" lay-text="已填|未填" checked disabled>';
+                            return ' <button type="button" class="layui-btn layui-btn-xs layui-btn-radius layui-btn-normal">已填</button>';
                         }
                         if (item.Assay_all === "0") {
-                            return '  <input type="checkbox" lay-skin="switch" lay-text="已填|未填" disabled>';
+                            return '<button type="button" class="layui-btn layui-btn-xs layui-btn-radius  layui-btn-primary">未填</button>';
+                        }
+                        if (item.Assay_all === "2") {
+                            return '<button type="button" class="layui-btn layui-btn-xs layui-btn-radius layui-btn-danger">驳回</button>';
                         }
                     }
                 },
-                    , {field: 'right', title: '操作', width: 178, toolbar: "#barDemo"}
+                    , {field: 'right', title: '操作', width: 190, toolbar: "#barDemo"}
                 ]
             ]
             , id: 'testReload'
-            , page: true
-            , height: 400
+            // , page: true
+            // , height: 400
         });
         var $ = layui.$, active = {
             reload: function () {
@@ -240,7 +243,15 @@
                 });
             }
         };
-
+        //回车搜索
+        var search = document.getElementById("demoReload");
+        search.addEventListener("keyup", function(event) {
+            event.preventDefault();
+            if (event.keyCode === 13) {
+                console.log("hello");
+                document.getElementById("searchID").click();
+            }
+        });
 
         //监听表格复选框选择
         table.on('checkbox(useruv)', function (obj) {
@@ -275,16 +286,6 @@
                 });
             } else if (obj.event === 'edit') {
                 EidtUv(data, obj);
-                // layer.prompt({
-                //     formType: 2
-                //     , title: '修改 ID 为 [' + data.id + '] 的访问量'
-                //     , value: data.uv
-                // }, function (value, index) {
-                //     EidtUv(data, value, index, obj);
-                //
-                //
-                // });
-
 
             }
         });
@@ -338,9 +339,9 @@
     var app = new Vue({
         el: "#app",
         data: {
-            Assay_test: "",
-            Assay_idea: "",
-            Assay_doctor_id: ""
+            // Assay_test: "",
+            // Assay_idea: "",
+            // Assay_doctor_id: ""
         },
         methods: {
             save: function () {
@@ -349,9 +350,9 @@
                     method: 'post',
                     headers: {"authorization": token},
                     data: {
-                        "assayDoctorId": this.Assay_doctor_id,
-                        "assayIdea": this.Assay_idea,
-                        "assayTest": this.Assay_test,
+                        "assayDoctorId": $("#Assay_doctor_id").val(),
+                        "assayIdea": $("#Assay_idea").val(),
+                        "assayTest": $("#Assay_test").val(),
                         "stuId": tabledata.Stu_id
                         // "assayAll":"1",
                         // "assayError":"0"
