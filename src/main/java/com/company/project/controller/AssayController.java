@@ -7,6 +7,7 @@ import com.company.project.entity.AssayEntity;
 import com.company.project.service.IAssayService;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -58,7 +59,7 @@ public class AssayController {
     }
 
     @RequestMapping("/insertAssayInfo")
-    public void insertAssayInfo(HttpServletResponse response, HttpServletRequest request, AssayEntity assayEntity) throws JSONException{
+    public void insertAssayInfo(HttpServletResponse response, HttpServletRequest request,@RequestBody AssayEntity assayEntity) throws JSONException{
         System.out.println("--------------------In insertAssayInfo Controller--------------------");
 //        AssayEntity assayEntity = new AssayEntity();
 //
