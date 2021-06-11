@@ -59,18 +59,11 @@ public class AssayController {
     }
 
     @RequestMapping("/insertAssayInfo")
-    public void insertAssayInfo(HttpServletResponse response, HttpServletRequest request,@RequestBody AssayEntity assayEntity) throws JSONException{
+    public void insertAssayInfo(HttpServletResponse response, HttpServletRequest request, AssayEntity assayEntity) throws JSONException{
         System.out.println("--------------------In insertAssayInfo Controller--------------------");
-//        AssayEntity assayEntity = new AssayEntity();
-//
-//        assayEntity.setAssayDoctorId( request.getParameter("Assay_doctor_id") );
-//        assayEntity.setAssayOperationTime( LocalDateTime.now() );
-//        assayEntity.setAssayTest( request.getParameter("Assay_test") );
-//        assayEntity.setAssayIdea( request.getParameter("Assay_idea") );
-//        assayEntity.setAssayAll( "1" );
-//        assayEntity.setStuId( Integer.parseInt( request.getParameter("Stu_id") ));
-//        assayEntity.setAssayError( "0" );
 
+        assayEntity.setAssayAll("1");
+        assayEntity.setAssayError("0");
         iAssayService.insertStuAssayInfo(assayEntity);
 
         JSONObject jsonObject = JSONUtil.CreateJSON(0,"ok",0,null);
