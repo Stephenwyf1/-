@@ -2,11 +2,12 @@ package com.company.project.controller;
 
 
 import com.company.project.common.utils.JSONUtil;
-import com.company.project.entity.ChestEntity;
-import com.company.project.service.IChestService;
+import com.company.project.entity.OtherEntity;
+import com.company.project.service.IOtherService;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,24 +19,24 @@ import java.util.Map;
 
 /**
  * <p>
- * 胸部 前端控制器
+ * 其他检查 前端控制器
  * </p>
  *
  * @author wyf
  * @since 2021-06-06
  */
 @RestController
-@RequestMapping("/chest")
-public class ChestController {
+@RequestMapping("/other")
+public class OtherController {
 
     @Resource
-    IChestService iChestService;
+    private IOtherService iOtherService;
 
     @RequestMapping("/getStuList")
     public void getList(HttpServletResponse response, @RequestParam(name = "Stu_id", required = false, defaultValue = "-1") int Stu_id) throws JSONException {
         System.out.println("--------------------In getStuList Controller--------------------");
 
-        List<Map<String, Object>> DataList = iChestService.getStuInfoList(Stu_id);
+        List<Map<String, Object>> DataList = iOtherService.getStuInfoList(Stu_id);
         JSONObject ResultJSON = JSONUtil.CreateJSON(0,"ok",DataList.size(),DataList);
 
         System.out.println("--------------------JSON--------------------\n"+ResultJSON);
@@ -43,11 +44,11 @@ public class ChestController {
         JSONUtil.JSONToResponse(response, ResultJSON);
     }
 
-    @RequestMapping("/getChestInfo")
+    @RequestMapping("/getOtherInfo")
     public void getAssayInfo(HttpServletResponse response, @RequestParam(name = "Stu_id") int Stu_id) throws JSONException{
-        System.out.println("--------------------In getChestInfo Controller--------------------");
+        System.out.println("--------------------In getOtherInfo Controller--------------------");
 
-        List<Map<String, Object>> DataList = iChestService.getStuChestInfo(Stu_id);
+        List<Map<String, Object>> DataList = iOtherService.getStuOtherInfo(Stu_id);
         JSONObject ResultJSON = JSONUtil.CreateJSON(0,"ok", DataList.size(),DataList);
 
         System.out.println("--------------------JSON--------------------\n"+ResultJSON);
@@ -55,14 +56,14 @@ public class ChestController {
         JSONUtil.JSONToResponse(response, ResultJSON);
     }
 
-    @RequestMapping("/insertChestInfo")
-    public void insertAssayInfo(HttpServletResponse response, ChestEntity chestEntity) throws JSONException{
-        System.out.println("--------------------In insertChestInfo Controller--------------------");
+    @RequestMapping("/insertOtherInfo")
+    public void insertAssayInfo(HttpServletResponse response, OtherEntity otherEntity) throws JSONException{
+        System.out.println("--------------------In insertOtherInfo Controller--------------------");
 
-        chestEntity.setChestAll( "1" );
-        chestEntity.setChestError( "0" );
-        chestEntity.setChestOperationTime(LocalDateTime.now());
-        iChestService.insertStuChestInfo(chestEntity);
+        otherEntity.setOtherAll("1");
+        otherEntity.setOtherError("0");
+        otherEntity.setOtherOperationTime(LocalDateTime.now());
+        iOtherService.insertStuOtherInfo(otherEntity);
 
         JSONObject jsonObject = JSONUtil.CreateJSON(0,"ok",0,null);
 
