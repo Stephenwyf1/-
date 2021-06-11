@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -60,6 +61,7 @@ public class AssayController {
 
         assayEntity.setAssayAll("1");
         assayEntity.setAssayError("0");
+        assayEntity.setAssayOperationTime(LocalDateTime.now());
         iAssayService.insertStuAssayInfo(assayEntity);
 
         JSONObject jsonObject = JSONUtil.CreateJSON(0,"ok",0,null);

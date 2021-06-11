@@ -64,6 +64,7 @@ public class ChestController {
 
         chestEntity.setChestAll( "1" );
         chestEntity.setChestError( "0" );
+        chestEntity.setChestOperationTime(LocalDateTime.now());
         iChestService.insertStuChestInfo(chestEntity);
 
         JSONObject jsonObject = JSONUtil.CreateJSON(0,"ok",0,null);
