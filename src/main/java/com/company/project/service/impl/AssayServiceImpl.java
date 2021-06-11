@@ -35,7 +35,6 @@ public class AssayServiceImpl extends ServiceImpl<AssayMapper, AssayEntity> impl
 
     @Override
     public List<Map<String, Object>> getStuInfoList(int Stu_id) {
-
         LambdaQueryWrapper<StudentEntity> StudentQueryWrapper = Wrappers.lambdaQuery();
         LambdaQueryWrapper<AssayEntity> AssayQueryWrapper = Wrappers.lambdaQuery();
         StudentQueryWrapper.orderByAsc(StudentEntity::getStuId);
@@ -67,7 +66,6 @@ public class AssayServiceImpl extends ServiceImpl<AssayMapper, AssayEntity> impl
                 if( (int)StudentEntityMap.get("Stu_id") == Stu_id)
                 {
                     SearchResultStudentMaps.add(StudentEntityMap);
-
                 }
             }
             return SearchResultStudentMaps;
@@ -78,7 +76,6 @@ public class AssayServiceImpl extends ServiceImpl<AssayMapper, AssayEntity> impl
 
     @Override
     public List<Map<String, Object>> getStuAssayInfo(int Stu_id) {
-
         LambdaQueryWrapper<AssayEntity> AssayQueryWrapper = Wrappers.lambdaQuery();
         AssayQueryWrapper.eq(AssayEntity::getStuId, Stu_id);
         return assayMapper.selectMaps(AssayQueryWrapper);
@@ -86,9 +83,6 @@ public class AssayServiceImpl extends ServiceImpl<AssayMapper, AssayEntity> impl
 
     @Override
     public void insertStuAssayInfo(AssayEntity assayEntity) {
-
-        System.out.println( assayMapper.selectById(assayEntity.getStuId()) );
-
         if( assayMapper.selectById(assayEntity.getStuId()) == null )
         {
             assayMapper.insert(assayEntity);

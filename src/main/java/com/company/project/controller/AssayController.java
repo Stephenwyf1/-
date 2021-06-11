@@ -3,19 +3,15 @@ package com.company.project.controller;
 
 import com.company.project.common.utils.JSONUtil;
 import com.company.project.entity.AssayEntity;
-
 import com.company.project.service.IAssayService;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
