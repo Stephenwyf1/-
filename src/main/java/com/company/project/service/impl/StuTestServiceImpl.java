@@ -1,5 +1,8 @@
 package com.company.project.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.integration.IntegrationProperties;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
@@ -18,11 +21,16 @@ public class StuTestServiceImpl extends ServiceImpl<StuTestMapper, StuTestEntity
     @Resource
     private StuTestMapper stuTestMapper;
 
+    @Resource
+    private JdbcTemplate jdbcTemplate;
+
     @Override
     public List<Map<String, Object>> getStuTestInfo(int Stu_id) throws IllegalAccessException {
         List<Map<String, Object>> StuTestList = new ArrayList<>();
         String[] DepartmentName = {"眼科", "耳鼻喉科", "口腔科", "外科", "血压脉搏科", "内科",
                     "化验科", "胸部放射科", "其它科"};
+        String[] TablesName = {"Eye", "EBH", "Tooth", "Surgery", "Blood", "Internal", "Assay", "Chest", "Other"};
+
         StuTestEntity stuTestEntity = stuTestMapper.selectById(Stu_id);
         Field[] Fields = stuTestEntity.getClass().getDeclaredFields();
 
@@ -37,6 +45,12 @@ public class StuTestServiceImpl extends ServiceImpl<StuTestMapper, StuTestEntity
             TempStuTestMap.put("Doctor_id", Fields[4*i-1].get(stuTestEntity));
             TempStuTestMap.put("Doctor_operation_time", Fields[4*i].get(stuTestEntity));
             TempStuTestMap.put("Doctor_department", DepartmentName[i-1]);
+
+            String sql = "select "+(TablesName[i-1]+"_error")+" from "+TablesName[i-1] +" where Stu_id = "+Stu_id;
+            String Doctor_error = jdbcTemplate.queryForObject(sql, String.class);
+
+            TempStuTestMap.put("Doctor_error", Doctor_error);
+
             StuTestList.add(TempStuTestMap);
         }
 

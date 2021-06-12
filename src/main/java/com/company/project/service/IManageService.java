@@ -26,4 +26,6 @@ public interface IManageService extends IService<ManageEntity> {
     //插入学生的Assay信息(如果存在则更新)
     void insertStuManageInfo(ManageEntity manageEntity);
 
+    void rejectTestReport(int Stu_id, int Table_index);
+
 }

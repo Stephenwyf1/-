@@ -13,6 +13,7 @@ import com.company.project.mapper.StuTestMapper;
 import com.company.project.mapper.StudentMapper;
 import com.company.project.service.IManageService;
 import org.apache.shiro.session.mgt.DelegatingSession;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -41,71 +42,34 @@ public class ManageServiceImpl extends ServiceImpl<ManageMapper, ManageEntity> i
     @Resource
     private StuTestMapper stuTestMapper;
 
+    @Resource
+    private JdbcTemplate jdbcTemplate;
+
     @Override
     public List<Map<String, Object>> getStuInfoList(int Stu_id) {
-        LambdaQueryWrapper<StudentEntity> StudentQueryWrapper = Wrappers.lambdaQuery();
-        LambdaQueryWrapper<ManageEntity> ManageQueryWrapper = Wrappers.lambdaQuery();
-        LambdaQueryWrapper<StuTestEntity> StuTestQueryWrapper = Wrappers.lambdaQuery();
 
-        List<Map<String, Object>> StudentEntityMaps = studentMapper.selectMaps(StudentQueryWrapper);
-        List<Map<String, Object>> ManageEntityMaps = manageMapper.selectMaps(ManageQueryWrapper);
-        List<Map<String, Object>> StuTestEntityMaps = stuTestMapper.selectMaps(StuTestQueryWrapper);
+        String sql =
+            "select Student.*, (case when Manage.Manage_error = 1 then 2 else Manage_all end)Manage_all, Stu_test.Stu_test_count"
+            + " from Student, Manage, Stu_test"
+            + " where Student.Stu_id = Manage.Stu_id and Manage.Stu_id = Stu_test.Stu_id";
 
-        // 创建迭代器，便于删除元素
-        Iterator<Map<String, Object>> StuItr = StudentEntityMaps.iterator();
+        List<Map<String, Object>> QueryResultList = jdbcTemplate.queryForList(sql);
 
-        while (StuItr.hasNext())
-        {
-            Map<String, Object> StudentEntityMap = StuItr.next();
-            int StudentID = (int)StudentEntityMap.get("Stu_id");
-
-            StudentEntityMap.put("Manage_all", "0");
-
-            // 判断Manage_all
-            for(Map<String, Object> ManageEntityMap : ManageEntityMaps)
-            {
-                if((int)ManageEntityMap.get("Stu_id") == StudentID)
-                {
-                    StudentEntityMap.put("Manage_all", "1");
-                    if( Integer.parseInt( (String)ManageEntityMap.get("Manage_error") ) == 1)
-                    {
-                        StudentEntityMap.put("Manage_all", "2");
-                    }
-                }
-            }
-
-            boolean bHasDone = false;
-
-            // 判断计数器
-            for(Map<String, Object> StuTestEntityMap : StuTestEntityMaps)
-            {
-                if((int)StuTestEntityMap.get("Stu_id") == StudentID && (int)StuTestEntityMap.get("Stu_test_count") == 9)
-                {
-                    bHasDone = true;
-                }
-            }
-
-            if(!bHasDone)
-            {
-                StuItr.remove();
-            }
-        }
-
-        // 判断是否为搜索操作
         if(Stu_id != -1)
         {
             List<Map<String, Object>> SearchResultStudentMaps = new ArrayList<>();
-            for(Map<String, Object> StudentEntityMap : StudentEntityMaps)
+            for(Map<String, Object> queryResultMap : QueryResultList)
             {
-                if( (int)StudentEntityMap.get("Stu_id") == Stu_id)
+                if( (int)queryResultMap.get("Stu_id") == Stu_id)
                 {
-                    SearchResultStudentMaps.add(StudentEntityMap);
+                    SearchResultStudentMaps.add(queryResultMap);
+                    break;
                 }
             }
             return SearchResultStudentMaps;
         }
 
-        return StudentEntityMaps;
+        return QueryResultList;
     }
 
     @Override
@@ -126,4 +90,14 @@ public class ManageServiceImpl extends ServiceImpl<ManageMapper, ManageEntity> i
             manageMapper.updateById(manageEntity);
         }
     }
+
+    @Override
+    public void rejectTestReport(int Stu_id, int Table_index) {
+        String[] TablesName = {"Eye", "EBH", "Tooth", "Surgery", "Blood", "Internal", "Assay", "Chest", "Other"};
+
+        String sql = "update "+TablesName[Table_index]
+                    +" set "+(TablesName[Table_index]+"_error")+" = 1"+" where Stu_id = "+Stu_id;
+        jdbcTemplate.execute(sql);
+    }
+
 }

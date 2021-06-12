@@ -89,4 +89,18 @@ public class ManageController {
         JSONUtil.JSONToResponse(response, jsonObject);
     }
 
+    @RequestMapping("/rejectTest")
+    public void rejectTest(HttpServletResponse response,
+                           @RequestParam(name = "Stu_id") int Stu_id,
+                           @RequestParam(name = "Table_index") int Table_index) throws JSONException{
+        System.out.println("--------------------In rejectTest Controller--------------------");
+        iManageService.rejectTestReport(Stu_id, Table_index);
+
+        JSONObject jsonObject = JSONUtil.CreateJSON(0,"ok",0,null);
+
+        System.out.println("--------------------JSON--------------------\n"+jsonObject);
+
+        JSONUtil.JSONToResponse(response, jsonObject);
+    }
+
 }
