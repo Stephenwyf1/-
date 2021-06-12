@@ -69,7 +69,7 @@
                     <div class="layui-input-block">
                         <button type="submit" class="layui-btn" lay-submit="" lay-filter="save" @click="save">保存
                         </button>
-                        <button class="layui-btn layui-btn-primary" id="btn_cancel" onclick="cancel()">返回</button>
+                        <button class="layui-btn layui-btn-primary" id="btn_cancel" >返回</button>
                     </div>
                 </div>
             </form>
@@ -85,6 +85,14 @@
     <button class="layui-btn"  data-type="reload" id="searchID">搜索</button>
     <table class="layui-hide" id="useruv" lay-filter="useruv"></table>
 </div>
+<!--<div class="demoTable2" hidden>-->
+<!--    搜索ID：-->
+<!--    <div class="layui-inline">-->
+<!--        <input class="layui-input" type="number" name="id" id="demoReload2" autocomplete="off">-->
+<!--    </div>-->
+<!--    <button class="layui-btn"  data-type="reload" id="searchID2">搜索</button>-->
+<!--    <table class="layui-hide" id="useruv2" lay-filter="useruv2"></table>-->
+<!--</div>-->
 
 <!--表单规范-->
 <script>
@@ -165,9 +173,15 @@
 
 <script type="text/html" id="barDemo">
     <!--    class="layui-btn layui-btn-xs"-->
-    <!--    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>-->
-    <a class="layui-btn layui-btn-xs" lay-event="edit">录入体检信息</a>
+        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编写</a>
 <!--    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>-->
+</script>
+<script type="text/html" id="barDemo2">
+    <!--    class="layui-btn layui-btn-xs"-->
+    <!--    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>-->
+    <a class="layui-btn layui-btn-xs" lay-event="edit">驳回</a>
+    <!--    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>-->
 </script>
 <table id="demo" lay-filter="test"></table>
 
@@ -254,28 +268,28 @@
             var data = obj.data;
             console.log(data);
             if (obj.event === 'detail') {
-                layer.msg('ID：' + data.Stu_id + ' 的查看操作');
+                window.location.href="/index/manage2?Stu_id="+data.Stu_id;
             } else if (obj.event === 'del') {
-                layer.confirm('真的删除行么', function (index) {
-                    console.log(data);
-                    $.ajax({
-                        url: "UVServlet",
-                        type: "POST",
-                        data: {"uvid": data.id, "memthodname": "deleteuv", "aid": data.aid},
-                        dataType: "json",
-                        success: function (data) {
-
-                            if (data.state == 1) {
-                                obj.del();
-                                layer.close(index);
-                                layer.msg("删除成功", {icon: 6});
-                            } else {
-                                layer.msg("删除失败", {icon: 5});
-                            }
-                        }
-
-                    });
-                });
+                // layer.confirm('真的删除行么', function (index) {
+                //     console.log(data);
+                //     $.ajax({
+                //         url: "UVServlet",
+                //         type: "POST",
+                //         data: {"uvid": data.id, "memthodname": "deleteuv", "aid": data.aid},
+                //         dataType: "json",
+                //         success: function (data) {
+                //
+                //             if (data.state == 1) {
+                //                 obj.del();
+                //                 layer.close(index);
+                //                 layer.msg("删除成功", {icon: 6});
+                //             } else {
+                //                 layer.msg("删除失败", {icon: 5});
+                //             }
+                //         }
+                //
+                //     });
+                // });
             } else if (obj.event === 'edit') {
                 EidtUv(data, obj);
 
@@ -326,7 +340,154 @@
 
 
     });
-
+//点击查看各科室的详细信息
+//     layui.use('table', function () {
+//         var table = layui.table;
+//         var token = CoreUtil.getData("access_token");
+//         // var table = layui.table;
+//         //第一个实例
+//         table.render({
+//             elem: '#useruv2'
+//             , height: 350
+//             , headers: {"authorization": token}
+//             , url: '/manage/getStuList' //数据接口
+//             // , page: true //开启分页
+//
+//             , cols: [
+//                 [ //表头
+//                     {checkbox: true, fixed: true},
+//                     {field: 'Doctor_id', title: '医生编号', width: 80, sort: true, fixed: 'true'}
+//                     , {field: 'Doctor_name', title: '医生姓名', width: 80, sort: true}
+//                     , {field: 'Doctor_idea', title: '身份证', width: 120, sort: true}
+//                     , {field: 'Operation_time', title: '检查时间', width: 80, sort: true}
+//                     , {field: 'Department', title: '科室', width: 80, sort: true}
+//                     // , {field: 'Stu_class', title: '班级', width: 80, sort: true}
+//                     // , {field: 'Stu_num', title: '学号', width: 80, sort: true}
+//                     // , {field: 'Stu_sex', title: '性别', width: 80, sort: true}
+//                     // , {field: 'Stu_birth', title: '出生年月日', width: 135, sort: true}
+//                     // , {
+//                     // ，field: 'Manage_all', title: '状态', width: 80, sort:true,  templet: function (item) {
+//                     //     if (item.Manage_all === "1") {
+//                     //         return ' <button type="button" class="layui-btn layui-btn-xs layui-btn-radius layui-btn-normal">已填</button>';
+//                     //     }
+//                     //     if (item.Manage_all === "0") {
+//                     //         return '<button type="button" class="layui-btn layui-btn-xs layui-btn-radius  layui-btn-primary">未填</button>';
+//                     //     }
+//                     //     if (item.Manage_all === "2") {
+//                     //         return '<button type="button" class="layui-btn layui-btn-xs layui-btn-radius layui-btn-danger">驳回</button>';
+//                     //     }
+//                     // }
+//                 // },
+//                     , {field: 'right', title: '操作', width: 190, toolbar: "#barDemo2"}
+//                 ]
+//             ]
+//             , id: 'testReload2'
+//             // , page: true
+//             // , height: 400
+//         });
+//         var $ = layui.$, active = {
+//             reload: function () {
+//                 var demoReload = $('#demoReload2');
+//
+//                 table.reload('testReload', {
+//
+//                     where: {
+//                         Doctor_id: demoReload2.val()
+//                     }
+//                 });
+//             }
+//         };
+//         //回车搜索
+//         var search = document.getElementById("demoReload2");
+//         search.addEventListener("keyup", function(event) {
+//             event.preventDefault();
+//             if (event.keyCode === 13) {
+//                 console.log("hello");
+//                 document.getElementById("searchID2").click();
+//             }
+//         });
+//
+//         //监听表格复选框选择
+//         table.on('checkbox(useruv2)', function (obj) {
+//             console.log(obj)
+//         });
+//         //监听工具条
+//         table.on('tool(useruv2)', function (obj) {
+//             var data = obj.data;
+//             console.log(data);
+//             if (obj.event === 'detail') {
+//                 layer.msg('ID：' + data.Stu_id + ' 的查看操作');
+//             } else if (obj.event === 'del') {
+//                 layer.confirm('真的删除行么', function (index) {
+//                     console.log(data);
+//                     $.ajax({
+//                         url: "UVServlet",
+//                         type: "POST",
+//                         data: {"uvid": data.id, "memthodname": "deleteuv", "aid": data.aid},
+//                         dataType: "json",
+//                         success: function (data) {
+//
+//                             if (data.state == 1) {
+//                                 obj.del();
+//                                 layer.close(index);
+//                                 layer.msg("删除成功", {icon: 6});
+//                             } else {
+//                                 layer.msg("删除失败", {icon: 5});
+//                             }
+//                         }
+//
+//                     });
+//                 });
+//             } else if (obj.event === 'edit') {
+//                 EidtUv(data, obj);
+//
+//             }
+//         });
+//
+//         $('.demoTable2 .layui-btn').on('click', function () {
+//             var type = $(this).data('type');
+//             active[type] ? active[type].call(this) : '';
+//         });
+//         //编辑功能
+//         function EidtUv(data,  obj) {
+//             // var datd = obj.data;
+//             tabledata = data;
+//             $(".operation_dept").show();
+//
+//             $(".demoTable").hide();
+//
+//             $("#ii").html(data.Stu_id);
+//             $("#bb").html(data.Stu_name);
+//             $.ajax({
+//                 url: "/manage/getStuTestInfo",
+//                 type: "POST",
+//                 headers: {"authorization": token},
+//                 data: {"Stu_id": data.Stu_id},
+//                 dataType: "json",
+//                 success: function (res) {
+//
+//                     if (res.code = '0') {
+//                         // console.log("getAssayInfo:"+res.toString());
+//                         console.log(res.msg);
+//                         console.log(res.data);
+//                         // var Manage_con = res.data[0].Chest_test;
+//                         // var Chest_idea = res.data[0].Chest_idea;
+//                         // var Chest_doctor_id = res.data[0].Chest_doctor_id;
+//                         // $("#Chest_doctor_id").val(Chest_doctor_id);
+//                         // $("#Chest_idea").val(Chest_idea);
+//                         // $("#Chest_test").val(Chest_test);
+//                     } else
+//                         alert(res.msg);
+//                 },
+//                 error: function (data) {
+//
+//                 }
+//
+//             });
+//         }
+//
+//
+//     });
 //VUE接受表单中的组件
     var app = new Vue({
         el: "#app",
