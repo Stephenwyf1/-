@@ -37,7 +37,6 @@ public class AssayServiceImpl extends ServiceImpl<AssayMapper, AssayEntity> impl
     public List<Map<String, Object>> getStuInfoList(int Stu_id) {
         LambdaQueryWrapper<StudentEntity> StudentQueryWrapper = Wrappers.lambdaQuery();
         LambdaQueryWrapper<AssayEntity> AssayQueryWrapper = Wrappers.lambdaQuery();
-        StudentQueryWrapper.orderByAsc(StudentEntity::getStuId);
 
         List<Map<String, Object>> StudentEntityMaps = studentMapper.selectMaps(StudentQueryWrapper);
         List<Map<String, Object>> AssayEntityMaps = assayMapper.selectMaps(AssayQueryWrapper);
