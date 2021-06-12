@@ -2,6 +2,8 @@ package com.company.project.controller;
 
 
 import com.company.project.common.utils.JSONUtil;
+import com.company.project.entity.AssayEntity;
+import com.company.project.entity.ManageEntity;
 import com.company.project.service.IManageService;
 import com.company.project.service.StuTestService;
 import org.json.JSONException;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -56,6 +59,34 @@ public class ManageController {
         System.out.println("--------------------JSON--------------------\n"+ResultJSON);
 
         JSONUtil.JSONToResponse(response, ResultJSON);
+    }
+
+    @RequestMapping("/getManageInfo")
+    public void getManageInfo(HttpServletResponse response, @RequestParam(name = "Stu_id") int Stu_id) throws JSONException{
+        System.out.println("--------------------In getManageInfo Controller--------------------");
+
+        List<Map<String, Object>> DataList = iManageService.getStuManageInfo(Stu_id);
+        JSONObject ResultJSON = JSONUtil.CreateJSON(0,"ok", DataList.size(),DataList);
+
+        System.out.println("--------------------JSON--------------------\n"+ResultJSON);
+
+        JSONUtil.JSONToResponse(response, ResultJSON);
+    }
+
+    @RequestMapping("/insertManageInfo")
+    public void insertManageInfo(HttpServletResponse response, ManageEntity manageEntity) throws JSONException{
+        System.out.println("--------------------In insertManageInfo Controller--------------------");
+
+        manageEntity.setManageAll("1");
+        manageEntity.setManageError("0");
+        manageEntity.setManageOperationTime(LocalDateTime.now());
+        iManageService.insertStuManageInfo(manageEntity);
+
+        JSONObject jsonObject = JSONUtil.CreateJSON(0,"ok",0,null);
+
+        System.out.println("--------------------JSON--------------------\n"+jsonObject);
+
+        JSONUtil.JSONToResponse(response, jsonObject);
     }
 
 }

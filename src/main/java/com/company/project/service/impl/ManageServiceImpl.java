@@ -4,6 +4,7 @@ import com.alibaba.druid.pool.ha.selector.StickyDataSourceHolder;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.company.project.entity.AssayEntity;
 import com.company.project.entity.ManageEntity;
 import com.company.project.entity.StuTestEntity;
 import com.company.project.entity.StudentEntity;
@@ -45,7 +46,6 @@ public class ManageServiceImpl extends ServiceImpl<ManageMapper, ManageEntity> i
         LambdaQueryWrapper<StudentEntity> StudentQueryWrapper = Wrappers.lambdaQuery();
         LambdaQueryWrapper<ManageEntity> ManageQueryWrapper = Wrappers.lambdaQuery();
         LambdaQueryWrapper<StuTestEntity> StuTestQueryWrapper = Wrappers.lambdaQuery();
-
 
         List<Map<String, Object>> StudentEntityMaps = studentMapper.selectMaps(StudentQueryWrapper);
         List<Map<String, Object>> ManageEntityMaps = manageMapper.selectMaps(ManageQueryWrapper);
@@ -108,4 +108,22 @@ public class ManageServiceImpl extends ServiceImpl<ManageMapper, ManageEntity> i
         return StudentEntityMaps;
     }
 
+    @Override
+    public List<Map<String, Object>> getStuManageInfo(int Stu_id) {
+        LambdaQueryWrapper<ManageEntity> ManageQueryWrapper = Wrappers.lambdaQuery();
+        ManageQueryWrapper.eq(ManageEntity::getStuId, Stu_id);
+        return manageMapper.selectMaps(ManageQueryWrapper);
+    }
+
+    @Override
+    public void insertStuManageInfo(ManageEntity manageEntity) {
+        if( manageMapper.selectById(manageEntity.getStuId()) == null )
+        {
+            manageMapper.insert(manageEntity);
+        }
+        else
+        {
+            manageMapper.updateById(manageEntity);
+        }
+    }
 }
