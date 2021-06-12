@@ -67,6 +67,11 @@ public class IndexController {
         return "chest/chest_list" ;
     }
 
+    @GetMapping("/manage")
+    public String manageList() {
+        return "manage/manage_list" ;
+    }
+
     @GetMapping("/other")
     public String otherList() {
         return "other/other_list" ;
