@@ -31,7 +31,7 @@ public class ManageController {
     @Resource
     private IManageService iManageService;
 
-    @Autowired
+    @Resource
     private StuTestService stuTestService;
 
     @RequestMapping("/getStuList")
@@ -47,7 +47,7 @@ public class ManageController {
     }
 
     @RequestMapping("/getStuTestInfo")
-    public void getAssayInfo(HttpServletResponse response, @RequestParam(name = "Stu_id") int Stu_id) throws JSONException{
+    public void getAssayInfo(HttpServletResponse response, @RequestParam(name = "Stu_id") int Stu_id) throws JSONException, IllegalAccessException {
         System.out.println("--------------------In getStuTestInfo Controller--------------------");
 
         List<Map<String, Object>> DataList = stuTestService.getStuTestInfo(Stu_id);

@@ -16,7 +16,7 @@ import java.util.Map;
 public interface StuTestService extends IService<StuTestEntity> {
 
     //获取特定学生的各科体检结论信息
-    List<Map<String, Object>> getStuTestInfo(int Stu_id);
+    List<Map<String, Object>> getStuTestInfo(int Stu_id) throws IllegalAccessException;
 
 }
 

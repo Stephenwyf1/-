@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 import java.sql.Date;
@@ -16,9 +17,10 @@ import java.sql.Date;
  * @date 2021-06-12 09:40:44
  */
 @Data
+@EqualsAndHashCode(callSuper = false)
 @TableName("stu_test")
-public class StuTestEntity extends BaseEntity implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class StuTestEntity implements Serializable {
+//	private static final long serialVersionUID = 1L;
 
 	/**
 	 * 
