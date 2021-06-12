@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -50,14 +51,19 @@ public class ManageServiceImpl extends ServiceImpl<ManageMapper, ManageEntity> i
         List<Map<String, Object>> ManageEntityMaps = manageMapper.selectMaps(ManageQueryWrapper);
         List<Map<String, Object>> StuTestEntityMaps = stuTestMapper.selectMaps(StuTestQueryWrapper);
 
+        // 创建迭代器，便于删除元素
+        Iterator<Map<String, Object>> StuItr = StudentEntityMaps.iterator();
 
-        for(Map<String, Object> StudentEntityMap : StudentEntityMaps)
+        while (StuItr.hasNext())
         {
+
+            Map<String, Object> StudentEntityMap = StuItr.next();
+
             int StudentID = (int)StudentEntityMap.get("Stu_id");
 
             StudentEntityMap.put("Manage_all", "0");
 
-            // 找到Manage_all
+            // 判断Manage_all
             for(Map<String, Object> ManageEntityMap : ManageEntityMaps)
             {
                 if((int)ManageEntityMap.get("Stu_id") == StudentID)
@@ -83,9 +89,8 @@ public class ManageServiceImpl extends ServiceImpl<ManageMapper, ManageEntity> i
 
             if(!bHasDone)
             {
-                StudentEntityMaps.remove(StudentEntityMap);
+                StuItr.remove();
             }
-
         }
 
         if(Stu_id != -1)
