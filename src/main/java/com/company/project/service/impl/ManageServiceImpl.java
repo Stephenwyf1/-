@@ -56,9 +56,7 @@ public class ManageServiceImpl extends ServiceImpl<ManageMapper, ManageEntity> i
 
         while (StuItr.hasNext())
         {
-
             Map<String, Object> StudentEntityMap = StuItr.next();
-
             int StudentID = (int)StudentEntityMap.get("Stu_id");
 
             StudentEntityMap.put("Manage_all", "0");
@@ -78,7 +76,7 @@ public class ManageServiceImpl extends ServiceImpl<ManageMapper, ManageEntity> i
 
             boolean bHasDone = false;
 
-            // 计数器
+            // 判断计数器
             for(Map<String, Object> StuTestEntityMap : StuTestEntityMaps)
             {
                 if((int)StuTestEntityMap.get("Stu_id") == StudentID && (int)StuTestEntityMap.get("Stu_test_count") == 9)
@@ -93,6 +91,7 @@ public class ManageServiceImpl extends ServiceImpl<ManageMapper, ManageEntity> i
             }
         }
 
+        // 判断是否为搜索操作
         if(Stu_id != -1)
         {
             List<Map<String, Object>> SearchResultStudentMaps = new ArrayList<>();
@@ -109,8 +108,4 @@ public class ManageServiceImpl extends ServiceImpl<ManageMapper, ManageEntity> i
         return StudentEntityMaps;
     }
 
-    @Override
-    public List<Map<String, Object>> getStuAssayInfo(int Stu_id) {
-        return null;
-    }
 }
