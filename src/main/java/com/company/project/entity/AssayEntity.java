@@ -1,10 +1,13 @@
 package com.company.project.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import java.time.LocalDateTime;
+
+import java.sql.Date;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
+import java.time.LocalDateTime;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -27,7 +30,7 @@ public class AssayEntity implements Serializable {
      * 检查的医生ID
      */
     @TableField("Assay_doctor_id")
-    private String assayDoctorId;
+    private int assayDoctorId;
 
     /**
      * 体检信息提交时间

@@ -8,6 +8,7 @@ import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.time.LocalDateTime;
 
 /**
  * 学生体检信息表
@@ -50,7 +51,7 @@ public class StuTestEntity implements Serializable {
 	 * 
 	 */
 	@TableField("Eye_operation_time")
-	private Date eyeOperationTime;
+	private LocalDateTime eyeOperationTime;
 
 	/**
 	 * 
@@ -74,7 +75,7 @@ public class StuTestEntity implements Serializable {
 	 * 
 	 */
 	@TableField("EBH_operation_time")
-	private Date eBHOperationTime;
+	private LocalDateTime eBHOperationTime;
 
 	/**
 	 * 
@@ -98,7 +99,7 @@ public class StuTestEntity implements Serializable {
 	 * 
 	 */
 	@TableField("Tooth_operation_time")
-	private Date toothOperationTime;
+	private LocalDateTime toothOperationTime;
 
 	/**
 	 * 
@@ -122,7 +123,7 @@ public class StuTestEntity implements Serializable {
 	 * 
 	 */
 	@TableField("Surgery_operation_time")
-	private Date surgeryOperationTime;
+	private LocalDateTime surgeryOperationTime;
 
 	/**
 	 * 
@@ -146,7 +147,7 @@ public class StuTestEntity implements Serializable {
 	 * 
 	 */
 	@TableField("Blood_operation_time")
-	private Date bloodOperationTime;
+	private LocalDateTime bloodOperationTime;
 
 	/**
 	 * 
@@ -170,7 +171,7 @@ public class StuTestEntity implements Serializable {
 	 * 
 	 */
 	@TableField("Internal_operation_time")
-	private Date internalOperationTime;
+	private LocalDateTime internalOperationTime;
 
 	/**
 	 * 
@@ -194,7 +195,7 @@ public class StuTestEntity implements Serializable {
 	 * 
 	 */
 	@TableField("Assay_operation_time")
-	private Date assayOperationTime;
+	private LocalDateTime assayOperationTime;
 
 	/**
 	 * 
@@ -218,7 +219,7 @@ public class StuTestEntity implements Serializable {
 	 * 
 	 */
 	@TableField("Chest_operation_time")
-	private Date chestOperationTime;
+	private LocalDateTime chestOperationTime;
 
 	/**
 	 * 
@@ -242,7 +243,7 @@ public class StuTestEntity implements Serializable {
 	 * 
 	 */
 	@TableField("Other_operation_time")
-	private Date otherOperationTime;
+	private LocalDateTime otherOperationTime;
 
 	/**
 	 * 
@@ -266,7 +267,7 @@ public class StuTestEntity implements Serializable {
 	 * 
 	 */
 	@TableField("Manage_operation_time")
-	private Date manageOperationTime;
+	private LocalDateTime manageOperationTime;
 
 	/**
 	 * 

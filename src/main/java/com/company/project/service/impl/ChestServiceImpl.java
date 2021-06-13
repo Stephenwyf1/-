@@ -4,8 +4,11 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.company.project.entity.ChestEntity;
+import com.company.project.entity.StuTestEntity;
 import com.company.project.entity.StudentEntity;
 import com.company.project.mapper.ChestMapper;
+import com.company.project.mapper.DoctorMapper;
+import com.company.project.mapper.StuTestMapper;
 import com.company.project.mapper.StudentMapper;
 import com.company.project.service.IChestService;
 import org.springframework.stereotype.Service;
@@ -31,6 +34,12 @@ public class ChestServiceImpl extends ServiceImpl<ChestMapper, ChestEntity> impl
 
     @Resource
     private StudentMapper studentMapper;
+
+    @Resource
+    private DoctorMapper doctorMapper;
+
+    @Resource
+    private StuTestMapper stuTestMapper;
 
     @Override
     public List<Map<String, Object>> getStuInfoList(int Stu_id) {
@@ -81,15 +90,26 @@ public class ChestServiceImpl extends ServiceImpl<ChestMapper, ChestEntity> impl
 
     @Override
     public void insertStuChestInfo(ChestEntity chestEntity) {
-        System.out.println( chestMapper.selectById(chestEntity.getStuId()) );
+        StuTestEntity stuTestEntity = new StuTestEntity();
+
+        stuTestEntity.setStuId(chestEntity.getStuId());
+        stuTestEntity.setAssayIdea(chestEntity.getChestIdea());
+        stuTestEntity.setAssayDoctorName(doctorMapper.selectById(chestEntity.getChestDoctorId()).getDoctorName());
+        stuTestEntity.setAssayDoctorId(chestEntity.getChestDoctorId());
+        stuTestEntity.setAssayOperationTime(chestEntity.getChestOperationTime());
 
         if( chestMapper.selectById(chestEntity.getStuId()) == null )
         {
             chestMapper.insert(chestEntity);
+
+            stuTestEntity.setStuTestCount(stuTestEntity.getStuTestCount()+1);
+            stuTestMapper.insert(stuTestEntity);//插入Chest表的同时要把部分数据插入到StuTest表
         }
         else
         {
             chestMapper.updateById(chestEntity);
+
+            stuTestMapper.updateById(stuTestEntity);
         }
     }
 }

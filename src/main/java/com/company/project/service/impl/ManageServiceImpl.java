@@ -34,13 +34,7 @@ import java.util.Map;
 public class ManageServiceImpl extends ServiceImpl<ManageMapper, ManageEntity> implements IManageService {
 
     @Resource
-    private StudentMapper studentMapper;
-
-    @Resource
     private ManageMapper manageMapper;
-
-    @Resource
-    private StuTestMapper stuTestMapper;
 
     @Resource
     private JdbcTemplate jdbcTemplate;
@@ -48,10 +42,20 @@ public class ManageServiceImpl extends ServiceImpl<ManageMapper, ManageEntity> i
     @Override
     public List<Map<String, Object>> getStuInfoList(int Stu_id) {
 
-        String sql =
-            "select Student.*, (case when Manage.Manage_error = 1 then 2 else Manage_all end)Manage_all, Stu_test.Stu_test_count"
-            + " from Student, Manage, Stu_test"
-            + " where Student.Stu_id = Manage.Stu_id and Manage.Stu_id = Stu_test.Stu_id";
+        String sql = "SELECT sts.*, (CASE when Manage_error IS NULL then '0'"
+                                        +"when Manage_error = '1' then '2'"
+                                        +"else '1' END )Manage_all "
+                    +"FROM"
+                    +"("
+                    +"SELECT s.* FROM"
+                    +"(SELECT * from stu_test WHERE Stu_test_count = 9) as st "
+                    +"LEFT JOIN "
+                    +"student as s "
+                    +"ON s.Stu_id = st.Stu_id"
+                    +")as sts "
+                    +"LEFT JOIN "
+                    +"manage as m "
+                    +"ON sts.Stu_id = m.Stu_id";
 
         List<Map<String, Object>> QueryResultList = jdbcTemplate.queryForList(sql);
 

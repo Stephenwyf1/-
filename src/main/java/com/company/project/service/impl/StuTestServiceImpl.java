@@ -1,7 +1,5 @@
 package com.company.project.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.integration.IntegrationProperties;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -50,6 +48,7 @@ public class StuTestServiceImpl extends ServiceImpl<StuTestMapper, StuTestEntity
             String Doctor_error = jdbcTemplate.queryForObject(sql, String.class);
 
             TempStuTestMap.put("Doctor_error", Doctor_error);
+            TempStuTestMap.put("Table_index", i-1);
 
             StuTestList.add(TempStuTestMap);
         }
