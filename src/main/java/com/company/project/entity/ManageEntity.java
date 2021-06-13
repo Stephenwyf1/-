@@ -27,7 +27,7 @@ public class ManageEntity implements Serializable {
      * 检查的医生ID
      */
     @TableField("Manage_doctor_id")
-    private String manageDoctorId;
+    private int manageDoctorId;
 
     /**
      * 体检信息提交时间

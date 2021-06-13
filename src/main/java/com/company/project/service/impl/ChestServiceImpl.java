@@ -59,7 +59,7 @@ public class ChestServiceImpl extends ServiceImpl<ChestMapper, ChestEntity> impl
                     +"when Chest_error = '1' then '0' "
                     +"else '1' end)Chest_all "
                     +"from (select * from Student where Stu_id = "+Stu_id+") as s "
-                    +"left join Assay "
+                    +"left join Chest "
                     +"on s.Stu_id = Chest.Stu_id;";
         }
         return jdbcTemplate.queryForList(sql);
@@ -75,6 +75,18 @@ public class ChestServiceImpl extends ServiceImpl<ChestMapper, ChestEntity> impl
     @Override
     public void insertStuChestInfo(ChestEntity chestEntity) {
         StuTestEntity stuTestEntity = new StuTestEntity();
+        boolean bFirstInsert;
+
+        if( chestMapper.selectById(chestEntity.getStuId()) == null )
+        {
+            chestMapper.insert(chestEntity);
+            bFirstInsert = true;
+        }
+        else
+        {
+            chestMapper.updateById(chestEntity);
+            bFirstInsert = false;
+        }
 
         stuTestEntity.setStuId(chestEntity.getStuId());
         stuTestEntity.setChestIdea(chestEntity.getChestIdea());
@@ -82,18 +94,21 @@ public class ChestServiceImpl extends ServiceImpl<ChestMapper, ChestEntity> impl
         stuTestEntity.setChestDoctorId(chestEntity.getChestDoctorId());
         stuTestEntity.setChestOperationTime(chestEntity.getChestOperationTime());
 
-        if( chestMapper.selectById(chestEntity.getStuId()) == null )
-        {
-            chestMapper.insert(chestEntity);
+        StuTestEntity selectEntity = stuTestMapper.selectById(chestEntity.getStuId());
 
-            stuTestEntity.setStuTestCount(stuTestEntity.getStuTestCount()+1);
-            stuTestMapper.insert(stuTestEntity);//插入Chest表的同时要把部分数据插入到StuTest表
+        if(selectEntity == null)//if StuTest 没有数据
+        {
+            stuTestEntity.setStuTestCount(1);
+            stuTestMapper.insert(stuTestEntity);
         }
         else
         {
-            chestMapper.updateById(chestEntity);
-
+            if(bFirstInsert)//if first insert Entity then StuTestCount + 1
+            {
+                stuTestEntity.setStuTestCount(selectEntity.getStuTestCount() + 1);
+            }
             stuTestMapper.updateById(stuTestEntity);
         }
+
     }
 }

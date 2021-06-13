@@ -72,8 +72,19 @@ public class AssayServiceImpl extends ServiceImpl<AssayMapper, AssayEntity> impl
 
     @Override
     public void insertStuAssayInfo(AssayEntity assayEntity) {
-
         StuTestEntity stuTestEntity = new StuTestEntity();
+        boolean bFirstInsert;
+
+        if( assayMapper.selectById(assayEntity.getStuId()) == null )
+        {
+            assayMapper.insert(assayEntity);
+            bFirstInsert = true;
+        }
+        else
+        {
+            assayMapper.updateById(assayEntity);
+            bFirstInsert = false;
+        }
 
         //插入Assay表的同时要把部分数据插入到StuTest表
         stuTestEntity.setStuId(assayEntity.getStuId());
@@ -82,18 +93,21 @@ public class AssayServiceImpl extends ServiceImpl<AssayMapper, AssayEntity> impl
         stuTestEntity.setAssayDoctorId(assayEntity.getAssayDoctorId());
         stuTestEntity.setAssayOperationTime(assayEntity.getAssayOperationTime());
 
-        if( assayMapper.selectById(assayEntity.getStuId()) == null )
-        {
-            assayMapper.insert(assayEntity);
+        StuTestEntity selectEntity = stuTestMapper.selectById(assayEntity.getStuId());
 
-            stuTestEntity.setStuTestCount(stuTestEntity.getStuTestCount()+1);
+        if(selectEntity == null)//if StuTest 没有数据
+        {
+            stuTestEntity.setStuTestCount(1);
             stuTestMapper.insert(stuTestEntity);
         }
         else
         {
-            assayMapper.updateById(assayEntity);
+            if(bFirstInsert)//if first insert Entity then StuTestCount + 1
+            {
+                stuTestEntity.setStuTestCount(selectEntity.getStuTestCount() + 1);
+            }
             stuTestMapper.updateById(stuTestEntity);
         }
-    }
 
+    }
 }

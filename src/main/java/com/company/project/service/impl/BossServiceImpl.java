@@ -34,38 +34,42 @@ public class BossServiceImpl extends ServiceImpl<BossMapper, BossEntity> impleme
 
     @Override
     public List<Map<String, Object>> getStuInfoList(int Stu_id) {
-        String sql = "SELECT sts.*, (CASE when Boss_error IS NULL then '0'"
-                +"when Boss_error = '1' then '2'"
-                +"else '1' END) Boss_all "
-                +"FROM"
-                +"("
-                +"SELECT s.* FROM"
-                +"(SELECT * from stu_test WHERE Stu_test_count = 10) as st "
-                +"LEFT JOIN "
-                +"student as s "
-                +"ON s.Stu_id = st.Stu_id"
-                +")as sts "
-                +"LEFT JOIN "
-                +"Boss as b "
-                +"ON sts.Stu_id = b.Stu_id";
-
-        List<Map<String, Object>> QueryResultList = jdbcTemplate.queryForList(sql);
-
-        if(Stu_id != -1)//搜索
+        String sql;
+        if(Stu_id == -1)
         {
-            List<Map<String, Object>> SearchResultStudentMaps = new ArrayList<>();
-            for(Map<String, Object> queryResultMap : QueryResultList)
-            {
-                if( (int)queryResultMap.get("Stu_id") == Stu_id)
-                {
-                    SearchResultStudentMaps.add(queryResultMap);
-                    break;
-                }
-            }
-            return SearchResultStudentMaps;
+            sql = "SELECT sts.*, (CASE when Boss_error IS NULL then '0'"
+                    +"when Boss_error = '1' then '2'"
+                    +"else '1' END) Boss_all "
+                    +"FROM"
+                    +"("
+                    +"SELECT s.* FROM"
+                    +"(SELECT * from stu_test WHERE Stu_test_count >= 10) as st "
+                    +"LEFT JOIN "
+                    +"student as s "
+                    +"ON s.Stu_id = st.Stu_id"
+                    +")as sts "
+                    +"LEFT JOIN "
+                    +"Boss as b "
+                    +"ON sts.Stu_id = b.Stu_id";
         }
-
-        return QueryResultList;
+        else
+        {
+            sql = "SELECT sts.*, (CASE when Boss_error IS NULL then '0'"
+                    +"when Boss_error = '1' then '2'"
+                    +"else '1' END )Boss_all "
+                    +"FROM"
+                    +"("
+                    +"SELECT s.* FROM"
+                    +"(SELECT * from stu_test WHERE Stu_test_count >= 10 AND Stu_id = "+Stu_id+") as st "
+                    +"LEFT JOIN "
+                    +"student as s "
+                    +"ON s.Stu_id = st.Stu_id"
+                    +")as sts "
+                    +"LEFT JOIN "
+                    +"Boss as b "
+                    +"ON sts.Stu_id = b.Stu_id";
+        }
+        return jdbcTemplate.queryForList(sql);
     }
 
     @Override
