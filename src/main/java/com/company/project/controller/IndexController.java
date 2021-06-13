@@ -75,6 +75,16 @@ public class IndexController {
     public String manageList2() {
         return "manage/manage_list2" ;
     }
+
+    @GetMapping("/boss")
+    public String bossList() {
+        return "boss/boss_list" ;
+    }
+    @GetMapping("/boss2")
+    public String bossList2() {
+        return "boss/boss_list2" ;
+    }
+
     @GetMapping("/other")
     public String otherList() {
         return "other/other_list" ;

@@ -83,11 +83,11 @@
     </div>
     <!--搜索-->
     <div class="demoTable">
-        搜索ID：
-        <div class="layui-inline">
-            <input class="layui-input" type="number" name="id" id="demoReload" autocomplete="off">
-        </div>
-        <button class="layui-btn"  data-type="reload" id="searchID">搜索</button>
+<!--        搜索ID：-->
+<!--        <div class="layui-inline">-->
+<!--            <input class="layui-input" type="number" name="id" id="demoReload" autocomplete="off">-->
+<!--        </div>-->
+<!--        <button class="layui-btn"  data-type="reload" id="searchID">搜索</button>-->
         <table class="layui-hide" id="useruv" lay-filter="useruv" onclick="TabClick()"></table>
     </div>
     <div class="layui-form-item"  align="center">
@@ -208,7 +208,7 @@
             elem: '#useruv'
             , height: 350
             , headers: {"authorization": token}
-            , url: '/manage/getStuTestInfo?Stu_id=1' //数据接口
+            , url: '/manage/getStuTestInfo?Stu_id='+perimeters //数据接口
             // , page: true //开启分页
             // , data:{"Stu_id":1}
             , cols: [
@@ -251,7 +251,7 @@
                 table.reload('testReload', {
 
                     where: {
-                        Stu_id: demoReload.val()
+                        Doctor_id: demoReload.val()
                     }
                 });
             }
