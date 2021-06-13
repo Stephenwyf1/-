@@ -11,6 +11,7 @@ import com.company.project.mapper.DoctorMapper;
 import com.company.project.mapper.StuTestMapper;
 import com.company.project.mapper.StudentMapper;
 import com.company.project.service.IChestService;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -33,52 +34,35 @@ public class ChestServiceImpl extends ServiceImpl<ChestMapper, ChestEntity> impl
     private ChestMapper chestMapper;
 
     @Resource
-    private StudentMapper studentMapper;
-
-    @Resource
     private DoctorMapper doctorMapper;
 
     @Resource
     private StuTestMapper stuTestMapper;
 
+    @Resource
+    private JdbcTemplate jdbcTemplate;
+
     @Override
     public List<Map<String, Object>> getStuInfoList(int Stu_id) {
-        LambdaQueryWrapper<StudentEntity> StudentQueryWrapper = Wrappers.lambdaQuery();
-        LambdaQueryWrapper<ChestEntity> ChestQueryWrapper = Wrappers.lambdaQuery();
-
-        List<Map<String, Object>> StudentEntityMaps = studentMapper.selectMaps(StudentQueryWrapper);
-        List<Map<String, Object>> ChestEntityMaps = chestMapper.selectMaps(ChestQueryWrapper);
-
-        for(Map<String, Object> StudentEntityMap : StudentEntityMaps)
+        String sql;
+        if(Stu_id == -1)
         {
-            StudentEntityMap.put("Chest_all", "0");
-            for(Map<String, Object> ChestEntityMap : ChestEntityMaps)
-            {
-                if(ChestEntityMap.get("Stu_id") == StudentEntityMap.get("Stu_id"))
-                {
-                    StudentEntityMap.put("Chest_all", "1");
-                    if(Integer.parseInt( (String)ChestEntityMap.get("Chest_error") ) == 1)
-                    {
-                        StudentEntityMap.put("Chest_all", "2");
-                    }
-                }
-            }
+            sql = "select Student.*, (case when Chest_error is NULL then '0' "
+                    +"when Chest_error = '1' then '0' "
+                    +"else '1' end)Chest_all "
+                    +"from Student left join Chest "
+                    +"on Student.Stu_id = Chest.Stu_id;";
         }
-
-        if(Stu_id != -1)
+        else
         {
-            List<Map<String, Object>> SearchResultStudentMaps = new ArrayList<>();
-            for(Map<String, Object> StudentEntityMap : StudentEntityMaps)
-            {
-                if( (int)StudentEntityMap.get("Stu_id") == Stu_id)
-                {
-                    SearchResultStudentMaps.add(StudentEntityMap);
-                }
-            }
-            return SearchResultStudentMaps;
+            sql = "select s.*, (case when Chest_error is NULL then '0' "
+                    +"when Chest_error = '1' then '0' "
+                    +"else '1' end)Chest_all "
+                    +"from (select * from Student where Stu_id = "+Stu_id+") as s "
+                    +"left join Assay "
+                    +"on s.Stu_id = Chest.Stu_id;";
         }
-
-        return StudentEntityMaps;
+        return jdbcTemplate.queryForList(sql);
     }
 
     @Override
@@ -93,10 +77,10 @@ public class ChestServiceImpl extends ServiceImpl<ChestMapper, ChestEntity> impl
         StuTestEntity stuTestEntity = new StuTestEntity();
 
         stuTestEntity.setStuId(chestEntity.getStuId());
-        stuTestEntity.setAssayIdea(chestEntity.getChestIdea());
-        stuTestEntity.setAssayDoctorName(doctorMapper.selectById(chestEntity.getChestDoctorId()).getDoctorName());
-        stuTestEntity.setAssayDoctorId(chestEntity.getChestDoctorId());
-        stuTestEntity.setAssayOperationTime(chestEntity.getChestOperationTime());
+        stuTestEntity.setChestIdea(chestEntity.getChestIdea());
+        stuTestEntity.setChestDoctorName(doctorMapper.selectById(chestEntity.getChestDoctorId()).getDoctorName());
+        stuTestEntity.setChestDoctorId(chestEntity.getChestDoctorId());
+        stuTestEntity.setChestOperationTime(chestEntity.getChestOperationTime());
 
         if( chestMapper.selectById(chestEntity.getStuId()) == null )
         {

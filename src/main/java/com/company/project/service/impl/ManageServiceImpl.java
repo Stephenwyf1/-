@@ -48,7 +48,7 @@ public class ManageServiceImpl extends ServiceImpl<ManageMapper, ManageEntity> i
                     +"FROM"
                     +"("
                     +"SELECT s.* FROM"
-                    +"(SELECT * from stu_test WHERE Stu_test_count = 9) as st "
+                    +"(SELECT * from stu_test WHERE Stu_test_count >= 9) as st "
                     +"LEFT JOIN "
                     +"student as s "
                     +"ON s.Stu_id = st.Stu_id"
