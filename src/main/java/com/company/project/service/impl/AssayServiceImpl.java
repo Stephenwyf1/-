@@ -5,18 +5,14 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.company.project.entity.AssayEntity;
 import com.company.project.entity.StuTestEntity;
-import com.company.project.entity.StudentEntity;
 import com.company.project.mapper.AssayMapper;
 import com.company.project.mapper.DoctorMapper;
 import com.company.project.mapper.StuTestMapper;
-import com.company.project.mapper.StudentMapper;
 import com.company.project.service.IAssayService;
-import org.json.JSONObject;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -46,29 +42,25 @@ public class AssayServiceImpl extends ServiceImpl<AssayMapper, AssayEntity> impl
     @Override
     public List<Map<String, Object>> getStuInfoList(int Stu_id) {
 
-        String sql = "select Student.*, (case when Assay_error is NULL then '0' "
-                                            +"when Assay_error = '1' then '0' "
-                                            +"else '1' end)Assay_all"
-                    + " from Student left join Assay"
-                    + " on Student.Stu_id = Assay.Stu_id";
-
-        List<Map<String, Object>> QueryResultList = jdbcTemplate.queryForList(sql);
-
-        if(Stu_id != -1)
+        String sql;
+        if(Stu_id == -1)
         {
-            List<Map<String, Object>> SearchResultStudentMaps = new ArrayList<>();
-            for(Map<String, Object> queryResultMap : QueryResultList)
-            {
-                if( (int)queryResultMap.get("Stu_id") == Stu_id)
-                {
-                    SearchResultStudentMaps.add(queryResultMap);
-                    break;
-                }
-            }
-            return SearchResultStudentMaps;
+            sql = "select Student.*, (case when Assay_error is NULL then '0' "
+                                         +"when Assay_error = '1' then '0' "
+                                         +"else '1' end)Assay_all "
+                    +"from Student left join Assay "
+                    +"on Student.Stu_id = Assay.Stu_id;";
         }
-
-        return QueryResultList;
+        else
+        {
+            sql = "select s.*, (case when Assay_error is NULL then '0' "
+                                         +"when Assay_error = '1' then '0' "
+                                         +"else '1' end)Assay_all "
+                    +"from (select * from Student where Stu_id = "+Stu_id+") as s "
+                    +"left join Assay "
+                    +"on s.Stu_id = Assay.Stu_id;";
+        }
+        return jdbcTemplate.queryForList(sql);
     }
 
     @Override

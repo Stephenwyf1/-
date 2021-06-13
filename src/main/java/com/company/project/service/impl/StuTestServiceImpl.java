@@ -23,19 +23,30 @@ public class StuTestServiceImpl extends ServiceImpl<StuTestMapper, StuTestEntity
     private JdbcTemplate jdbcTemplate;
 
     @Override
-    public List<Map<String, Object>> getStuTestInfo(int Stu_id) throws IllegalAccessException {
+    public List<Map<String, Object>> getStuTestInfo(int Stu_id, boolean bHasManage) throws IllegalAccessException {
         List<Map<String, Object>> StuTestList = new ArrayList<>();
         String[] DepartmentName = {"眼科", "耳鼻喉科", "口腔科", "外科", "血压脉搏科", "内科",
-                    "化验科", "胸部放射科", "其它科"};
-        String[] TablesName = {"Eye", "EBH", "Tooth", "Surgery", "Blood", "Internal", "Assay", "Chest", "Other"};
+                    "化验科", "胸部放射科", "其它科", "检查结论"};
+        String[] TablesName = {"Eye", "EBH", "Tooth", "Surgery", "Blood", "Internal", "Assay", "Chest", "Other", "Manage"};
 
         StuTestEntity stuTestEntity = stuTestMapper.selectById(Stu_id);
         Field[] Fields = stuTestEntity.getClass().getDeclaredFields();
 
+        int LoopMax;
+
         for(Field field:Fields)
             field.setAccessible(true);
 
-        for(int i = 1; i <= 9; ++i)
+        if(bHasManage)
+        {
+            LoopMax = 10;
+        }
+        else
+        {
+            LoopMax = 9;
+        }
+
+        for(int i = 1; i <= LoopMax; ++i)
         {
             Map<String, Object> TempStuTestMap = new HashMap<>();
             TempStuTestMap.put("Doctor_idea", Fields[4*i-3].get(stuTestEntity));
