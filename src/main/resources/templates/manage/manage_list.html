@@ -268,7 +268,7 @@
             var data = obj.data;
             console.log(data);
             if (obj.event === 'detail') {
-                window.location.href="/index/manage2?Stu_id="+data.Stu_id;
+                window.location.href="/index/manage2?"+data.Stu_id;
             } else if (obj.event === 'del') {
                 // layer.confirm('真的删除行么', function (index) {
                 //     console.log(data);
