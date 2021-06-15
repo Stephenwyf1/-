@@ -199,7 +199,7 @@
             elem: '#useruv'
             , height: 350
             , headers: {"authorization": token}
-            , url: '/chest/getStuList' //数据接口
+            , url: '/PDF/getStuList' //数据接口
             // , page: true //开启分页
 
             , cols: [
@@ -216,13 +216,13 @@
                     , {field: 'Stu_birth', title: '出生年月日', width: 135, sort: true}
                     , {
                     field: 'Stu_test_all', title: '状态', width: 80, sort:true,  templet: function (item) {
-                        if (item.Chest_all === "1") {
+                        if (item.Stu_test_all === "1") {
                             return ' <button type="button" class="layui-btn layui-btn-xs layui-btn-radius layui-btn-normal">完成</button>';
                         }
-                        if (item.Chest_all === "0") {
+                        if (item.Stu_test_all === "0") {
                             return '<button type="button" class="layui-btn layui-btn-xs layui-btn-radius  layui-btn-primary">待定</button>';
                         }
-                        if (item.Chest_all === "2") {
+                        if (item.Stu_test_all === "2") {
                             return '<button type="button" class="layui-btn layui-btn-xs layui-btn-radius layui-btn-danger">驳回</button>';
                         }
                     }
