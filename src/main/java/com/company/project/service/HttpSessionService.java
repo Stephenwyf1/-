@@ -9,6 +9,7 @@ import com.company.project.common.utils.Constant;
 import com.company.project.entity.SysRolePermission;
 import com.company.project.entity.SysUser;
 import com.company.project.entity.SysUserRole;
+import com.company.project.entity.UserAccount;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -51,6 +52,23 @@ public class HttpSessionService {
     @Value("${spring.redis.key.expire.permissionRefresh}")
     private Long redisPermissionRefreshExpire;
 
+    public String createTokenAndUser(UserAccount user, List<String> roles, Set<String> permissions) {
+        //方便根据id找到redis的key， 修改密码/退出登陆 方便使用
+        String token = getRandomToken() + "#" + user.getUserId();
+        JSONObject sessionInfo = new JSONObject();
+        sessionInfo.put(Constant.USERID_KEY, user.getUserId());
+        sessionInfo.put(Constant.USERNAME_KEY, user.getUsername());
+        sessionInfo.put(Constant.ROLES_KEY, roles);
+        sessionInfo.put(Constant.PERMISSIONS_KEY, permissions);
+        String key = userTokenPrefix + token;
+        //设置该用户已登录的token
+        redisService.setAndExpire(key, sessionInfo.toJSONString(), exire);
+
+        //登陆后删除权限刷新标志
+        redisService.del(redisPermissionRefreshKey + user.getUserId());
+        return token;
+    }
+
     public String createTokenAndUser(SysUser user, List<String> roles, Set<String> permissions) {
         //方便根据id找到redis的key， 修改密码/退出登陆 方便使用
         String token = getRandomToken() + "#" + user.getId();
@@ -67,7 +85,6 @@ public class HttpSessionService {
         redisService.del(redisPermissionRefreshKey + user.getId());
         return token;
     }
-
     /**
      * 根据token获取userid
      *

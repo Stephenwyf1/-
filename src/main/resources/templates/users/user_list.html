@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -61,14 +60,14 @@
 </div>
 <!-- 左树 -->
 <div class="layui-fluid">
-    <div class="layui-row layui-col-space15">
-        <div class="layui-col-sm12 layui-col-md4 layui-col-lg2">
-            <div class="layui-card">
-                <div class="layui-card-body mini-bar" id="leftTree">
-                </div>
-            </div>
-        </div>
-        <div class="layui-col-sm12 layui-col-md8 layui-col-lg10">
+<!--    <div class="layui-row layui-col-space15">-->
+<!--&lt;!&ndash;        <div class="layui-col-sm12 layui-col-md4 layui-col-lg2">&ndash;&gt;-->
+<!--&lt;!&ndash;            <div class="layui-card">&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="layui-card-body mini-bar" id="leftTree">&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+<!--        <div class="layui-col-sm12 layui-col-md8 layui-col-lg10">-->
             <div class="user_table_div">
                 <div id="searchParam" shiro:hasPermission="sys:user:list">
                     <div class="layui-form-item">
@@ -76,7 +75,7 @@
                             <input type="text" id="username" class="layui-input" autocomplete="off" placeholder="请输入账号">
                         </div>
                         <div class="layui-input-inline">
-                            <input type="text" id="nickName" class="layui-input" autocomplete="off" placeholder="请输用户昵称">
+                            <input type="text" id="nickName" class="layui-input" autocomplete="off" placeholder="用户名">
                         </div>
                         <div class="layui-input-inline">
                             <input type="text" readonly class="layui-input" id="createTime" placeholder="创建时间">
@@ -98,17 +97,17 @@
             </div>
 
         </div>
-    </div>
-</div>
+<!--    </div>-->
+<!--</div>-->
 
-<div id="deptTree" style="display: none"></div>
 <div id="roles" class="demo-transfer" style="display: none"></div>
 </body>
 <script type="text/html" id="toolbar">
     <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm" lay-event="addByImport" shiro:hasPermission="sys:user:add">导入用户</button>
         <button class="layui-btn layui-btn-sm" lay-event="addNewUser" shiro:hasPermission="sys:user:add">添加</button>
-        <button class="layui-btn layui-btn-sm" lay-event="batchDeleted" shiro:hasPermission="sys:user:deleted">删除
-        </button>
+        <button class="layui-btn layui-btn-sm" lay-event="batchDeleted" shiro:hasPermission="sys:user:deleted">删除</button>
+        <input type="file" id="btn_file" accept=".xlsx" style="display: none">
     </div>
 </script>
 <script type="text/html" id="tool">
@@ -117,6 +116,7 @@
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" shiro:hasPermission="sys:user:deleted">删除</a>
 </script>
 <script src="/layui/layui.all.js"></script>
+<script src="/js/sheetJson.js"></script>
 <script src="/js/core.util.js"></script>
 <script>
     //获取token
@@ -136,7 +136,7 @@
     var endTime = null;
     layui.use(['table', 'layer', 'laydate', 'tree', 'transfer'], function () {
 
-        initLeftTree();
+        // initLeftTree();
 
         //加载table
         tableIns1 = table.render({
@@ -147,6 +147,7 @@
             , url: '/sys/users' //数据接口
             , method: 'POST'
             , parseData: function (res) { //将原始数据解析成 table 组件所规定的数据
+                console.log(JSON.stringify(res.data))
                 return {
                     "code": res.code, //解析接口状态
                     "msg": res.msg, //解析提示文本
@@ -158,11 +159,19 @@
                 [
                     {type: 'checkbox', fixed: 'left'},
                     {field: 'username', title: '账号', width: 130},
-                    {field: 'phone', title: '手机号', width: 130},
-                    {field: 'deptName', title: '所属公司', width: 120},
-                    {field: 'realName', title: '真实名称', width: 120},
-                    {field: 'nickName', title: '昵称', width: 130},
-                    {field: 'email', title: '邮箱', width: 150},
+                    {field: 'password', title: '密码', width: 130},
+                    {field: 'userId', title: 'id', width: 120},
+                    {
+                        field: 'userType', title: '身份', width: 120, templet:function (item) {
+                            if (item.userType === 1) {
+                                return "管理员";
+                            }
+                            if (item.userType === 2) {
+                                return "医生";
+                            }
+                        }
+
+                    },
                     {
                         field: 'sex', title: '性别', width: 100, templet: function (item) {
                             if (item.sex === 1) {
@@ -174,27 +183,13 @@
                         }
                     },
                     {field: 'createTime', title: '创建时间', minWidth: 120},
-                    {field: 'updateTime', title: '更新时间', minWidth: 120},
                     {
                         field: 'status', title: '状态', width: 100, templet: function (item) {
-                            if (item.status === 1) {
+                            if (item.status === true) {
                                 return '  <input type="checkbox" lay-skin="switch" lay-text="正常|禁用" checked disabled>';
                             }
-                            if (item.status === 2) {
+                            if (item.status === false) {
                                 return '  <input type="checkbox" lay-skin="switch" lay-text="正常|禁用" disabled>';
-                            }
-                        }
-                    },
-                    {
-                        field: 'createWhere', title: '注册涞源', width: 100, templet: function (item) {
-                            if (item.createWhere === 1) {
-                                return "Web";
-                            }
-                            if (item.createWhere === 2) {
-                                return "Android";
-                            }
-                            if (item.createWhere === 3) {
-                                return "Ios";
                             }
                         }
                     },
@@ -254,10 +249,22 @@
                     var d = document.getElementsByTagName('em')[0];
                     d.firstChild.nodeValue = '启用';
                     form.render(); //更新全部
-
                     break;
+
+                case 'addByImport':
+                    console.log('no')
+                    let file = document.getElementById('btn_file')
+                    file.click();
+                    file.onchange = function (){
+                        console.log('yes')
+                        sheetJson.readWorkbookFromLocalFile(file.files[0],function (json){
+                            console.log(json)
+                            console.log('successfully upload')
+                        })
+                    }
+                    break;
+
             }
-            ;
         });
         table.on('tool(user_table)', function (obj) {
             var data = obj.data;
@@ -329,7 +336,6 @@
                             }
                         });
                     });
-
                     break;
             }
         });
@@ -373,33 +379,33 @@
             }
             return false;
         });
-        var loadDeptTree = function (data) {
-            tree.render({
-                elem: '#deptTree'
-                , data: data
-                , onlyIconControl: true  //是否仅允许节点左侧图标控制展开收缩
-                , click: function (obj) {
-                    selectNode = obj;
-                    layer.msg(JSON.stringify(selectNode.data.title));
-                }
-            });
-        };
-
-        var loadLeftTree = function (data) {
-            tree.render({
-                elem: '#leftTree'
-                , data: data
-                , onlyIconControl: true  //是否仅允许节点左侧图标控制展开收缩
-                , click: function (obj) {
-                    console.log(obj)
-                    deptNo = obj.data.deptNo;
-                    $("#leftTree span").removeClass('custom-tree-item-clicked');     //清除旧的样式
-                    $("#leftTree span:contains(" + obj.data.title + ")").addClass('custom-tree-item-clicked');
-                    search()
-
-                }
-            });
-        };
+        // var loadDeptTree = function (data) {
+        //     tree.render({
+        //         elem: '#deptTree'
+        //         , data: data
+        //         , onlyIconControl: true  //是否仅允许节点左侧图标控制展开收缩
+        //         , click: function (obj) {
+        //             selectNode = obj;
+        //             layer.msg(JSON.stringify(selectNode.data.title));
+        //         }
+        //     });
+        // };
+        //
+        // var loadLeftTree = function (data) {
+        //     tree.render({
+        //         elem: '#leftTree'
+        //         , data: data
+        //         , onlyIconControl: true  //是否仅允许节点左侧图标控制展开收缩
+        //         , click: function (obj) {
+        //             console.log(obj)
+        //             deptNo = obj.data.deptNo;
+        //             $("#leftTree span").removeClass('custom-tree-item-clicked');     //清除旧的样式
+        //             $("#leftTree span:contains(" + obj.data.title + ")").addClass('custom-tree-item-clicked');
+        //             search()
+        //
+        //         }
+        //     });
+        // };
         $(".operation_user input[name=deptName]").click(function () {
             layer.open({
                 type: 1,
@@ -422,12 +428,12 @@
             });
         });
 
-        function initLeftTree(){
-            CoreUtil.sendGet("/sys/dept/tree", null, function (res) {
-                loadLeftTree(res.data);
-                loadDeptTree(res.data);
-            });
-        }
+        // function initLeftTree(){
+        //     CoreUtil.sendGet("/sys/dept/tree", null, function (res) {
+        //         loadLeftTree(res.data);
+        //         loadDeptTree(res.data);
+        //     });
+        // }
         var initTransfer = function (data) {
             transfer.render({
                 elem: '#roles'
@@ -445,7 +451,6 @@
             })
         }
     });
-
     //执行查询
     function search() {
         //这里以搜索为例
@@ -462,6 +467,6 @@
                 curr: 1 //重新从第 1 页开始
             }
         });
-    };
+    }
 </script>
 </html>

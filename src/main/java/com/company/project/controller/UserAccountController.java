@@ -1,15 +1,16 @@
 package com.company.project.controller;
 
+
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.company.project.common.aop.annotation.LogAnnotation;
 import com.company.project.common.exception.code.BaseResponseCode;
 import com.company.project.common.utils.DataResult;
-import com.company.project.entity.SysUser;
 import com.company.project.entity.SysUserRole;
+import com.company.project.entity.UserAccount;
 import com.company.project.service.HttpSessionService;
+import com.company.project.service.IUserAccountService;
 import com.company.project.service.UserRoleService;
-import com.company.project.service.UserService;
 import com.company.project.vo.req.UserRoleOperationReqVO;
 import com.wf.captcha.utils.CaptchaUtil;
 import io.swagger.annotations.Api;
@@ -28,19 +29,20 @@ import javax.validation.Valid;
 import java.util.List;
 
 /**
- * 用户管理
+ * <p>
+ * 用户账号表 前端控制器
+ * </p>
  *
- * @author wenbin
- * @version V1.0
- * @date 2020年3月18日
+ * @author wyf
+ * @since 2021-06-06
  */
 @RestController
 @Api(tags = "组织模块-用户管理")
 @RequestMapping("/sys")
 @Slf4j
-public class UserController {
+public class UserAccountController {
     @Resource
-    private UserService userService;
+    private IUserAccountService userService;
     @Resource
     private UserRoleService userRoleService;
     @Resource
@@ -48,7 +50,7 @@ public class UserController {
 
     @PostMapping(value = "/user/login")
     @ApiOperation(value = "用户登录接口")
-    public DataResult login(@RequestBody @Valid SysUser vo, HttpServletRequest request) {
+    public DataResult login(@RequestBody @Valid UserAccount vo, HttpServletRequest request) {
         //判断验证码
         if (!CaptchaUtil.ver(vo.getCaptcha(), request)) {
             // 清除session中的验证码
@@ -60,8 +62,8 @@ public class UserController {
 
     @PostMapping("/user/register")
     @ApiOperation(value = "用户注册接口")
-    public DataResult register(@RequestBody @Valid SysUser vo) {
-       userService.register(vo);
+    public DataResult register(@RequestBody @Valid UserAccount vo) {
+        userService.register(vo);
         return DataResult.success();
     }
 
@@ -75,8 +77,8 @@ public class UserController {
     @ApiOperation(value = "更新用户信息接口")
     @LogAnnotation(title = "用户管理", action = "更新用户信息")
     @RequiresPermissions("sys:user:update")
-    public DataResult updateUserInfo(@RequestBody SysUser vo) {
-        if (StringUtils.isEmpty(vo.getId())) {
+    public DataResult updateUserInfo(@RequestBody UserAccount vo) {
+        if (StringUtils.isEmpty(vo.getUserId())) {
             return DataResult.fail("id不能为空");
         }
 
@@ -87,7 +89,7 @@ public class UserController {
     @PutMapping("/user/info")
     @ApiOperation(value = "更新用户信息接口")
     @LogAnnotation(title = "用户管理", action = "更新用户信息")
-    public DataResult updateUserInfoById(@RequestBody SysUser vo) {
+    public DataResult updateUserInfoById(@RequestBody UserAccount vo) {
         userService.updateUserInfoMy(vo);
         return DataResult.success();
     }
@@ -112,7 +114,7 @@ public class UserController {
     @ApiOperation(value = "分页获取用户列表接口")
     @RequiresPermissions("sys:user:list")
     @LogAnnotation(title = "用户管理", action = "分页获取用户列表")
-    public DataResult pageInfo(@RequestBody SysUser vo) {
+    public DataResult pageInfo(@RequestBody UserAccount vo) {
         return DataResult.success(userService.pageInfo(vo));
     }
 
@@ -120,7 +122,7 @@ public class UserController {
     @ApiOperation(value = "新增用户接口")
     @RequiresPermissions("sys:user:add")
     @LogAnnotation(title = "用户管理", action = "新增用户")
-    public DataResult addUser(@RequestBody @Valid SysUser vo) {
+    public DataResult addUser(@RequestBody @Valid UserAccount vo) {
         userService.addUser(vo);
         return DataResult.success();
     }
@@ -138,12 +140,12 @@ public class UserController {
     @PutMapping("/user/pwd")
     @ApiOperation(value = "修改密码接口")
     @LogAnnotation(title = "用户管理", action = "更新密码")
-    public DataResult updatePwd(@RequestBody SysUser vo) {
+    public DataResult updatePwd(@RequestBody UserAccount vo) {
         if (StringUtils.isEmpty(vo.getOldPwd()) || StringUtils.isEmpty(vo.getNewPwd())) {
             return DataResult.fail("旧密码与新密码不能为空");
         }
         String userId = httpSessionService.getCurrentUserId();
-        vo.setId(userId);
+        vo.setUserId(Integer.valueOf(userId));
         userService.updatePwd(vo);
         return DataResult.success();
     }
@@ -155,8 +157,8 @@ public class UserController {
     public DataResult deletedUser(@RequestBody @ApiParam(value = "用户id集合") List<String> userIds) {
         //删除用户， 删除redis的绑定的角色跟权限
         httpSessionService.abortUserByUserIds(userIds);
-        LambdaQueryWrapper<SysUser> queryWrapper = Wrappers.lambdaQuery();
-        queryWrapper.in(SysUser::getId, userIds);
+        LambdaQueryWrapper<UserAccount> queryWrapper = Wrappers.lambdaQuery();
+        queryWrapper.in(UserAccount::getUserId, userIds);
         userService.remove(queryWrapper);
         return DataResult.success();
     }

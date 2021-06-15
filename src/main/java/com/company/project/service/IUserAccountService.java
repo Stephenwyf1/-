@@ -1,67 +1,61 @@
 package com.company.project.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.company.project.entity.UserAccount;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.company.project.entity.SysUser;
 import com.company.project.vo.resp.LoginRespVO;
 import com.company.project.vo.resp.UserOwnRoleRespVO;
 
 /**
- * 用户 服务类
+ * <p>
+ * 用户账号表 服务类
+ * </p>
  *
- * @author wenbin
- * @version V1.0
- * @date 2020年3月18日
+ * @author wyf
+ * @since 2021-06-06
  */
-public interface  UserService extends IService<SysUser> {
+public interface IUserAccountService extends IService<UserAccount> {
 
     /**
      * 注册
-     *
      * @param vo vo
      */
-    void register(SysUser vo);
+    void register(UserAccount vo);
 
     /**
      * 登陆
-     *
      * @param vo vo
      * @return LoginRespVO
      */
-    LoginRespVO login(SysUser vo);
+    LoginRespVO login(UserAccount vo);
 
     /**
      * 更新用户信息
-     *
      * @param vo vo
      */
-    void updateUserInfo(SysUser vo);
+    void updateUserInfo(UserAccount vo);
 
     /**
      * 分页
-     *
      * @param vo vo
      * @return IPage
      */
-    IPage<SysUser> pageInfo(SysUser vo);
+    IPage<UserAccount> pageInfo(UserAccount vo);
 
     /**
      * 添加用户
-     *
      * @param vo vo
      */
-    void addUser(SysUser vo);
+    void addUser(UserAccount vo);
 
     /**
      * 修改密码
-     *
      * @param vo vo
      */
-    void updatePwd(SysUser vo);
+    void updatePwd(UserAccount vo);
 
     /**
      * 根据userid获取绑定角色
-     *
      * @param userId userId
      * @return UserOwnRoleRespVO
      */
@@ -69,8 +63,8 @@ public interface  UserService extends IService<SysUser> {
 
     /**
      * 修改自己信息
-     *
      * @param vo vo
      */
-    void updateUserInfoMy(SysUser vo);
+    void updateUserInfoMy(UserAccount vo);
+
 }
