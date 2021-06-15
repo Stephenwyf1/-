@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -74,25 +75,31 @@ public class BossServiceImpl extends ServiceImpl<BossMapper, BossEntity> impleme
 
     @Override
     public List<Map<String, Object>> getStuBossInfo(int Stu_id) {
-        LambdaQueryWrapper<BossEntity> ManageQueryWrapper = Wrappers.lambdaQuery();
-        ManageQueryWrapper.eq(BossEntity::getStuId, Stu_id);
-        return bossMapper.selectMaps(ManageQueryWrapper);
-    }
+        LambdaQueryWrapper<BossEntity> BossQueryWrapper = Wrappers.lambdaQuery();
+        BossQueryWrapper.eq(BossEntity::getStuId, Stu_id);
 
-    @Override
-    public boolean insertStuBossInfo(BossEntity bossEntity) {
         String sql;
         String[] TablesName = {"Eye", "EBH", "Tooth", "Surgery", "Blood", "Internal", "Assay",
                 "Chest", "Other", "Manage"};
         for(int i=0;i<TablesName.length;++i)
         {
-            sql = "select "+TablesName[i]+"_error"+" from "+TablesName[i]+" where Stu_id = "+bossEntity.getStuId();
+            sql = "select "+TablesName[i]+"_error"+" from "+TablesName[i]+" where Stu_id = "+Stu_id;
             if(jdbcTemplate.queryForObject(sql, String.class).equals("1"))
             {
-                return false;
+                List<Map<String, Object>> DataList = new ArrayList<>();
+                Map<String, Object> map = new HashMap<>();
+                map.put("code", -1);
+                map.put("message", "存在已驳回状态的表单");
+                DataList.add(map);
+                return DataList;
             }
         }
 
+        return bossMapper.selectMaps(BossQueryWrapper);
+    }
+
+    @Override
+    public boolean insertStuBossInfo(BossEntity bossEntity) {
         if( bossMapper.selectById(bossEntity.getStuId()) == null )
         {
             bossMapper.insert(bossEntity);

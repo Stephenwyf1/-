@@ -63,7 +63,8 @@ public class BossController {
         System.out.println("--------------------In getBossInfo Controller--------------------");
 
         List<Map<String, Object>> DataList = iBossService.getStuBossInfo(Stu_id);
-        JSONObject ResultJSON = JSONUtil.CreateJSON(0,"ok", DataList.size(),DataList);
+        JSONObject ResultJSON = JSONUtil.CreateJSON(DataList.get(0).get("code") == null ? 0 : -1,
+                DataList.get(0).get("message") == null ? "ok" : "存在已驳回状态的表单", DataList.size(),DataList);
 
         System.out.println("--------------------JSON--------------------\n"+ResultJSON);
 
@@ -72,20 +73,14 @@ public class BossController {
 
     @RequestMapping("/insertBossInfo")
     public void insertBossInfo(HttpServletResponse response, BossEntity bossEntity) throws JSONException{
-        System.out.println("--------------------In insertManageInfo Controller--------------------");
-        int code = 0;
-        String message = "ok";
+        System.out.println("--------------------In insertBossInfo Controller--------------------");
 
         bossEntity.setBossAll("1");
         bossEntity.setBossError("0");
         bossEntity.setBossOperationTime(LocalDateTime.now());
-        if(!iBossService.insertStuBossInfo(bossEntity))
-        {
-            code = -1;
-            message = "存在处于驳回状态的表单";
-        }
+        iBossService.insertStuBossInfo(bossEntity);
 
-        JSONObject jsonObject = JSONUtil.CreateJSON(code,message,0,null);
+        JSONObject jsonObject = JSONUtil.CreateJSON(0,"ok",0,null);
 
         System.out.println("--------------------JSON--------------------\n"+jsonObject);
 
