@@ -5,10 +5,7 @@ import com.company.project.common.utils.PDFHelper;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
@@ -34,7 +31,7 @@ public class PDFController {
     @Resource
     private JdbcTemplate jdbcTemplate;
 
-    @RequestMapping("/getPDF")
+    @RequestMapping(value = "/getPDF", method = RequestMethod.POST)
     public void getPDF(HttpServletResponse response, @RequestParam(name = "Stu_id") int Stu_id) throws JSONException, IOException {
         System.out.println("--------------------In getPDF Controller--------------------");
         String OutputPath = "D:\\Program Files (x86)\\Project\\WebProject\\zwens-springboot-manager-simple\\springboot-manager\\src\\main\\resources\\PDF\\Output.pdf";
