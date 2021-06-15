@@ -50,7 +50,7 @@
                 <div class="layui-form-item ">
                     <label class="layui-form-label ">胸部放射检查</label>
                     <div class="layui-input-block">
-<!--                         style="  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">-->
+                        <!--                         style="  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">-->
                         <input id="Chest_test" type="text"  name="length" lay-verify="title"
                                autocomplete="off" placeholder="请输入胸部放射检查" class="layui-input WithUnit">
                     </div>
@@ -75,34 +75,25 @@
                     <div class="layui-input-block">
                         <button type="submit" class="layui-btn" lay-submit="" lay-filter="save" @click="save">保存
                         </button>
-                        <button class="layui-btn layui-btn-primary" id="btn_cancel" @click="backto">返回</button>
-                        <button class="layui-btn layui-btn-primary" id="btn_PDF" @click="getpdf">PDF</button>
+                        <button class="layui-btn layui-btn-primary" id="btn_cancel" onclick="cancel()">返回</button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
-    <!--搜索-->
-    <div class="demoTable">
-<!--        搜索ID：-->
-<!--        <div class="layui-inline">-->
-<!--            <input class="layui-input" type="number" name="id" id="demoReload" autocomplete="off">-->
-<!--        </div>-->
-<!--        <button class="layui-btn"  data-type="reload" id="searchID">搜索</button>-->
-        <table class="layui-hide" id="useruv" lay-filter="useruv" onclick="TabClick()"></table>
+</div>
+<!--搜索-->
+<div class="demoTable">
+    搜索ID：
+    <div class="layui-inline">
+        <input class="layui-input" type="number" name="id" id="demoReload" autocomplete="off">
     </div>
-    <div class="layui-form-item"  align="center">
-        <div class="layui-input-block" >
-            <button type="submit" class="layui-btn" lay-submit="" lay-filter="save" @click="save">提交</button>
-            <button class="layui-btn layui-btn-primary"  @click="backto">返回</button>
-            <button class="layui-btn layui-btn-primary" id="BTN" @click="getpdf">PDF</button>
-        </div>
-    </div>
+    <button class="layui-btn"  data-type="reload" id="searchID">搜索</button>
+    <table class="layui-hide" id="useruv" lay-filter="useruv"></table>
 </div>
 
 <!--表单规范-->
 <script>
-
     layui.use(['form', 'layedit', 'laydate'], function () {
         var form = layui.form
             , layer = layui.layer
@@ -181,8 +172,8 @@
 <script type="text/html" id="barDemo">
     <!--    class="layui-btn layui-btn-xs"-->
     <!--    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>-->
-    <a class="layui-btn layui-btn-xs" lay-event="edit">驳回</a>
-<!--    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>-->
+    <a class="layui-btn layui-btn-xs" lay-event="edit">打印学生体检信息表</a>
+    <!--    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>-->
 </script>
 <table id="demo" lay-filter="test"></table>
 
@@ -190,16 +181,9 @@
 <script src="/layui/layui.all.js"></script>
 <script src="/layui/layui.js"></script>
 <script src="/js/core.util.js"></script>
-<script type="text/html" id="xuhao">
-    {{d.LAY_TABLE_INDEX+1}}
-</script>
+
 <script>
-
     var tabledata;//表格中的数据
-    var perimeters =  window.location.search;
-    perimeters = decodeURI(perimeters.substr(1).split('&')[0]);
-    perimeters = Number(perimeters);
-
     var token = CoreUtil.getData("access_token");//header的token
     layui.use('table', function () {
         var table = layui.table;
@@ -210,36 +194,35 @@
             elem: '#useruv'
             , height: 350
             , headers: {"authorization": token}
-            , url: '/boss/getStuTestInfo?Stu_id='+perimeters //数据接口
+            , url: '/chest/getStuList' //数据接口
             // , page: true //开启分页
-            // , data:{"Stu_id":1}
+
             , cols: [
                 [ //表头
-                    // {checkbox: true, fixed: true},
-                    {field:'Table_index',title: '序号', width: 80, sort: true}
-                    // {type:'numbers'}
-                     // {field: 'Doctor_id', title: '编号', width: 80, sort: true, fixed: 'true'}
-                    , {field: 'Doctor_id', title: '医生id', width: 80, sort: true}
-                    , {field: 'Doctor_name', title: '医生姓名', width: 110, sort: true}
-                    , {field: 'Doctor_idea', title: '医师意见', width: 200, sort: true}
-                    , {field: 'Doctor_operation_time', title: '检查时间', width: 150, sort: true}
-                    , {field: 'Doctor_department', title: '科室', width: 80, sort: true}
-
-
+                    // {checkbox: true, fixed: true}
+                    {field: 'Stu_id', title: '编号', width: 80, sort: true, fixed: 'true'}
+                    , {field: 'Stu_name', title: '姓名', width: 80, sort: true}
+                    , {field: 'Stu_card', title: '身份证', width: 120, sort: true}
+                    , {field: 'Stu_college', title: '学院', width: 80, sort: true}
+                    , {field: 'Stu_major', title: '专业', width: 80, sort: true}
+                    , {field: 'Stu_class', title: '班级', width: 80, sort: true}
+                    , {field: 'Stu_num', title: '学号', width: 80, sort: true}
+                    , {field: 'Stu_sex', title: '性别', width: 80, sort: true}
+                    , {field: 'Stu_birth', title: '出生年月日', width: 135, sort: true}
                     , {
-                    field: 'Doctor_error', title: '状态', width: 80, sort: true, templet: function (item) {
-                        // if (item.Manage_all === "1") {
-                        //     return ' <button type="button" class="layui-btn layui-btn-xs layui-btn-radius layui-btn-normal">已填</button>';
-                        // }
-                        if (item.Doctor_error === "0") {
-                            return '<button type="button" class="layui-btn layui-btn-xs layui-btn-radius  layui-btn-primary">正常</button>';
+                    field: 'Stu_test', title: '状态', width: 80, sort:true,  templet: function (item) {
+                        if (item.Chest_all === "1") {
+                            return ' <button type="button" class="layui-btn layui-btn-xs layui-btn-radius layui-btn-normal">完成</button>';
                         }
-                        if (item.Doctor_error === "1") {
-                            return '<button type="button" class="layui-btn layui-btn-xs layui-btn-radius layui-btn-danger">已驳回</button>';
+                        if (item.Chest_all === "0") {
+                            return '<button type="button" class="layui-btn layui-btn-xs layui-btn-radius  layui-btn-primary">待定</button>';
+                        }
+                        if (item.Chest_all === "2") {
+                            return '<button type="button" class="layui-btn layui-btn-xs layui-btn-radius layui-btn-danger">驳回</button>';
                         }
                     }
-                 }
-                    , {field: 'right', title: '操作', width: 90, toolbar: "#barDemo"}
+                },
+                    , {field: 'right', title: '操作', width: 190, toolbar: "#barDemo"}
                 ]
             ]
             , id: 'testReload'
@@ -253,20 +236,20 @@
                 table.reload('testReload', {
 
                     where: {
-                        Doctor_id: demoReload.val()
+                        Stu_id: demoReload.val()
                     }
                 });
             }
         };
         //回车搜索
-        // var search = document.getElementById("demoReload");
-        // search.addEventListener("keyup", function(event) {
-        //     event.preventDefault();
-        //     if (event.keyCode === 13) {
-        //         console.log("hello");
-        //         document.getElementById("searchID").click();
-        //     }
-        // });
+        var search = document.getElementById("demoReload");
+        search.addEventListener("keyup", function(event) {
+            event.preventDefault();
+            if (event.keyCode === 13) {
+                console.log("hello");
+                document.getElementById("searchID").click();
+            }
+        });
 
         //监听表格复选框选择
         table.on('checkbox(useruv)', function (obj) {
@@ -276,7 +259,6 @@
         table.on('tool(useruv)', function (obj) {
             var data = obj.data;
             console.log(data);
-
             if (obj.event === 'detail') {
                 layer.msg('ID：' + data.Stu_id + ' 的查看操作');
             } else if (obj.event === 'del') {
@@ -301,7 +283,22 @@
                     });
                 });
             } else if (obj.event === 'edit') {
-                EidtUv(data, obj);
+                // EidtUv(data, obj);
+                var downloadFile = function (fileName){
+                    let url = "/PDF/getPDF";
+                    var params = new URLSearchParams();
+                    params.append("name", fileName);
+                    axios.post(url, params,
+                        {responseType: 'blob'}  //这个不能少,让response二进制形式,如果你按照网上教程不设置这个将返回值进行BLOB([])进行处理可能会出现解析错误
+                    ).then(response => {
+                        const href = URL.createObjectURL(response.data);
+                        const a = document.createElement('a');
+                        a.setAttribute('href', href);
+                        a.setAttribute('download', fileName);
+                        a.click();
+                        URL.revokeObjectURL(href);
+                    });
+                }
 
             }
         });
@@ -310,31 +307,36 @@
             var type = $(this).data('type');
             active[type] ? active[type].call(this) : '';
         });
-    //编辑功能
+        //编辑功能
         function EidtUv(data,  obj) {
-            console.log(perimeters);
-            console.log(obj);
+            // var datd = obj.data;
+            tabledata = data;
+            $(".operation_dept").show();
 
+            $(".demoTable").hide();
+
+            $("#ii").html(data.Stu_id);
+            $("#bb").html(data.Stu_name);
             $.ajax({
-                url: "/boss/rejectTest",
+                url: "/chest/getChestInfo",
                 type: "POST",
                 headers: {"authorization": token},
-                data: {"Stu_id": perimeters,"Table_index":data.Table_index},
+                data: {"Stu_id": data.Stu_id},
                 dataType: "json",
                 success: function (res) {
-                    table.reload('testReload');
-                    // if (res.code = '0') {
-                    //     // console.log("getAssayInfo:"+res.toString());
-                    //     console.log(res.msg);
-                    //     console.log(res.data);
-                    //     var Chest_test = res.data[0].Chest_test;
-                    //     var Chest_idea = res.data[0].Chest_idea;
-                    //     var Chest_doctor_id = res.data[0].Chest_doctor_id;
-                    //     $("#Chest_doctor_id").val(Chest_doctor_id);
-                    //     $("#Chest_idea").val(Chest_idea);
-                    //     $("#Chest_test").val(Chest_test);
-                    // } else
-                    //     alert(res.msg);
+
+                    if (res.code = '0') {
+                        // console.log("getAssayInfo:"+res.toString());
+                        console.log(res.msg);
+                        console.log(res.data);
+                        var Chest_test = res.data[0].Chest_test;
+                        var Chest_idea = res.data[0].Chest_idea;
+                        var Chest_doctor_id = res.data[0].Chest_doctor_id;
+                        $("#Chest_doctor_id").val(Chest_doctor_id);
+                        $("#Chest_idea").val(Chest_idea);
+                        $("#Chest_test").val(Chest_test);
+                    } else
+                        alert(res.msg);
                 },
                 error: function (data) {
 
@@ -346,7 +348,7 @@
 
     });
 
-//VUE接受表单中的组件
+    //VUE接受表单中的组件
     var app = new Vue({
         el: "#app",
         data: {
@@ -380,35 +382,6 @@
                     }
                 });
 
-            },
-            backto:function(){
-                window.location.href="/index/boss";
-
-            },
-            getpdf:function(){
-                $.ajax({
-                    url: '/PDF/getPDF',
-                    method: 'post',
-                    headers: {"authorization": token},
-                    data: {
-                        // "chestDoctorId": $("#Chest_doctor_id").val(),
-                        // "chestIdea": $("#Chest_idea").val(),
-                        // "chestTest": $("#Chest_test").val(),
-                        // "stuId": tabledata.Stu_id
-                        // "assayAll":"1",
-                        // "assayError":"0"
-                    },
-                    dataType: 'JSON',
-                    success: function (res) {
-                        if (res.code = '0') {
-                            console.log(res);
-                        } else
-                            alert(res.msg);
-                    },
-                    error: function (data) {
-
-                    }
-                });
             }
 
 

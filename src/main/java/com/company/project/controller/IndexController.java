@@ -76,6 +76,11 @@ public class IndexController {
         return "manage/manage_list2" ;
     }
 
+    @GetMapping("/pdf")
+    public String pdfList2() {
+        return "pdf/pdf_list" ;
+    }
+
     @GetMapping("/boss")
     public String bossList() {
         return "boss/boss_list" ;

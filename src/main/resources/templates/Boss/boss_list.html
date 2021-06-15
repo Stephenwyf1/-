@@ -304,12 +304,7 @@
         function EidtUv(data,  obj) {
             // var datd = obj.data;
             tabledata = data;
-            $(".operation_dept").show();
 
-            $(".demoTable").hide();
-
-            $("#ii").html(data.Stu_id);
-            $("#bb").html(data.Stu_name);
             $.ajax({
                 url: "/boss/getBossInfo",
                 type: "POST",
@@ -318,19 +313,26 @@
                 dataType: "json",
                 success: function (res) {
 
-                    if (res.code = '0') {
-                        // console.log("getAssayInfo:"+res.toString());
-                        console.log(res.msg);
-                        console.log(res.data);
+                    if (res.code == '0') {
+                        $(".operation_dept").show();
+
+                        $(".demoTable").hide();
+
+                        $("#ii").html(data.Stu_id);
+                        $("#bb").html(data.Stu_name);
                         var Boss_conclusion = res.data[0].Boss_conclusion;
-                        // var Chest_idea = res.data[0].Chest_idea;
+                        // var Boss_idea = res.data[0].Chest_idea;
                         var Boss_doctor_id = res.data[0].Boss_doctor_id;
-                        // var Manage_operation_time = res.data[0].Doctor_operation_time;
-                        $("#Boss_conclusion").val(Boss_conclusion);
-                        // $("#Chest_idea").val(Chest_idea);
                         $("#Boss_doctor_id").val(Boss_doctor_id);
-                    } else
-                        alert(res.msg);
+                        $("#Boss_conclusion").val(Boss_conclusion);
+                        // $("#Chest_test").val(Chest_test);
+                    } else if(res.code = '-1') {
+
+                        layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF');
+                        layer.msg('存在已驳回状态的表单');
+                        // alert(res.msg);
+                        }
+
                 },
                 error: function (data) {
 
