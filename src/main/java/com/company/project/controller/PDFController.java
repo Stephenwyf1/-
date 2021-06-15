@@ -42,33 +42,32 @@ public class PDFController {
             System.out.println("--------------------JSON--------------------\n"+ResultJSON);
             JSONUtil.JSONToResponse(response, ResultJSON);
         }
+
         String sql;
-        String[] TablesName = {"Student", "Eye", "EBH", "Tooth", "Surgery", "Blood", "Internal", "Assay",
-                "Chest", "Other", "Manage", "Boss"};
+        String[] TablesName = {"Student", "Eye", "EBH", "Tooth", "Surgery", "Blood", "Internal", "Assay", "Chest", "Other", "Manage", "Boss"};
         Map<String, Object> EntitiesMap = new HashMap<>();
-        for(int i=0;i<TablesName.length;++i)
-        {
-            sql = "select * from "+TablesName[i]+" where Stu_id = "+Stu_id;
+        for (String TableName : TablesName) {
+            sql = "select * from " + TableName + " where Stu_id = " + Stu_id;
             EntitiesMap.putAll(jdbcTemplate.queryForMap(sql));
         }
 
         PDFHelper.fillPDFTemplate(PDFHelper.preProcess(EntitiesMap), OutputPath);
+        response.reset();
         FileToWeb(response, "/PDF/Output.pdf", "Output.pdf");
-
+        System.out.println("--------------------response--------------------\n"+response.getOutputStream().toString());
     }
 
     private void FileToWeb(HttpServletResponse response, String path, String fileName) throws IOException {
-        /** 将文件名称进行编码 */
         response.setHeader("content-disposition", "attachment;filename=" + URLEncoder.encode(fileName, "UTF-8"));
         response.setContentType("application/pdf; charset=utf-8");
-        /** 读取服务器端模板文件 */
         InputStream inputStream = this.getClass().getResourceAsStream(path);
 
-        /** 将流中内容写出去 */
         OutputStream outputStream = response.getOutputStream();
         byte[] buffer = new byte[1024];
         int len;
-        while ((len = inputStream.read(buffer)) != -1) {
+        while (true) {
+            assert inputStream != null;
+            if ((len = inputStream.read(buffer)) == -1) break;
             outputStream.write(buffer, 0, len);
         }
         inputStream.close();
