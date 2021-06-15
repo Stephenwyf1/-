@@ -71,15 +71,21 @@ public class BossController {
     }
 
     @RequestMapping("/insertBossInfo")
-    public void insertManageInfo(HttpServletResponse response, BossEntity bossEntity) throws JSONException{
+    public void insertBossInfo(HttpServletResponse response, BossEntity bossEntity) throws JSONException{
         System.out.println("--------------------In insertManageInfo Controller--------------------");
+        int code = 0;
+        String message = "ok";
 
         bossEntity.setBossAll("1");
         bossEntity.setBossError("0");
         bossEntity.setBossOperationTime(LocalDateTime.now());
-        iBossService.insertStuBossInfo(bossEntity);
+        if(!iBossService.insertStuBossInfo(bossEntity))
+        {
+            code = -1;
+            message = "存在处于驳回状态的表单";
+        }
 
-        JSONObject jsonObject = JSONUtil.CreateJSON(0,"ok",0,null);
+        JSONObject jsonObject = JSONUtil.CreateJSON(code,message,0,null);
 
         System.out.println("--------------------JSON--------------------\n"+jsonObject);
 

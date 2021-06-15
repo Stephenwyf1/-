@@ -23,7 +23,7 @@ public interface IBossService extends IService<BossEntity> {
     List<Map<String, Object>> getStuBossInfo(int Stu_id);
 
     //插入学生的Boss信息(如果存在则更新)
-    void insertStuBossInfo(BossEntity bossEntity);
+    boolean insertStuBossInfo(BossEntity bossEntity);
 
     void rejectTestReport(int Stu_id, int Table_index);
 

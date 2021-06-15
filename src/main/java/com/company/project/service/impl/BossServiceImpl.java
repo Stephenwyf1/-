@@ -80,7 +80,19 @@ public class BossServiceImpl extends ServiceImpl<BossMapper, BossEntity> impleme
     }
 
     @Override
-    public void insertStuBossInfo(BossEntity bossEntity) {
+    public boolean insertStuBossInfo(BossEntity bossEntity) {
+        String sql;
+        String[] TablesName = {"Eye", "EBH", "Tooth", "Surgery", "Blood", "Internal", "Assay",
+                "Chest", "Other", "Manage"};
+        for(int i=0;i<TablesName.length;++i)
+        {
+            sql = "select "+TablesName[i]+"_error"+" from "+TablesName[i]+" where Stu_id = "+bossEntity.getStuId();
+            if(jdbcTemplate.queryForObject(sql, String.class).equals("1"))
+            {
+                return false;
+            }
+        }
+
         if( bossMapper.selectById(bossEntity.getStuId()) == null )
         {
             bossMapper.insert(bossEntity);
@@ -89,6 +101,10 @@ public class BossServiceImpl extends ServiceImpl<BossMapper, BossEntity> impleme
         {
             bossMapper.updateById(bossEntity);
         }
+        // 体检报告全部填写完毕
+        jdbcTemplate.execute("UPDATE Student SET Stu_test_all = '1' WHERE Stu_id = "+bossEntity.getStuId());
+
+        return true;
     }
 
     @Override
