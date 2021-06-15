@@ -20,7 +20,7 @@ public class PDFHelper {
     public static void fillPDFTemplate(Map<String, Object> EntitiesMap, String OutputPath) {
         System.out.println("Map:"+EntitiesMap);
         // 模板路径
-        String templatePath = "D:\\softwave engineer\\中软实训\\project\\test-manager\\src\\main\\resources\\PDF\\template.pdf";
+        String templatePath = "PDF/template.pdf";
         // 生成的新文件路径
 //        String OutputPath = "D:\\Program Files (x86)\\Project\\WebProject\\zwens-springboot-manager-simple\\springboot-manager\\src\\main\\resources\\PDF\\abc.pdf";
         PdfReader reader;

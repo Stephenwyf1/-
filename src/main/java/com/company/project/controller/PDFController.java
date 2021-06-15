@@ -14,6 +14,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URLEncoder;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -31,10 +32,36 @@ public class PDFController {
     @Resource
     private JdbcTemplate jdbcTemplate;
 
+    @RequestMapping("/getStuList")
+    public void getList(HttpServletResponse response, @RequestParam(name = "Stu_id", required = false, defaultValue = "-1") int Stu_id) throws JSONException{
+        System.out.println("--------------------In getStuList Controller--------------------");
+
+        String sql;
+        if(Stu_id == -1)
+        {
+            sql = "SELECT Student.*"
+                    +"FROM Student "
+                    +"WHERE Stu_test_all = '1'";
+        }
+        else
+        {
+            sql = "SELECT Student.*"
+                    +"FROM Student "
+                    +"WHERE Stu_id = "+Stu_id+" AND "+"Stu_test_all = '1'";
+        }
+
+        List<Map<String, Object>> DataList = jdbcTemplate.queryForList(sql);
+        JSONObject ResultJSON = JSONUtil.CreateJSON(0,"ok",DataList.size(),DataList);
+
+        System.out.println("--------------------JSON--------------------\n"+ResultJSON);
+
+        JSONUtil.JSONToResponse(response, ResultJSON);
+    }
+
     @RequestMapping(value = "/getPDF")
     public void getPDF(HttpServletResponse response, @RequestParam(name = "Stu_id") int Stu_id) throws JSONException, IOException {
         System.out.println("--------------------In getPDF Controller--------------------");
-        String OutputPath = "D:\\softwave engineer\\中软实训\\project\\test-manager\\src\\main\\resources\\PDF\\Output.pdf";
+        String OutputPath = "PDF/Output.pdf";
 
         if(jdbcTemplate.queryForObject("select Stu_test_all from Student where Stu_id = "+Stu_id,String.class).equals("0"))
         {
