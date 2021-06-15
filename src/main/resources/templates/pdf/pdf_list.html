@@ -172,7 +172,7 @@
 <script type="text/html" id="barDemo">
     <!--    class="layui-btn layui-btn-xs"-->
     <!--    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>-->
-    <a class="layui-btn layui-btn-xs" lay-event="edit">打印学生体检信息表</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit" >打印学生体检信息表</a>
     <!--    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>-->
 </script>
 <table id="demo" lay-filter="test"></table>
@@ -181,7 +181,12 @@
 <script src="/layui/layui.all.js"></script>
 <script src="/layui/layui.js"></script>
 <script src="/js/core.util.js"></script>
+<script>
 
+    // request();
+
+
+</script>
 <script>
     var tabledata;//表格中的数据
     var token = CoreUtil.getData("access_token");//header的token
@@ -210,7 +215,7 @@
                     , {field: 'Stu_sex', title: '性别', width: 80, sort: true}
                     , {field: 'Stu_birth', title: '出生年月日', width: 135, sort: true}
                     , {
-                    field: 'Stu_test', title: '状态', width: 80, sort:true,  templet: function (item) {
+                    field: 'Stu_test_all', title: '状态', width: 80, sort:true,  templet: function (item) {
                         if (item.Chest_all === "1") {
                             return ' <button type="button" class="layui-btn layui-btn-xs layui-btn-radius layui-btn-normal">完成</button>';
                         }
@@ -250,6 +255,34 @@
                 document.getElementById("searchID").click();
             }
         });
+        //接收文件
+        function request () {
+            console.log(tabledata);
+            const req = new XMLHttpRequest();
+            req.open('GET', '/PDF/getPDF?Stu_id='+tabledata.Stu_id, true);
+            req.responseType = 'blob';
+            // req.setRequestHeader('Content-Type', 'application/json');
+            req.setRequestHeader('authorization', token);
+            req.onload = function() {
+                const data = req.response;
+                const a = document.createElement('a');
+                const blob = new Blob([data]);
+                const blobUrl = window.URL.createObjectURL(blob);
+                download(blobUrl) ;
+            };
+            var message ='{"Stu_id":'+tabledata.Stu_id+"}";
+            req.send(message);
+
+        };
+
+        function download(blobUrl) {
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.download = tabledata.Stu_num+"_"+tabledata.Stu_name+'.pdf';
+            a.href = blobUrl;
+            a.click();
+            // document.body.removeChild(a);
+        }
 
         //监听表格复选框选择
         table.on('checkbox(useruv)', function (obj) {
@@ -283,23 +316,27 @@
                     });
                 });
             } else if (obj.event === 'edit') {
-                // EidtUv(data, obj);
-                var downloadFile = function (fileName){
-                    let url = "/PDF/getPDF";
-                    var params = new URLSearchParams();
-                    params.append("name", fileName);
-                    axios.post(url, params,
-                        {responseType: 'blob'}  //这个不能少,让response二进制形式,如果你按照网上教程不设置这个将返回值进行BLOB([])进行处理可能会出现解析错误
-                    ).then(response => {
-                        const href = URL.createObjectURL(response.data);
-                        const a = document.createElement('a');
-                        a.setAttribute('href', href);
-                        a.setAttribute('download', fileName);
-                        a.click();
-                        URL.revokeObjectURL(href);
-                    });
-                }
+                console.log("edit");
+                tabledata = data;
 
+                request();
+                // EidtUv(data, obj);
+                // var downloadFile = function (fileName){
+                //     let url = "/PDF/getPDF";
+                //     var params = new URLSearchParams();
+                //     params.append("name", fileName);
+                //     axios.post(url, params,
+                //         {responseType: 'blob'}  //这个不能少,让response二进制形式,如果你按照网上教程不设置这个将返回值进行BLOB([])进行处理可能会出现解析错误
+                //     ).then(response => {
+                //         const href = URL.createObjectURL(response.data);
+                //         const a = document.createElement('a');
+                //         a.setAttribute('href', href);
+                //         a.setAttribute('download', fileName);
+                //         a.click();
+                //         URL.revokeObjectURL(href);
+                //     });
+                // }
+                // <a href="/PDF/getPDF?Stu_id=1"></a>
             }
         });
 

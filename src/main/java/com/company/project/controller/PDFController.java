@@ -31,10 +31,10 @@ public class PDFController {
     @Resource
     private JdbcTemplate jdbcTemplate;
 
-    @RequestMapping(value = "/getPDF", method = RequestMethod.POST)
+    @RequestMapping(value = "/getPDF")
     public void getPDF(HttpServletResponse response, @RequestParam(name = "Stu_id") int Stu_id) throws JSONException, IOException {
         System.out.println("--------------------In getPDF Controller--------------------");
-        String OutputPath = "D:\\Program Files (x86)\\Project\\WebProject\\zwens-springboot-manager-simple\\springboot-manager\\src\\main\\resources\\PDF\\Output.pdf";
+        String OutputPath = "D:\\softwave engineer\\中软实训\\project\\test-manager\\src\\main\\resources\\PDF\\Output.pdf";
 
         if(jdbcTemplate.queryForObject("select Stu_test_all from Student where Stu_id = "+Stu_id,String.class).equals("0"))
         {
