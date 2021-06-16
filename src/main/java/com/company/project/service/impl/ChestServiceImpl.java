@@ -48,7 +48,7 @@ public class ChestServiceImpl extends ServiceImpl<ChestMapper, ChestEntity> impl
         if(Stu_id == -1)
         {
             sql = "select Student.*, (case when Chest_error is NULL then '0' "
-                    +"when Chest_error = '1' then '0' "
+                    +"when Chest_error = '1' then '2' "
                     +"else '1' end)Chest_all "
                     +"from Student left join Chest "
                     +"on Student.Stu_id = Chest.Stu_id;";
@@ -56,7 +56,7 @@ public class ChestServiceImpl extends ServiceImpl<ChestMapper, ChestEntity> impl
         else
         {
             sql = "select s.*, (case when Chest_error is NULL then '0' "
-                    +"when Chest_error = '1' then '0' "
+                    +"when Chest_error = '1' then '2' "
                     +"else '1' end)Chest_all "
                     +"from (select * from Student where Stu_id = "+Stu_id+") as s "
                     +"left join Chest "

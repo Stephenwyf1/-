@@ -13,40 +13,39 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Map;
 
 public class PDFHelper {
 
-    public static void fillPDFTemplate(Map<String, Object> EntitiesMap, String OutputPath) {
+    public static void fillPDFTemplate(Map<String, Object> EntitiesMap, String OutputPath) throws DocumentException, IOException {
         System.out.println("Map:"+EntitiesMap);
         // 模板路径
-        String templatePath = "PDF/template.pdf";
-        // 生成的新文件路径
-//        String OutputPath = "D:\\Program Files (x86)\\Project\\WebProject\\zwens-springboot-manager-simple\\springboot-manager\\src\\main\\resources\\PDF\\abc.pdf";
+        String templatePath = "D:\\Program Files (x86)\\Project\\WebProject\\zwens-springboot-manager-simple\\springboot-manager\\src\\main\\resources\\PDF\\template.pdf";
+
         PdfReader reader;
         FileOutputStream out;
         ByteArrayOutputStream bos;
         PdfStamper stamper;
+
+        BaseFont bfChinese = BaseFont.createFont("c://windows//fonts//simkai.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+
+        ArrayList<BaseFont> fontList = new ArrayList<BaseFont>();
+        fontList.add(bfChinese);
+
         try {
             out = new FileOutputStream(OutputPath);// 输出流
             reader = new PdfReader(templatePath);// 读取pdf模板
             bos = new ByteArrayOutputStream();
             stamper = new PdfStamper(reader, bos);
             AcroFields form = stamper.getAcroFields();
-            String[] str = {"123456789", "TOP__ONE", "男", "1991-01-01", "130222111133338888", "河北省保定市"};
-            int i = 0;
+            form.setSubstitutionFonts(fontList);
             java.util.Iterator<String> it = form.getFields().keySet().iterator();
             while (it.hasNext()) {
                 String name = it.next();
-                System.out.println(name);
-                if(name == null)
-                {
-                    break;
-                }
-                if(EntitiesMap.get(name) == null)
-                {
-                    continue;
-                }
+                if(name == null) break;
+                if(EntitiesMap.get(name) == null) continue;
+                System.out.println("Field: "+name);
                 form.setField(name, EntitiesMap.get(name).toString());
             }
             stamper.setFormFlattening(true);// 如果为false那么生成的PDF文件还能编辑，一定要设为true
@@ -55,14 +54,15 @@ public class PDFHelper {
             PdfCopy copy = new PdfCopy(doc, out);
             doc.open();
             PdfImportedPage importPage1 = copy.getImportedPage(new PdfReader(bos.toByteArray()), 1);
-            PdfImportedPage importPage2 = copy.getImportedPage(new PdfReader(bos.toByteArray()), 2);
             copy.addPage(importPage1);
+
+            PdfImportedPage importPage2 = copy.getImportedPage(new PdfReader(bos.toByteArray()), 2);
             copy.addPage(importPage2);
             doc.close();
         } catch (IOException e) {
-            System.out.println(1);
+            System.out.println("------IOException------\n"+e.getMessage());
         } catch (DocumentException e) {
-            System.out.println(2);
+            System.out.println("------DocumentException------\n"+e.getMessage());
         }
     }
 

@@ -2,6 +2,7 @@ package com.company.project.controller;
 
 import com.company.project.common.utils.JSONUtil;
 import com.company.project.common.utils.PDFHelper;
+import com.itextpdf.text.DocumentException;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -38,17 +39,9 @@ public class PDFController {
 
         String sql;
         if(Stu_id == -1)
-        {
-            sql = "SELECT Student.*"
-                    +"FROM Student "
-                    +"WHERE Stu_test_all = '1'";
-        }
+            sql = "SELECT Student.* FROM Student WHERE Stu_test_all = '1'";
         else
-        {
-            sql = "SELECT Student.*"
-                    +"FROM Student "
-                    +"WHERE Stu_id = "+Stu_id+" AND "+"Stu_test_all = '1'";
-        }
+            sql = "SELECT Student.* FROM Student WHERE Stu_id = "+Stu_id+" AND Stu_test_all = '1'";
 
         List<Map<String, Object>> DataList = jdbcTemplate.queryForList(sql);
         JSONObject ResultJSON = JSONUtil.CreateJSON(0,"ok",DataList.size(),DataList);
@@ -59,9 +52,9 @@ public class PDFController {
     }
 
     @RequestMapping(value = "/getPDF")
-    public void getPDF(HttpServletResponse response, @RequestParam(name = "Stu_id") int Stu_id) throws JSONException, IOException {
+    public void getPDF(HttpServletResponse response, @RequestParam(name = "Stu_id") int Stu_id) throws JSONException, IOException, DocumentException {
         System.out.println("--------------------In getPDF Controller--------------------");
-        String OutputPath = "PDF/Output.pdf";
+        String OutputPath = "D:\\Program Files (x86)\\Project\\WebProject\\zwens-springboot-manager-simple\\springboot-manager\\src\\main\\resources\\PDF\\Output.pdf";
 
         if(jdbcTemplate.queryForObject("select Stu_test_all from Student where Stu_id = "+Stu_id,String.class).equals("0"))
         {
@@ -81,7 +74,6 @@ public class PDFController {
         PDFHelper.fillPDFTemplate(PDFHelper.preProcess(EntitiesMap), OutputPath);
         response.reset();
         FileToWeb(response, "/PDF/Output.pdf", "Output.pdf");
-        System.out.println("--------------------response--------------------\n"+response.getOutputStream().toString());
     }
 
     private void FileToWeb(HttpServletResponse response, String path, String fileName) throws IOException {

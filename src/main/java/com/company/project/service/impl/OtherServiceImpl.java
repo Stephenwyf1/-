@@ -48,7 +48,7 @@ public class OtherServiceImpl extends ServiceImpl<OtherMapper, OtherEntity> impl
         if(Stu_id == -1)
         {
             sql = "select Student.*, (case when Other_error is NULL then '0' "
-                    +"when Other_error = '1' then '0' "
+                    +"when Other_error = '1' then '2' "
                     +"else '1' end)Other_all "
                     +"from Student left join Other "
                     +"on Student.Stu_id = Other.Stu_id;";
@@ -56,7 +56,7 @@ public class OtherServiceImpl extends ServiceImpl<OtherMapper, OtherEntity> impl
         else
         {
             sql = "select s.*, (case when Other_error is NULL then '0' "
-                    +"when Other_error = '1' then '0' "
+                    +"when Other_error = '1' then '2' "
                     +"else '1' end)Other_all "
                     +"from (select * from Student where Stu_id = "+Stu_id+") as s "
                     +"left join Other "

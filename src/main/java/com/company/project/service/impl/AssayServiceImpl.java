@@ -46,7 +46,7 @@ public class AssayServiceImpl extends ServiceImpl<AssayMapper, AssayEntity> impl
         if(Stu_id == -1)
         {
             sql = "select Student.*, (case when Assay_error is NULL then '0' "
-                                         +"when Assay_error = '1' then '0' "
+                                         +"when Assay_error = '1' then '2' "
                                          +"else '1' end)Assay_all "
                     +"from Student left join Assay "
                     +"on Student.Stu_id = Assay.Stu_id;";
@@ -54,7 +54,7 @@ public class AssayServiceImpl extends ServiceImpl<AssayMapper, AssayEntity> impl
         else
         {
             sql = "select s.*, (case when Assay_error is NULL then '0' "
-                                         +"when Assay_error = '1' then '0' "
+                                         +"when Assay_error = '1' then '2' "
                                          +"else '1' end)Assay_all "
                     +"from (select * from Student where Stu_id = "+Stu_id+") as s "
                     +"left join Assay "
