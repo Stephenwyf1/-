@@ -169,4 +169,17 @@ public class IndexController {
     public String sysFiles() {
         return "sysfiles/list";
     }
+    /*********************************chexing*******************************************/
+    @GetMapping("/surgery")
+    public String surgery() { return "surgery/surgery_list"; }
+    @GetMapping("/tooth")
+    public String tooth() { return "tooth/tooth_list"; }
+    @GetMapping("/ebh")
+    public String ebh() { return "ebh/ebh_list"; }
+    @GetMapping("/blood")
+    public String blood() { return "blood/blood_list"; }
+    @GetMapping("/eye")
+    public String eye() { return "eye/eye_list"; }
+    @GetMapping("/internal")
+    public String internal() { return "internal/internal_list"; }
 }
