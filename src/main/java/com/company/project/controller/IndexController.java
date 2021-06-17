@@ -135,7 +135,7 @@ public class IndexController {
     @GetMapping("/surgery")
     @RequiresPermissions("sys:form:surgery")
     public String Surgery() {
-        return "/surgery";
+        return "/surgery/surgery_list";
     }
 
     @GetMapping("/students")
@@ -147,7 +147,7 @@ public class IndexController {
     @GetMapping("/internal")
     @RequiresPermissions("sys:form:internal")
     public String internal() {
-        return "/internal";
+        return "/internal/internal_list";
     }
 
     @GetMapping("/assay")
@@ -159,25 +159,25 @@ public class IndexController {
     @GetMapping("/eye")
     @RequiresPermissions("sys:form:eye")
     public String eye() {
-        return "/eye";
+        return "/eye/eye_list";
     }
 
     @GetMapping("/tooth")
     @RequiresPermissions("sys:form:tooth")
     public String tooth() {
-        return "/tooth";
+        return "/tooth/tooth_list";
     }
 
-    @GetMapping("/EBH")
+    @GetMapping("/ebh")
     @RequiresPermissions("sys:form:EBH")
     public String EBH() {
-        return "/EBH";
+        return "/ebh/ebh_list";
     }
 
     @GetMapping("/blood")
     @RequiresPermissions("sys:form:blood")
     public String blood() {
-        return "/blood";
+        return "/blood/blood_list";
     }
 
     @GetMapping("/other")
