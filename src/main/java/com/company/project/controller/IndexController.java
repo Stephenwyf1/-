@@ -57,6 +57,37 @@ public class IndexController {
         return "roles/role_list";
     }
 
+    @GetMapping("/chest")
+    public String chestList() {
+        return "chest/chest_list";
+    }
+
+
+    @GetMapping("/other")
+    public String otherList() {
+        return "other/other_list";
+    }
+
+    @GetMapping("/manage")
+    public String manageList() {
+        return "manage/manage_list";
+    }
+
+    @GetMapping("/manage2")
+    public String manageList2() {
+        return "manage/manage_list2";
+    }
+
+    @GetMapping("/boss")
+    public String bossList() {
+        return "boss/boss_list";
+    }
+
+    @GetMapping("/boss2")
+    public String bossList2() {
+        return "boss/boss_list2";
+    }
+
     @GetMapping("/users")
     public String userList() {
         return "users/user_list";
