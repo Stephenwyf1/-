@@ -71,7 +71,7 @@ public class UserAccountServiceImpl extends ServiceImpl<UserAccountMapper, UserA
         if (null == sysUser) {
             throw new BusinessException(BaseResponseCode.NOT_ACCOUNT);
         }
-        if (sysUser.getStatus() == false) {
+        if (sysUser.getStatus() == 2) {
             throw new BusinessException(BaseResponseCode.USER_LOCK);
         }
         if (!PasswordUtils.matches(sysUser.getSalt(), vo.getPassword(), sysUser.getPassword())) {
@@ -123,8 +123,8 @@ public class UserAccountServiceImpl extends ServiceImpl<UserAccountMapper, UserA
         } else {
             vo.setPassword(null);
         }
-        //vo.setUpdateId(httpSessionService.getCurrentUserId());
-        //sysUserMapper.updateById(vo);
+//        vo.setUserId(httpSessionService.getCurrentUserId());
+        accountMapper.updateById(vo);
 
     }
 

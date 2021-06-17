@@ -27,7 +27,7 @@ public class EbhEntity implements Serializable {
      * 检查的医生ID
      */
     @TableField("EBH_doctor_id")
-    private String ebhDoctorId;
+    private int ebhDoctorId;
 
     /**
      * 体检信息提交时间

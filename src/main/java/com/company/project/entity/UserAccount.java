@@ -58,7 +58,7 @@ public class UserAccount extends BaseEntity implements Serializable {
     private Date createTime;
 
     @TableField("status")
-    private Boolean status;
+    private Integer status;
 
     @TableField("sex")
     private Integer sex;

@@ -90,6 +90,9 @@ public class ManageServiceImpl extends ServiceImpl<ManageMapper, ManageEntity> i
     public List<Map<String, Object>> getStuManageInfo(int Stu_id) {
         LambdaQueryWrapper<ManageEntity> ManageQueryWrapper = Wrappers.lambdaQuery();
         ManageQueryWrapper.eq(ManageEntity::getStuId, Stu_id);
+
+
+
         return manageMapper.selectMaps(ManageQueryWrapper);
     }
 

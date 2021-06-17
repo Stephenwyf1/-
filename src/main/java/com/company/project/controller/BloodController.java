@@ -72,7 +72,7 @@ public class BloodController {
         System.out.println("BeforeBloodEntity:"+bloodEntity);
 //        Gson gson = new Gson();
 //        DataList = gson.fromJson(DataListStr,new TypeToken<List<Map<String, Object>>>(){}.getType());
-        bloodEntity.setBloodDoctorId(request.getParameter("Blood_doctor_id"));
+        bloodEntity.setBloodDoctorId(Integer.parseInt(request.getParameter("Blood_doctor_id")));
         bloodEntity.setBloodOperationTime( LocalDateTime.now() );
         bloodEntity.setBloodPressure( request.getParameter("Blood_pressure") );
         bloodEntity.setBloodPulse( request.getParameter("Blood_pulse") );

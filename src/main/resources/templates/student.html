@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="/css/custom.form.css">
+    <style>
+        .custom-tree-item-clicked{color:#FC9003}
+    </style>
+</head>
+<body>
+<div class="panel panel-default operation_user" hidden>
+    <div class="panel-heading title"></div>
+    <div class="layui-card-body">
+        <form class="layui-form " action="" lay-filter="deptInfo" style="width: 700px;margin-top: 10px">
+            <div class="layui-form-item" id="ID">
+                <label class="layui-form-label">ID</label>
+                <div class="layui-input-block">
+                    <input type="stuId" name="stuId" autocomplete="off" class="layui-input" disabled="disabled">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">学生姓名</label>
+                <div class="layui-input-block">
+                    <input type="stuName" name="stuName" placeholder="请输入学生姓名" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-form-label ">身份证号</div>
+                <div class="layui-input-block">
+                    <input type="stuCard" name="stuCard" placeholder="请输入身份证号" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-form-label ">学院</div>
+                <div class="layui-input-block">
+                    <input type="stuCollege" name="stuCollege" placeholder="请输入学院" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-form-label ">性别</div>
+                <div class="layui-input-block">
+                    <input type="stuSex" name="stuSex" placeholder="请输入性别" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-form-label ">专业</div>
+                <div class="layui-input-block">
+                    <input type="stuMajor" name="stuMajor" placeholder="请输入专业" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">班级</label>
+                <div class="layui-input-block">
+                    <input type="stuClass" name="stuClass" placeholder="请输入班级" autocomplete="off" class="layui-input">                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">出生年月</label>
+                <div class="layui-input-block">
+                    <input type="stuBirth" name="stuBirth" placeholder="请输入出生年月" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">学号</label>
+                <div class="layui-input-block">
+                    <input type="stuNum" name="stuNum" placeholder="请输入学号" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">年龄</label>
+                <div class="layui-input-block">
+                    <input type="stuAge" name="stuAge" placeholder="请输入年龄" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">教育经历</label>
+                <div class="layui-input-block">
+                    <input type="stuEducation" name="stuEducation" placeholder="请输入教育经历" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">民族</label>
+                <div class="layui-input-block">
+                    <input type="stuNation" name="stuNation" placeholder="请输入民族" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">职业</label>
+                <div class="layui-input-block">
+                    <input type="stuProfession" name="stuProfession" placeholder="请输入职业" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">籍贯</label>
+                <div class="layui-input-block">
+                    <input type="stuNative" name="stuNative" placeholder="请输入籍贯" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">位置</label>
+                <div class="layui-input-block">
+                    <input type="stuLocation" name="stuLocation" placeholder="请输入位置" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">毕业工作</label>
+                <div class="layui-input-block">
+                    <input type="stuGraduateJob" name="stuGraduateJob" placeholder="请输入毕业工作" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">既往病史</label>
+                <div class="layui-input-block">
+                    <input type="stuAnamnesis" name="stuAnamnesis" placeholder="请输入既往病史" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button type="submit" class="layui-btn" lay-submit="" lay-filter="submit">保存</button>
+                    <button class="layui-btn layui-btn-primary" id="btn_cancel">返回</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- 左树 -->
+<div class="layui-fluid">
+    <div class="user_table_div">
+        <div id="searchParam" shiro:hasPermission="sys:stu:detail">
+            <div class="layui-form-item">
+<!--                <div class="layui-input-inline">-->
+<!--                    <input type="text" id="stuId" class="layui-input" autocomplete="off" placeholder="请输入Id">-->
+<!--                </div>-->
+                <div class="layui-input-inline">
+                    <input type="text" id="stuName" class="layui-input" autocomplete="off" placeholder="用户名">
+                </div>
+<!--                <div class="layui-input-inline">-->
+<!--                    <input type="text" readonly class="layui-input" id="createTime" placeholder="创建时间">-->
+<!--                </div>-->
+                <div class="layui-input-inline ">
+                    <button class="layui-btn" onclick="search()" id="search">查询</button>
+                </div>
+            </div>
+
+        </div>
+        <table class="layui-hide" id="user_table" lay-filter="user_table"></table>
+    </div>
+
+</div>
+<!--    </div>-->
+<!--</div>-->
+
+<div id="roles" class="demo-transfer" style="display: none"></div>
+</body>
+<script type="text/html" id="toolbar">
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm" lay-event="addByImport" shiro:hasPermission="sys:stu:detail">导入学生</button>
+        <button class="layui-btn layui-btn-sm" lay-event="addNewUser" shiro:hasPermission="sys:stu:detail">添加</button>
+        <button class="layui-btn layui-btn-sm" lay-event="batchDeleted" shiro:hasPermission="sys:stu:detail">删除</button>
+        <input type="file" id="btn_file" accept=".xlsx" style="display: none">
+    </div>
+</script>
+<script type="text/html" id="tool">
+    <a class="layui-btn layui-btn-xs" lay-event="edit" shiro:hasPermission="sys:stu:detail">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" shiro:hasPermission="sys:stu:detail">删除</a>
+</script>
+<script src="/layui/layui.all.js"></script>
+<script src="/js/sheetJson.js"></script>
+<script src="/js/core.util.js"></script>
+<script>
+    //获取token
+    var token = CoreUtil.getData("access_token");
+    //地址栏转义token中的#号
+    var tokenQuery = token.replace("#", "%23");
+    var tableIns1;
+    var table = layui.table;
+    var form = layui.form;
+    var layer = layui.layer;
+    var $ = jQuery = layui.jquery;
+    var laydate = layui.laydate;
+    var tree = layui.tree;
+    var transfer = layui.transfer;
+    var deptNo = null;
+    var startTime = null;
+    var endTime = null;
+    layui.use(['table', 'layer', 'laydate', 'transfer'], function () {
+
+        tableIns1 = table.render({
+            elem: '#user_table'
+            , contentType: 'application/json'
+            , headers: {"authorization": token}
+            , page: true //开启分页
+            , url: '/index/studentPage' //数据接口
+            , method: 'POST'
+            , parseData: function (res) { //将原始数据解析成 table 组件所规定的数据
+                return {
+                    "code": res.code, //解析接口状态
+                    "msg": res.msg, //解析提示文本
+                    "count": CoreUtil.isEmpty(res.data) ? 0 : res.data.total, //解析数据长度
+                    "data": CoreUtil.isEmpty(res.data) ? null : res.data.records //解析数据列表
+                }
+            }
+            ,cols: [
+            [
+                {type: 'checkbox', fixed: 'left'}
+                ,{field:'stuId', title:'ID', width:80}
+                ,{field:'stuName', title:'用户名', width:120}
+                ,{field:'stuCard', title:'身份证号', width:150}
+                ,{field:'stuSex', title:'性别', width:80, sort: true}
+                ,{field:'stuMajor', title:'专业', width:100, sort: true, totalRow: true}
+                ,{field:'stuClass', title:'班级'}
+                ,{field:'stuBirth', title:'出生年月', width:100}
+                ,{fixed: 'right', title:'操作', toolbar: '#tool', width:150}
+            ]
+        ]
+            , toolbar: '#toolbar'
+        });
+        laydate.render({
+            elem: '#createTime'
+            , type: 'datetime'
+            , range: '~'
+            , done: function (value, date, endDate) {
+                if (value != null && value != undefined && value != "") {
+                    startTime = value.split("~")[0];
+                    endTime = value.split("~")[1];
+                } else {
+                    startTime = null;
+                    endTime = null;
+                }
+
+            }
+        });
+
+        table.on('toolbar(user_table)', function (obj) {
+            var checkStatus = table.checkStatus(obj.config.id);
+            switch (obj.event) {
+                case 'batchDeleted':
+                    var checkStatus = table.checkStatus(obj.config.id);
+                    var data = checkStatus.data;
+                    if (data.length == 0) {
+                        layer.msg("请选择要批量删除的用户");
+                    } else {
+                        var userIds = [];
+                        $(data).each(function (index, item) {
+                            userIds.push(item.stuId);
+                        });
+                        tipDialog(userIds, "选中的");
+                    }
+                    break;
+                case 'addNewUser':
+                    $(".title").html("新增用户");
+                    $(".user_table_div").hide();
+                    $(".operation_user").show();
+                    $(".operation_user input[name=stuId]").val("");
+                    $(".operation_user input[name=stuId]").hide()
+                    $("#ID").hide()
+                    // $(".operation_user input[name=stuId]").removeAttr("disabled")
+                    $(".operation_user input[name=stuCard]").val("");
+                    $(".operation_user input[name=stuName]").val("");
+                    $(".operation_user input[name=stuCollege]").val("");
+                    $(".operation_user input[name=stuSex]").val("");
+                    $(".operation_user input[name=stuMajor]").val("");
+                    $(".operation_user input[name=stuClass]").val("");
+                    $(".operation_user input[name=stuBirth]").val("");
+                    $(".operation_user input[name=stuNum]").val("");
+                    $(".operation_user input[name=stuAge]").val("");
+                    $(".operation_user input[name=stuEducation]").val("");
+                    $(".operation_user input[name=stuNation]").val("");
+                    $(".operation_user input[name=stuProfession]").val("");
+                    $(".operation_user input[name=stuLocation]").val("");
+                    $(".operation_user input[name=stuGraduateJob]").val("");
+                    $(".operation_user input[name=stuAnamnesis]").val("");
+                    var x = document.getElementsByClassName("layui-unselect layui-form-switch");
+                    x[0].setAttribute("class", "layui-unselect layui-form-switch layui-form-onswitch");
+                    var d = document.getElementsByTagName('em')[0];
+                    d.firstChild.nodeValue = '启用';
+                    form.render(); //更新全部
+                    break;
+
+                case 'addByImport':
+                    console.log('no')
+                    let file = document.getElementById('btn_file')
+                    file.click();
+                    file.onchange = function (){
+                        console.log('yes')
+                        sheetJson.readWorkbookFromLocalFile(file.files[0],function (json){
+                            console.log(json)
+                            console.log('successfully upload')
+                            // let json1 ='[{"doctorId":"3","doctorName":"dadada","doctorCard":"123312","doctorDepartment":"外科"}]'
+                            $.post({
+                                type: 'POST',
+                                url: '/index/importStudent',
+                                dataType: "JSON",
+                                data: JSON.stringify(json),
+                                contentType: "application/json",
+                                success: function (res) {
+                                    if (res.code === 0) {
+                                        layer.msg('录入信息成功', function () {
+                                            console.log("success")
+                                        });
+                                    } else {
+                                        layer.msg('录入信息失败');
+                                    }
+                                }
+                            })
+                            return false;
+                        });
+                    }
+                    break;
+            }
+        });
+        table.on('tool(user_table)', function (obj) {
+            var data = obj.data;
+            switch (obj.event) {
+                case 'del':
+                    var userIds = [];
+                    userIds.push(data.stuId);
+                    tipDialog(userIds, data.stuName);
+                    break;
+                case 'edit':
+                    $(".user_table_div").hide();
+                    $(".operation_user").show();
+                    $("#ID").show()
+                    $(".operation_user input[name=stuId]").show()
+                    $(".title").html("编辑学生:"+data.stuName.toString()+"的信息ing");
+                    $(".operation_user input[name=stuId]").val(data.stuId);
+                    $(".operation_user input[name=stuId]").attr("disabled","disabled")
+                    $(".operation_user input[name=stuCard]").val(data.stuCard);
+                    $(".operation_user input[name=stuName]").val(data.stuName);
+                    $(".operation_user input[name=stuCollege]").val(data.stuCollege);
+                    $(".operation_user input[name=stuSex]").val(data.stuSex);
+                    $(".operation_user input[name=stuMajor]").val(data.stuMajor);
+                    $(".operation_user input[name=stuClass]").val(data.stuClass);
+                    $(".operation_user input[name=stuBirth]").val(data.stuBirth);
+                    $(".operation_user input[name=stuNum]").val(data.stuNum);
+                    $(".operation_user input[name=stuAge]").val(data.stuAge);
+                    $(".operation_user input[name=stuEducation]").val(data.stuEducation);
+                    $(".operation_user input[name=stuNation]").val(data.stuNation);
+                    $(".operation_user input[name=stuProfession]").val(data.stuProfession);
+                    $(".operation_user input[name=stuNative]").val(data.stuNative);
+                    $(".operation_user input[name=stuLocation]").val(data.stuLocation);
+                    $(".operation_user input[name=stuGraduateJob]").val(data.stuGraduateJob);
+                    $(".operation_user input[name=stuAnamnesis]").val(data.stuAnamnesis);
+                    form.render(); //更新全部
+                    break;
+            }
+        });
+        $("#btn_cancel").click(function () {
+            $(".user_table_div").show();
+            $(".operation_user").hide();
+            return false;
+        });
+        var tipDialog = function (userIds, username) {
+            layer.open({
+                content: '确定要删除' + username + "用户么?",
+                yes: function (index, layero) {
+                    layer.close(index); //如果设定了yes回调，需进行手工关闭
+                    CoreUtil.sendPost("/index/deleteStudents", userIds, function (res) {
+                        layer.msg(res.msg);
+                        search()
+                    });
+                }
+            });
+        };
+        form.on('submit(submit)', function (data) {
+            if (data.field.stuId != null && data.field.stuId !=="") {
+                CoreUtil.sendPost("/index/updateStudent", data.field, function (res) {
+                    $(".user_table_div").show();
+                    $(".operation_user").hide();
+                    search()
+                });
+            } else {
+                console.log('yes')
+                CoreUtil.sendPost("/index/insertStudent", data.field, function (res) {
+                    $(".user_table_div").show();
+                    $(".operation_user").hide();
+                    search()
+                });
+            }
+            return false;
+        });
+
+    });
+    //执行查询
+    function search() {
+        //这里以搜索为例
+        tableIns1.reload({
+            where: { //设定异步数据接口的额外参数，任意设
+                // stuId: $("#stuId").val(),
+                stuName: $("#stuName").val(),
+                startTime: startTime,
+                endTime: endTime,
+            }
+            , page: {
+                curr: 1 //重新从第 1 页开始
+            }
+        });
+    }
+</script>
+</html>

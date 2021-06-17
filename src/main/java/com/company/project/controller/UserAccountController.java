@@ -86,11 +86,23 @@ public class UserAccountController {
         return DataResult.success();
     }
 
-    @PutMapping("/user/info")
+    @PostMapping("/user/info")
     @ApiOperation(value = "更新用户信息接口")
     @LogAnnotation(title = "用户管理", action = "更新用户信息")
     public DataResult updateUserInfoById(@RequestBody UserAccount vo) {
-        userService.updateUserInfoMy(vo);
+        userService.updateUserInfo(vo);
+        List<String> list = userRoleService.getRoleIdsByUserId(vo.getUserId().toString());
+        if(list.get(0).equals(vo.getUserType()))
+            ;
+        else{
+            UserRoleOperationReqVO roleVo = new UserRoleOperationReqVO();
+            roleVo.setUserId(vo.getUserId().toString());
+            list.remove(0);
+            list.add(vo.getUserType().toString());
+            System.out.println(vo.getUserType());
+            roleVo.setRoleIds(list);
+            userRoleService.addUserRoleInfo(roleVo);
+        }
         return DataResult.success();
     }
 

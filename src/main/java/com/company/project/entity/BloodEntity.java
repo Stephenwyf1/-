@@ -27,7 +27,7 @@ public class BloodEntity implements Serializable {
      * 检查的医生ID
      */
     @TableField("Blood_doctor_id")
-    private String bloodDoctorId;
+    private int bloodDoctorId;
 
     /**
      * 体检信息提交时间

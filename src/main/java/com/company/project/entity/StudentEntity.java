@@ -127,7 +127,5 @@ public class StudentEntity extends BaseEntity implements Serializable{
     @TableField("Stu_anamnesis")
     private String stuAnamnesis;
 
-    @TableField("Stu_test_all")
-    private String stuTestALL;
 
 }

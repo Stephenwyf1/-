@@ -1,5 +1,6 @@
 package com.company.project.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -16,9 +17,9 @@ import lombok.EqualsAndHashCode;
  * @since 2021-06-06
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 @TableName("Doctor")
-public class DoctorEntity implements Serializable {
+public class DoctorEntity extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
