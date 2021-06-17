@@ -57,36 +57,36 @@ public class IndexController {
         return "roles/role_list";
     }
 
-    @GetMapping("/chest")
-    public String chestList() {
-        return "chest/chest_list";
-    }
-
-
-    @GetMapping("/other")
-    public String otherList() {
-        return "other/other_list";
-    }
-
-    @GetMapping("/manage")
-    public String manageList() {
-        return "manage/manage_list";
-    }
-
-    @GetMapping("/manage2")
-    public String manageList2() {
-        return "manage/manage_list2";
-    }
-
-    @GetMapping("/boss")
-    public String bossList() {
-        return "boss/boss_list";
-    }
-
-    @GetMapping("/boss2")
-    public String bossList2() {
-        return "boss/boss_list2";
-    }
+//    @GetMapping("/chest")
+//    public String chestList() {
+//        return "chest/chest_list";
+//    }
+//
+//
+//    @GetMapping("/other")
+//    public String otherList() {
+//        return "other/other_list";
+//    }
+//
+//    @GetMapping("/manage")
+//    public String manageList() {
+//        return "manage/manage_list";
+//    }
+//
+//    @GetMapping("/manage2")
+//    public String manageList2() {
+//        return "manage/manage_list2";
+//    }
+//
+//    @GetMapping("/boss")
+//    public String bossList() {
+//        return "boss/boss_list";
+//    }
+//
+//    @GetMapping("/boss2")
+//    public String bossList2() {
+//        return "boss/boss_list2";
+//    }
 
     @GetMapping("/users")
     public String userList() {
@@ -214,7 +214,7 @@ public class IndexController {
     @GetMapping("/other")
     @RequiresPermissions("sys:form:other")
     public String other() {
-        return "/other";
+        return "/other/other_list";
     }
 
     @GetMapping("/obligation")
@@ -226,13 +226,13 @@ public class IndexController {
     @GetMapping("/boss")
     @RequiresPermissions("sys:form:boss")
     public String boss() {
-        return "/boss";
+        return "/boss/boss_list";
     }
 
     @GetMapping("/chest")
     @RequiresPermissions("sys:form:chest")
     public String chest() {
-        return "/chest";
+        return "/chest/chest_list";
     }
 
 
