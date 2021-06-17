@@ -67,45 +67,41 @@ public class PDFHelper {
     }
 
     public static Map<String, Object> preProcess(Map<String, Object> EntitiesMap) {
-        if(EntitiesMap.get("Eye_red").equals("1"))
-        {
-            EntitiesMap.put("Eye_red", "红");
+        if(EntitiesMap.get("Eye_red") != null) {
+            if(EntitiesMap.get("Eye_red").equals("1")){
+                EntitiesMap.put("Eye_red", "红");
+            }
+            else{
+                EntitiesMap.put("Eye_red", "");
+            }
         }
-        else
-        {
-            EntitiesMap.put("Eye_red", "");
+        if(EntitiesMap.get("Eye_green") != null) {
+            if (EntitiesMap.get("Eye_green").equals("1")) {
+                EntitiesMap.put("Eye_green", "绿");
+            } else {
+                EntitiesMap.put("Eye_green", "");
+            }
         }
-        if(EntitiesMap.get("Eye_green").equals("1"))
-        {
-            EntitiesMap.put("Eye_green", "绿");
+        if(EntitiesMap.get("Eye_purple") != null) {
+            if (EntitiesMap.get("Eye_purple").equals("1")) {
+                EntitiesMap.put("Eye_purple", "紫");
+            } else {
+                EntitiesMap.put("Eye_purple", "");
+            }
         }
-        else
-        {
-            EntitiesMap.put("Eye_green", "");
+        if(EntitiesMap.get("Eye_blue") != null) {
+            if (EntitiesMap.get("Eye_blue").equals("1")) {
+                EntitiesMap.put("Eye_blue", "蓝");
+            } else {
+                EntitiesMap.put("Eye_blue", "");
+            }
         }
-        if(EntitiesMap.get("Eye_purple").equals("1"))
-        {
-            EntitiesMap.put("Eye_purple", "紫");
-        }
-        else
-        {
-            EntitiesMap.put("Eye_purple", "");
-        }
-        if(EntitiesMap.get("Eye_blue").equals("1"))
-        {
-            EntitiesMap.put("Eye_blue", "蓝");
-        }
-        else
-        {
-            EntitiesMap.put("Eye_blue", "");
-        }
-        if(EntitiesMap.get("Eye_yellow").equals("1"))
-        {
-            EntitiesMap.put("Eye_yellow", "黄");
-        }
-        else
-        {
-            EntitiesMap.put("Eye_yellow", "");
+        if(EntitiesMap.get("Eye_yellow") != null) {
+            if (EntitiesMap.get("Eye_yellow").equals("1")) {
+                EntitiesMap.put("Eye_yellow", "黄");
+            } else {
+                EntitiesMap.put("Eye_yellow", "");
+            }
         }
 
         return EntitiesMap;

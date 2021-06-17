@@ -222,4 +222,9 @@ public class IndexController {
         return "/chest/chest_list";
     }
 
+    @GetMapping("/pdf")
+    public String pdfList2() {
+        return "/pdf/pdf_list" ;
+    }
+
 }

@@ -68,8 +68,14 @@ public class ManageController {
         System.out.println("--------------------In getManageInfo Controller--------------------");
 
         List<Map<String, Object>> DataList = iManageService.getStuManageInfo(Stu_id);
-        JSONObject ResultJSON = JSONUtil.CreateJSON(DataList.get(0).get("code") == null ? 0 : -1,
-                DataList.get(0).get("message") == null ? "ok" : "存在已驳回状态的表单", DataList.size(),DataList);
+        JSONObject ResultJSON;
+        if(!DataList.isEmpty()) {
+            ResultJSON = JSONUtil.CreateJSON(DataList.get(0).get("code") == null ? 0 : -1,
+                    DataList.get(0).get("message") == null ? "ok" : "存在已驳回状态的表单", DataList.size(),DataList);
+        }
+        else {
+            ResultJSON = JSONUtil.CreateJSON(0, "ok", 0, null);
+        }
 
         System.out.println("--------------------JSON--------------------\n"+ResultJSON);
 
