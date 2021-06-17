@@ -229,6 +229,12 @@ public class IndexController {
         return "/boss/boss_list";
     }
 
+    @GetMapping("/manage")
+    @RequiresPermissions("sys:form:manage")
+    public String manage() {
+        return "/manage/manage_list";
+    }
+
     @GetMapping("/chest")
     @RequiresPermissions("sys:form:chest")
     public String chest() {
