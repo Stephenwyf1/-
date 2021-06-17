@@ -273,9 +273,6 @@
         form.on('submit(save)', function (data) {
             console.log("save事件被触发了")
             data.field.Stu_id = $("#Stu_id").html();
-            layer.alert(JSON.stringify(data.field), {
-                title: '最终的提交信息'
-            })
             // data = data.field;
             $.ajax({
                 type: 'POST',
@@ -284,14 +281,16 @@
                 dataType: "JSON",
                 data: data.field,
                 success:function (string){
-                    console.log("1:"+string)
+                    layer.alert("       录入成功", {
+                        title: '录入信息'
+                    });
+                    $(".operation_dept").hide();
+                    $(".table_div").show();
                 },
                 error: function () {
                     console.log("error")
                 }
             })
-            $(".operation_dept").hide();
-            $(".table_div").show();
             return false;
         });
     });
