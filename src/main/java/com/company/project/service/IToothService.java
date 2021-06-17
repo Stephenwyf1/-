@@ -16,7 +16,7 @@ import java.util.Map;
  */
 public interface IToothService extends IService<ToothEntity> {
         //获取Tooth科体检学生列表
-        List<Map<String, Object>> getStuInfoList();
+        List<Map<String, Object>> getStuInfoList(int Stu_id);
 
         //获取特定学生的Tooth信息
         List<Map<String, Object>> getStuToothInfo(int stuId);

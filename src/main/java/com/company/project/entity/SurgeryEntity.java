@@ -28,7 +28,7 @@ public class SurgeryEntity implements Serializable {
      * 检查的医生ID
      */
     @TableField("Surgery_doctor_id")
-    private String surgeryDoctorId;
+    private int surgeryDoctorId;
 
     /**
      * 体检信息提交时间

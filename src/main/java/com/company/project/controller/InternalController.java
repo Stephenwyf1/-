@@ -11,10 +11,7 @@ import com.company.project.service.UserService;
 import com.company.project.vo.resp.UserInfoRespVO;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -41,8 +38,8 @@ public class InternalController {
     private IInternalService iInternalService;
 
     @RequestMapping("/getStuList")
-    public void getList(HttpServletResponse response, HttpServletRequest request) throws JSONException{
-        List<Map<String, Object>> DataList = iInternalService.getStuInfoList();
+    public void getList(HttpServletResponse response, @RequestParam(name = "Stu_id", required = false, defaultValue = "-1") int Stu_id) throws JSONException{
+        List<Map<String, Object>> DataList = iInternalService.getStuInfoList(Stu_id);
         JSONObject ResultJSON = JSONUtil.CreateJSON(0,"ok",DataList.size(),DataList);
         JSONUtil.JSONToResponse(response, ResultJSON);
     }
@@ -62,7 +59,7 @@ public class InternalController {
     @RequestMapping("/insertInternalInfo")
     public void insertInternalInfo(HttpServletResponse response, HttpServletRequest request,InternalEntity internalEntity) throws JSONException{
         System.out.println("--------------------In insertInternalInfo Controller--------------------");
-        internalEntity.setInternalDoctorId(request.getParameter("Internal_doctor_id"));
+        internalEntity.setInternalDoctorId(Integer.parseInt(request.getParameter("Internal_doctor_id")));
         internalEntity.setInternalOperationTime(LocalDateTime.now());
         internalEntity.setInternalHeartBlood(request.getParameter("Internal_heart_blood"));
         internalEntity.setInternalLiver(request.getParameter("Internal_liver"));

@@ -27,7 +27,7 @@ public class ToothEntity implements Serializable {
      * 检查的医生ID
      */
     @TableField("Tooth_doctor_id")
-    private String toothDoctorId;
+    private int toothDoctorId;
 
     /**
      * 体检信息提交时间

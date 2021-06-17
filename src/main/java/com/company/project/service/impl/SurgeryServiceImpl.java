@@ -4,12 +4,16 @@ package com.company.project.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.company.project.entity.StuTestEntity;
 import com.company.project.entity.SurgeryEntity;
 import com.company.project.entity.StudentEntity;
+import com.company.project.mapper.DoctorMapper;
+import com.company.project.mapper.StuTestMapper;
 import com.company.project.mapper.SurgeryMapper;
 import com.company.project.mapper.StudentMapper;
 import com.company.project.service.ISurgeryService;
 import org.json.JSONObject;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -30,34 +34,36 @@ public class SurgeryServiceImpl extends ServiceImpl<SurgeryMapper, SurgeryEntity
     private SurgeryMapper surgeryMapper;
 
     @Resource
-    private StudentMapper studentMapper;
+    private DoctorMapper doctorMapper;
+
+    @Resource
+    private StuTestMapper stuTestMapper;
+
+    @Resource
+    private JdbcTemplate jdbcTemplate;
 
     @Override
-    public List<Map<String, Object>> getStuInfoList() {
-    LambdaQueryWrapper<StudentEntity> StudentQueryWrapper = Wrappers.lambdaQuery();
-    LambdaQueryWrapper<SurgeryEntity> SurgeryQueryWrapper = Wrappers.lambdaQuery();
-        StudentQueryWrapper.orderByAsc(StudentEntity::getStuId);
-    JSONObject ResultJSON = new JSONObject();
-
-    List<Map<String, Object>> StudentEntityMaps = studentMapper.selectMaps(StudentQueryWrapper);
-    List<Map<String, Object>> SurgeryEntityMaps = surgeryMapper.selectMaps(SurgeryQueryWrapper);
-
-        for(Map<String, Object> StudentEntityMap : StudentEntityMaps)
-    {
-        StudentEntityMap.put("Surgery_all", "0");
-        for(Map<String, Object> SurgeryEntityMap : SurgeryEntityMaps)
+    public List<Map<String, Object>> getStuInfoList(int Stu_id) {
+        String sql;
+        if(Stu_id == -1)
         {
-            if(SurgeryEntityMap.get("Stu_id") == StudentEntityMap.get("Stu_id"))
-            {
-                StudentEntityMap.put("Surgery_all", "1");
-            }
-            //set surgery_all=2 驳回
-
+            sql = "select Student.*, (case when Surgery_error is NULL then '0' "
+                    +"when Surgery_error = '1' then '2' "
+                    +"else '1' end)Surgery_all "
+                    +"from Student left join Surgery "
+                    +"on Student.Stu_id = Surgery.Stu_id;";
         }
+        else
+        {
+            sql = "select s.*, (case when Surgery_error is NULL then '0' "
+                    +"when Surgery_error = '1' then '2' "
+                    +"else '1' end)Surgery_all "
+                    +"from (select * from Student where Stu_id = "+Stu_id+") as s "
+                    +"left join Surgery "
+                    +"on s.Stu_id = Surgery.Stu_id;";
+        }
+        return jdbcTemplate.queryForList(sql);
     }
-
-        return StudentEntityMaps;
-}
 
     @Override
     public List<Map<String, Object>> getStuSurgeryInfo(int Stu_id) {
@@ -68,17 +74,43 @@ public class SurgeryServiceImpl extends ServiceImpl<SurgeryMapper, SurgeryEntity
 
     @Override
     public void insertStuSurgeryInfo(SurgeryEntity surgeryEntity) {
-
-        System.out.println( surgeryMapper.selectById(surgeryEntity.getStuId()) );
+        StuTestEntity stuTestEntity = new StuTestEntity();
+        boolean bFirstInsert;
 
         if( surgeryMapper.selectById(surgeryEntity.getStuId()) == null )
         {
             surgeryMapper.insert(surgeryEntity);
+            bFirstInsert = true;
         }
         else
         {
             surgeryMapper.updateById(surgeryEntity);
+            bFirstInsert = false;
         }
+
+        //插入Surgery表的同时要把部分数据插入到StuTest表
+        stuTestEntity.setStuId(surgeryEntity.getStuId());
+        stuTestEntity.setSurgeryIdea(surgeryEntity.getSurgeryIdea());
+        stuTestEntity.setSurgeryDoctorName(doctorMapper.selectById(surgeryEntity.getSurgeryDoctorId()).getDoctorName());
+        stuTestEntity.setSurgeryDoctorId(surgeryEntity.getSurgeryDoctorId());
+        stuTestEntity.setSurgeryOperationTime(surgeryEntity.getSurgeryOperationTime());
+
+        StuTestEntity selectEntity = stuTestMapper.selectById(surgeryEntity.getStuId());
+
+        if(selectEntity == null)//if StuTest 没有数据
+        {
+            stuTestEntity.setStuTestCount(1);
+            stuTestMapper.insert(stuTestEntity);
+        }
+        else
+        {
+            if(bFirstInsert)//if first insert Entity then StuTestCount + 1
+            {
+                stuTestEntity.setStuTestCount(selectEntity.getStuTestCount() + 1);
+            }
+            stuTestMapper.updateById(stuTestEntity);
+        }
+
     }
 
 }

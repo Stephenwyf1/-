@@ -3,17 +3,11 @@ package com.company.project.controller;
 
 import com.company.project.common.utils.JSONUtil;
 import com.company.project.entity.ToothEntity;
-import com.company.project.entity.StudentEntity;
-import com.company.project.entity.SysUser;
-import com.company.project.mapper.SysUserMapper;
 import com.company.project.service.IToothService;
-import com.company.project.service.UserService;
-import com.company.project.vo.resp.UserInfoRespVO;
-import com.google.common.reflect.TypeToken;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -42,8 +36,8 @@ public class ToothController {
     private IToothService iToothService;
 
     @RequestMapping("/getStuList")
-    public void getList(HttpServletResponse response, HttpServletRequest request) throws JSONException{
-        List<Map<String, Object>> DataList = iToothService.getStuInfoList();
+    public void getList(HttpServletResponse response, @RequestParam(name = "Stu_id", required = false, defaultValue = "-1") int Stu_id) throws JSONException{
+        List<Map<String, Object>> DataList = iToothService.getStuInfoList(Stu_id);
         JSONObject ResultJSON = JSONUtil.CreateJSON(0,"ok",DataList.size(),DataList);
         JSONUtil.JSONToResponse(response, ResultJSON);
     }
@@ -56,15 +50,14 @@ public class ToothController {
         List<Map<String, Object>> DataList = iToothService.getStuToothInfo(Stu_id);
         JSONObject ResultJSON = JSONUtil.CreateJSON(0,"ok", DataList.size(),DataList);
 
-        System.out.println("--------------------JSON--------------------");
-        System.out.println(ResultJSON);
+        System.out.println("--------------------JSON--------------------\n"+ResultJSON);
         JSONUtil.JSONToResponse(response, ResultJSON);
     }
 
     @RequestMapping("/insertToothInfo")
     public void insertToothInfo(HttpServletResponse response, HttpServletRequest request,ToothEntity toothEntity) throws JSONException{
         System.out.println("--------------------In insertToothInfo Controller--------------------");
-        toothEntity.setToothDoctorId(request.getParameter("Tooth_doctor_id"));
+        toothEntity.setToothDoctorId(Integer.parseInt(request.getParameter("Tooth_doctor_id")));
         toothEntity.setToothOperationTime( LocalDateTime.now() );
         toothEntity.setToothDecayed( request.getParameter("Tooth_decayed") );
         toothEntity.setToothHypodontia( request.getParameter("Tooth_hypodontia") );
@@ -77,8 +70,7 @@ public class ToothController {
         iToothService.insertStuToothInfo(toothEntity);
         JSONObject jsonObject = JSONUtil.CreateJSON(0,"ok",0,null);
 
-        System.out.println("--------------------JSON--------------------");
-        System.out.println(jsonObject);
+        System.out.println("--------------------JSON--------------------\n"+jsonObject);
         JSONUtil.JSONToResponse(response, jsonObject);
     }
 

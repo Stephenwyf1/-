@@ -16,7 +16,7 @@ import java.util.Map;
  */
 public interface IInternalService extends IService<InternalEntity> {
     //获取Internal科体检学生列表
-    List<Map<String, Object>> getStuInfoList();
+    List<Map<String, Object>> getStuInfoList(int Stu_id);
 
     //获取特定学生的Internal信息
     List<Map<String, Object>> getStuInternalInfo(int stuId);

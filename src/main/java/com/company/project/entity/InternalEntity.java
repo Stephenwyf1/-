@@ -27,7 +27,7 @@ public class InternalEntity implements Serializable {
      * 检查的医生ID
      */
     @TableField("Internal_doctor_id")
-    private String internalDoctorId;
+    private int internalDoctorId;
 
     /**
      * 体检信息提交时间

@@ -16,7 +16,7 @@ import java.util.Map;
  */
 public interface ISurgeryService extends IService<SurgeryEntity> {
     //获取Surgery科体检学生列表
-    List<Map<String, Object>> getStuInfoList();
+    List<Map<String, Object>> getStuInfoList(int Stu_id);
 
     //获取特定学生的Surgery信息
     List<Map<String, Object>> getStuSurgeryInfo(int Stu_id);
