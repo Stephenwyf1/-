@@ -217,7 +217,7 @@
                             console.log(res.data[0]);
                             for( var key in res.data[0] ){
                                 console.log( key+' : '+res.data[0][key]);
-                                $('#'+key.toString()).val(res.data[0][key]);
+                                $('[name='+key+']').val(res.data[0][key]);
                             }
                         } else
                             alert(res.msg);
