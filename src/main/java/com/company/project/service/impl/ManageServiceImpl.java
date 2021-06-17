@@ -18,10 +18,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * <p>
@@ -91,7 +88,21 @@ public class ManageServiceImpl extends ServiceImpl<ManageMapper, ManageEntity> i
         LambdaQueryWrapper<ManageEntity> ManageQueryWrapper = Wrappers.lambdaQuery();
         ManageQueryWrapper.eq(ManageEntity::getStuId, Stu_id);
 
-
+        String sql;
+        String[] TablesName = {"Eye", "EBH", "Tooth", "Surgery", "Blood", "Internal", "Assay", "Chest", "Other"};
+        for(int i=0;i<TablesName.length;++i)
+        {
+            sql = "select "+TablesName[i]+"_error"+" from "+TablesName[i]+" where Stu_id = "+Stu_id;
+            if(jdbcTemplate.queryForObject(sql, String.class).equals("1"))
+            {
+                List<Map<String, Object>> DataList = new ArrayList<>();
+                Map<String, Object> map = new HashMap<>();
+                map.put("code", -1);
+                map.put("message", "存在已驳回状态的表单");
+                DataList.add(map);
+                return DataList;
+            }
+        }
 
         return manageMapper.selectMaps(ManageQueryWrapper);
     }

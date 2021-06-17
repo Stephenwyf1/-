@@ -184,7 +184,7 @@ public class IndexController {
     @GetMapping("/assay")
     @RequiresPermissions("sys:form:assay")
     public String assay() {
-        return "/assay";
+        return "/assay/assay_list";
     }
 
     @GetMapping("/eye")

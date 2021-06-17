@@ -47,7 +47,7 @@ public class BossController {
     }
 
     @RequestMapping("/getStuTestInfo")
-    public void getAssayInfo(HttpServletResponse response, @RequestParam(name = "Stu_id") int Stu_id) throws JSONException, IllegalAccessException {
+    public void getStuTestInfo(HttpServletResponse response, @RequestParam(name = "Stu_id") int Stu_id) throws JSONException, IllegalAccessException {
         System.out.println("--------------------In getStuTestInfo Controller--------------------");
 
         List<Map<String, Object>> DataList = stuTestService.getStuTestInfo(Stu_id, true);
@@ -59,7 +59,7 @@ public class BossController {
     }
 
     @RequestMapping("/getBossInfo")
-    public void getManageInfo(HttpServletResponse response, @RequestParam(name = "Stu_id") int Stu_id) throws JSONException{
+    public void getBossInfo(HttpServletResponse response, @RequestParam(name = "Stu_id") int Stu_id) throws JSONException{
         System.out.println("--------------------In getBossInfo Controller--------------------");
 
         List<Map<String, Object>> DataList = iBossService.getStuBossInfo(Stu_id);
