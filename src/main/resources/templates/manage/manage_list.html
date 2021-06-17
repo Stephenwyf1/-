@@ -56,14 +56,21 @@
                     </div>
                 </div>
 
-                <div class="layui-form-item">
-                    <label class="layui-form-label">检查医生id</label>
-                    <div class="layui-input-block">
-                        <input id="Manage_doctor_id" type="text" name="circle"
-                               lay-verify="title" autocomplete="off" placeholder="请输入检查医生id"
-                               class="layui-input WithUnit">
-                    </div>
-                </div>
+<!--                <div class="layui-form-item">-->
+<!--                    <label class="layui-form-label">检查医生id</label>-->
+<!--                    <div class="layui-input-block">-->
+<!--                        <input id="Manage_doctor_id" type="text" name="circle"-->
+<!--                               lay-verify="title" autocomplete="off" placeholder="请输入检查医生id"-->
+<!--                               class="layui-input WithUnit">-->
+<!--                    </div>-->
+<!--                </div>      <div class="layui-form-item">-->
+<!--                    <label class="layui-form-label">检查医生id</label>-->
+<!--                    <div class="layui-input-block">-->
+<!--                        <input id="Manage_doctor_id" type="text" name="circle"-->
+<!--                               lay-verify="title" autocomplete="off" placeholder="请输入检查医生id"-->
+<!--                               class="layui-input WithUnit">-->
+<!--                    </div>-->
+<!--                </div>-->
 
                 <div class="layui-form-item"  align="center">
                     <div class="layui-input-block">
@@ -324,13 +331,16 @@
                         console.log(res.data);
                         var Manage_conclusion = res.data[0].Manage_conclusion;
                         // var Chest_idea = res.data[0].Chest_idea;
-                        var Manage_doctor_id = res.data[0].Manage_doctor_id;
+                        // var Manage_doctor_id = res.data[0].Manage_doctor_id;
                         // var Manage_operation_time = res.data[0].Doctor_operation_time;
                         $("#Manage_conclusion").val(Manage_conclusion);
                         // $("#Chest_idea").val(Chest_idea);
-                        $("#Manage_doctor_id").val(Manage_doctor_id);
-                    } else
-                        alert(res.msg);
+                        // $("#Manage_doctor_id").val(Manage_doctor_id);
+                    } else{
+                        // alert(res.msg);
+                        layer.msg('存在已驳回状态的表单');
+                    }
+
                 },
                 error: function (data) {
 
@@ -356,7 +366,7 @@
                     method: 'post',
                     headers: {"authorization": token},
                     data: {
-                        "manageDoctorId": $("#Manage_doctor_id").val(),
+                        // "manageDoctorId": $("#Manage_doctor_id").val(),
                         "manageConclusion": $("#Manage_conclusion").val(),
                         // "chestTest": $("#Chest_test").val(),
                         "stuId": tabledata.Stu_id
