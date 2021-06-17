@@ -67,7 +67,6 @@ public class SurgeryController {
         System.out.println("--------------------In insertSurgeryInfo Controller--------------------");
 
         surgeryEntity.setSurgeryDoctorId(Integer.parseInt(httpSessionService.getCurrentUserId()));
-        surgeryEntity.setSurgeryDoctorId(Integer.parseInt(request.getParameter("Surgery_doctor_id")));
         surgeryEntity.setSurgeryOperationTime( LocalDateTime.now() );
         surgeryEntity.setSurgeryIdea( request.getParameter("Surgery_idea") );
         surgeryEntity.setSurgeryFlatExtensionFoot(request.getParameter("Surgery_flat_extension_foot") );

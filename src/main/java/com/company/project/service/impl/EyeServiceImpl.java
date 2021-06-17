@@ -88,12 +88,12 @@ public class EyeServiceImpl extends ServiceImpl<EyeMapper, EyeEntity> implements
             bFirstInsert = false;
         }
 
-        //插入Assay表的同时要把部分数据插入到StuTest表
+        //插入Eye表的同时要把部分数据插入到StuTest表
         stuTestEntity.setStuId(eyeEntity.getStuId());
-        stuTestEntity.setAssayIdea(eyeEntity.getEyeIdea());
-        stuTestEntity.setAssayDoctorName(doctorMapper.selectById(eyeEntity.getEyeDoctorId()).getDoctorName());
-        stuTestEntity.setAssayDoctorId(eyeEntity.getEyeDoctorId());
-        stuTestEntity.setAssayOperationTime(eyeEntity.getEyeOperationTime());
+        stuTestEntity.setEyeIdea(eyeEntity.getEyeIdea());
+        stuTestEntity.setEyeDoctorName(doctorMapper.selectById(eyeEntity.getEyeDoctorId()).getDoctorName());
+        stuTestEntity.setEyeDoctorId(eyeEntity.getEyeDoctorId());
+        stuTestEntity.setEyeOperationTime(eyeEntity.getEyeOperationTime());
 
         StuTestEntity selectEntity = stuTestMapper.selectById(eyeEntity.getStuId());
 

@@ -198,10 +198,22 @@ public class IndexController {
         return "/boss/boss_list";
     }
 
+    @GetMapping("/boss2")
+    @RequiresPermissions("sys:form:boss")
+    public String boss2() {
+        return "/boss/boss_list2";
+    }
+
     @GetMapping("/manage")
     @RequiresPermissions("sys:form:manage")
     public String manage() {
         return "/manage/manage_list";
+    }
+
+    @GetMapping("/manage2")
+    @RequiresPermissions("sys:form:manage")
+    public String manage2() {
+        return "/manage/manage_list2";
     }
 
     @GetMapping("/chest")
@@ -209,8 +221,5 @@ public class IndexController {
     public String chest() {
         return "/chest/chest_list";
     }
-
-
-
 
 }
