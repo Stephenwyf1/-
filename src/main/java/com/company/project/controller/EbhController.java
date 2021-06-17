@@ -11,10 +11,7 @@ import com.company.project.service.UserService;
 import com.company.project.vo.resp.UserInfoRespVO;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -41,8 +38,8 @@ public class EbhController {
     private IEbhService iEbhService;
 
     @RequestMapping("/getStuList")
-    public void getList(HttpServletResponse response, HttpServletRequest request) throws JSONException{
-        List<Map<String, Object>> DataList = iEbhService.getStuInfoList();
+    public void getList(HttpServletResponse response, @RequestParam(name = "Stu_id", required = false, defaultValue = "-1") int Stu_id) throws JSONException{
+        List<Map<String, Object>> DataList = iEbhService.getStuInfoList(Stu_id);
         JSONObject ResultJSON = JSONUtil.CreateJSON(0,"ok",DataList.size(),DataList);
         JSONUtil.JSONToResponse(response, ResultJSON);
     }

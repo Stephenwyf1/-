@@ -17,7 +17,7 @@ import java.util.Map;
  */
 public interface IBloodService extends IService<BloodEntity> {
     //获取Blood科体检学生列表
-    List<Map<String, Object>> getStuInfoList();
+    List<Map<String, Object>> getStuInfoList(int Stu_id);
 
     //获取特定学生的Blood信息
     List<Map<String, Object>> getStuBloodInfo(int Stu_id);

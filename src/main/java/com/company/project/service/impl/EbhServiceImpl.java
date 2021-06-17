@@ -13,6 +13,7 @@ import com.company.project.mapper.StuTestMapper;
 import com.company.project.mapper.StudentMapper;
 import com.company.project.service.IEbhService;
 import org.json.JSONObject;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -33,7 +34,7 @@ public class EbhServiceImpl extends ServiceImpl<EbhMapper, EbhEntity> implements
     private EbhMapper ebhMapper;
 
     @Resource
-    private StudentMapper studentMapper;
+    private JdbcTemplate jdbcTemplate;
 
     @Resource
     private StuTestMapper stuTestMapper;
@@ -42,31 +43,27 @@ public class EbhServiceImpl extends ServiceImpl<EbhMapper, EbhEntity> implements
     private DoctorMapper doctorMapper;
 
     @Override
-    public List<Map<String, Object>> getStuInfoList() {
-    LambdaQueryWrapper<StudentEntity> StudentQueryWrapper = Wrappers.lambdaQuery();
-    LambdaQueryWrapper<EbhEntity> EbhQueryWrapper = Wrappers.lambdaQuery();
-        StudentQueryWrapper.orderByAsc(StudentEntity::getStuId);
-    JSONObject ResultJSON = new JSONObject();
-
-    List<Map<String, Object>> StudentEntityMaps = studentMapper.selectMaps(StudentQueryWrapper);
-    List<Map<String, Object>> EbhEntityMaps = ebhMapper.selectMaps(EbhQueryWrapper);
-
-        for(Map<String, Object> StudentEntityMap : StudentEntityMaps)
-    {
-        StudentEntityMap.put("Ebh_all", "0");
-        for(Map<String, Object> EbhEntityMap : EbhEntityMaps)
+    public List<Map<String, Object>> getStuInfoList(int Stu_id) {
+        String sql;
+        if(Stu_id == -1)
         {
-            if(EbhEntityMap.get("Stu_id") == StudentEntityMap.get("Stu_id"))
-            {
-                StudentEntityMap.put("Ebh_all", "1");
-            }
-            //set ebh_all=2 驳回
-
+            sql = "select Student.*, (case when EBH_error is NULL then '0' "
+                    +"when EBH_error = '1' then '2' "
+                    +"else '1' end)EBH_all "
+                    +"from Student left join EBH "
+                    +"on Student.Stu_id = EBH.Stu_id;";
         }
+        else
+        {
+            sql = "select s.*, (case when EBH_error is NULL then '0' "
+                    +"when EBH_error = '1' then '2' "
+                    +"else '1' end)EBH_all "
+                    +"from (select * from Student where Stu_id = "+Stu_id+") as s "
+                    +"left join EBH "
+                    +"on s.Stu_id = EBH.Stu_id;";
+        }
+        return jdbcTemplate.queryForList(sql);
     }
-
-        return StudentEntityMaps;
-}
 
     @Override
     public List<Map<String, Object>> getStuEbhInfo(int Stu_id) {
@@ -91,7 +88,7 @@ public class EbhServiceImpl extends ServiceImpl<EbhMapper, EbhEntity> implements
             bFirstInsert = false;
         }
 
-        //插入Assay表的同时要把部分数据插入到StuTest表
+        //插入EBH表的同时要把部分数据插入到StuTest表
         stuTestEntity.setStuId(ebhEntity.getStuId());
         stuTestEntity.setEBHIdea(ebhEntity.getEbhIdea());
         stuTestEntity.setEBHDoctorName(doctorMapper.selectById(ebhEntity.getEbhDoctorId()).getDoctorName());

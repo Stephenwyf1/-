@@ -41,7 +41,6 @@ public class AssayServiceImpl extends ServiceImpl<AssayMapper, AssayEntity> impl
 
     @Override
     public List<Map<String, Object>> getStuInfoList(int Stu_id) {
-
         String sql;
         if(Stu_id == -1)
         {

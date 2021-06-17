@@ -13,10 +13,7 @@ import com.company.project.vo.resp.UserInfoRespVO;
 import com.google.common.reflect.TypeToken;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -43,8 +40,8 @@ public class EyeController {
     private IEyeService iEyeService;
 
     @RequestMapping("/getStuList")
-    public void getList(HttpServletResponse response, HttpServletRequest request) throws JSONException{
-        List<Map<String, Object>> DataList = iEyeService.getStuInfoList();
+    public void getList(HttpServletResponse response,@RequestParam(name = "Stu_id", required = false, defaultValue = "-1") int Stu_id) throws JSONException{
+        List<Map<String, Object>> DataList = iEyeService.getStuInfoList(Stu_id);
         JSONObject ResultJSON = JSONUtil.CreateJSON(0,"ok",DataList.size(),DataList);
         JSONUtil.JSONToResponse(response, ResultJSON);
     }
@@ -64,7 +61,7 @@ public class EyeController {
     @RequestMapping("/insertEyeInfo")
     public void insertEyeInfo(HttpServletResponse response, HttpServletRequest request,EyeEntity eyeEntity) throws JSONException{
         System.out.println("--------------------In insertEyeInfo Controller--------------------");
-        eyeEntity.setEyeDoctorId(request.getParameter("Eye_doctor_id"));
+        eyeEntity.setEyeDoctorId(Integer.parseInt(request.getParameter("Eye_doctor_id")));
         eyeEntity.setEyeOperationTime( LocalDateTime.now());
         BigDecimal Eye_insight_left=new BigDecimal((request.getParameter("Eye_insight_left")));
         eyeEntity.setEyeInsightLeft(Eye_insight_left);

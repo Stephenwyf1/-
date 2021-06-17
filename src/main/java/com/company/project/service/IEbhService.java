@@ -16,7 +16,7 @@ import java.util.Map;
  */
 public interface IEbhService extends IService<EbhEntity> {
     //获取Ebh科体检学生列表
-    List<Map<String, Object>> getStuInfoList();
+    List<Map<String, Object>> getStuInfoList(int Stu_id);
 
     //获取特定学生的Ebh信息
     List<Map<String, Object>> getStuEbhInfo(int stuId);

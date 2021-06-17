@@ -112,7 +112,7 @@ public class EyeEntity implements Serializable {
      * 检查的医生ID
      */
     @TableField("Eye_doctor_id")
-    private String eyeDoctorId;
+    private int eyeDoctorId;
 
     /**
      * 体检信息提交时间

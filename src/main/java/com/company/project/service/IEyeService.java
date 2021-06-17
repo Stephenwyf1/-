@@ -16,7 +16,7 @@ import java.util.Map;
  */
 public interface IEyeService extends IService<EyeEntity> {
     //获取Eye科体检学生列表
-    List<Map<String, Object>> getStuInfoList();
+    List<Map<String, Object>> getStuInfoList(int Stu_id);
 
     //获取特定学生的Eye信息
     List<Map<String, Object>> getStuEyeInfo(int Stu_id);
