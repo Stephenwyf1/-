@@ -59,11 +59,11 @@ public class EbhController {
     @RequestMapping("/insertEbhInfo")
     public void insertEbhInfo(HttpServletResponse response, HttpServletRequest request,EbhEntity ebhEntity) throws JSONException{
         System.out.println("--------------------In insertEbhInfo Controller--------------------");
-        ebhEntity.setEbhDoctorId(Integer.parseInt(request.getParameter("Ebh_doctor_id")));
+        ebhEntity.setEbhDoctorId(Integer.parseInt(request.getParameter("EBH_doctor_id")));
         ebhEntity.setEbhOperationTime( LocalDateTime.now() );
-        ebhEntity.setEbhStammer(request.getParameter("Ebh_stammer"));
-        ebhEntity.setEbhThroat(request.getParameter("Ebh_throat"));
-        ebhEntity.setEbhIdea( request.getParameter("Ebh_idea") );
+        ebhEntity.setEbhStammer(request.getParameter("EBH_stammer"));
+        ebhEntity.setEbhThroat(request.getParameter("EBH_throat"));
+        ebhEntity.setEbhIdea( request.getParameter("EBH_idea") );
         ebhEntity.setEbhAll( "1" );
         ebhEntity.setStuId( Integer.parseInt( request.getParameter("Stu_id") ));
         ebhEntity.setEbhError( "0" );

@@ -64,13 +64,13 @@
                 <div class="layui-inline">
                     <label class="layui-form-label input">咽喉</label>
                     <div class="layui-input-inline">
-                        <input  type="text" name="Ebh_throat" value="正常" lay-verify="" autocomplete="off" placeholder="请输入龋齿情况" class="layui-input">
+                        <input  type="text" name="EBH_throat" value="正常" lay-verify="" autocomplete="off" placeholder="请输入龋齿情况" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label input">口吃</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="Ebh_stammer" value="正常" lay-verify="" autocomplete="off" placeholder="请输入缺齿情况" class="layui-input">
+                        <input type="text" name="EBH_stammer" value="正常" lay-verify="" autocomplete="off" placeholder="请输入缺齿情况" class="layui-input">
                     </div>
                 </div>
             </div>
@@ -81,7 +81,7 @@
                 <div class="layui-inline">
                     <label class="layui-form-label input">医生id</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="Ebh_doctor_id" value="" lay-verify="number" autocomplete="off" placeholder="请输入医生id" class="layui-input">
+                        <input type="text" name="EBH_doctor_id" value="" lay-verify="number" autocomplete="off" placeholder="请输入医生id" class="layui-input">
                     </div>
                 </div>
             </div>
@@ -90,7 +90,7 @@
                 <lable class="layui-form-label input ">医生意见</lable>
 
                 <div class="layui-input-block">
-                    <textarea  name="Ebh_idea"  placeholder="请输入" lay-verify=""  class="layui-textarea">正常</textarea>
+                    <textarea  name="EBH_idea"  placeholder="请输入" lay-verify=""  class="layui-textarea">正常</textarea>
                 </div>
             </div>
 
@@ -170,14 +170,14 @@
                         ,{field: 'Stu_sex', title: '性别', width: 50, align:'center'}
                         ,{field: 'Stu_birth', title: '出生年月日', width: 120, sort: true, align:'center'}
                         , {
-                        field: 'Ebh_all', title: '状态', width: 80, sort:true,  templet: function (item) {
-                            if (item.Ebh_all === "1") {
+                        field: 'EBH_all', title: '状态', width: 80, sort:true,  templet: function (item) {
+                            if (item.EBH_all === "1") {
                                 return ' <button type="button" class="layui-btn layui-btn-xs layui-btn-radius layui-btn-normal">已填</button>';
                             }
-                            if (item.Ebh_all === "0") {
+                            if (item.EBH_all === "0") {
                                 return '<button type="button" class="layui-btn layui-btn-xs layui-btn-radius  layui-btn-primary">未填</button>';
                             }
-                            if (item.Ebh_all === "2") {
+                            if (item.EBH_all === "2") {
                                 return '<button type="button" class="layui-btn layui-btn-xs layui-btn-radius layui-btn-danger">驳回</button>';
                             }
                         }
