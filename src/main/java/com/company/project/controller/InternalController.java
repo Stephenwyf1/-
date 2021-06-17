@@ -6,6 +6,7 @@ import com.company.project.entity.InternalEntity;
 import com.company.project.entity.StudentEntity;
 import com.company.project.entity.SysUser;
 import com.company.project.mapper.SysUserMapper;
+import com.company.project.service.HttpSessionService;
 import com.company.project.service.IInternalService;
 import com.company.project.service.UserService;
 import com.company.project.vo.resp.UserInfoRespVO;
@@ -37,6 +38,9 @@ public class InternalController {
     @Resource
     private IInternalService iInternalService;
 
+    @Resource
+    private HttpSessionService httpSessionService;
+
     @RequestMapping("/getStuList")
     public void getList(HttpServletResponse response, @RequestParam(name = "Stu_id", required = false, defaultValue = "-1") int Stu_id) throws JSONException{
         List<Map<String, Object>> DataList = iInternalService.getStuInfoList(Stu_id);
@@ -59,7 +63,7 @@ public class InternalController {
     @RequestMapping("/insertInternalInfo")
     public void insertInternalInfo(HttpServletResponse response, HttpServletRequest request,InternalEntity internalEntity) throws JSONException{
         System.out.println("--------------------In insertInternalInfo Controller--------------------");
-        internalEntity.setInternalDoctorId(Integer.parseInt(request.getParameter("Internal_doctor_id")));
+        internalEntity.setInternalDoctorId(Integer.parseInt(httpSessionService.getCurrentUserId()));
         internalEntity.setInternalOperationTime(LocalDateTime.now());
         internalEntity.setInternalHeartBlood(request.getParameter("Internal_heart_blood"));
         internalEntity.setInternalLiver(request.getParameter("Internal_liver"));

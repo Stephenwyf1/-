@@ -2,6 +2,7 @@ package com.company.project.controller;
 
 import com.company.project.common.utils.JSONUtil;
 import com.company.project.entity.BossEntity;
+import com.company.project.service.HttpSessionService;
 import com.company.project.service.IBossService;
 import com.company.project.service.StuTestService;
 import org.json.JSONException;
@@ -33,6 +34,9 @@ public class BossController {
 
     @Resource
     private StuTestService stuTestService;
+
+    @Resource
+    private HttpSessionService httpSessionService;
 
     @RequestMapping("/getStuList")
     public void getList(HttpServletResponse response, @RequestParam(name = "Stu_id", required = false, defaultValue = "-1") int Stu_id) throws JSONException {
@@ -75,6 +79,7 @@ public class BossController {
     public void insertBossInfo(HttpServletResponse response, BossEntity bossEntity) throws JSONException{
         System.out.println("--------------------In insertBossInfo Controller--------------------");
 
+        bossEntity.setBossDoctorId(Integer.parseInt(httpSessionService.getCurrentUserId()));
         bossEntity.setBossAll("1");
         bossEntity.setBossError("0");
         bossEntity.setBossOperationTime(LocalDateTime.now());

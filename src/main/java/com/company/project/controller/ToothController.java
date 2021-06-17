@@ -3,6 +3,7 @@ package com.company.project.controller;
 
 import com.company.project.common.utils.JSONUtil;
 import com.company.project.entity.ToothEntity;
+import com.company.project.service.HttpSessionService;
 import com.company.project.service.IToothService;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,6 +36,9 @@ public class ToothController {
     @Resource
     private IToothService iToothService;
 
+    @Resource
+    private HttpSessionService httpSessionService;
+
     @RequestMapping("/getStuList")
     public void getList(HttpServletResponse response, @RequestParam(name = "Stu_id", required = false, defaultValue = "-1") int Stu_id) throws JSONException{
         List<Map<String, Object>> DataList = iToothService.getStuInfoList(Stu_id);
@@ -57,7 +61,7 @@ public class ToothController {
     @RequestMapping("/insertToothInfo")
     public void insertToothInfo(HttpServletResponse response, HttpServletRequest request,ToothEntity toothEntity) throws JSONException{
         System.out.println("--------------------In insertToothInfo Controller--------------------");
-        toothEntity.setToothDoctorId(Integer.parseInt(request.getParameter("Tooth_doctor_id")));
+        toothEntity.setToothDoctorId(Integer.parseInt(httpSessionService.getCurrentUserId()));
         toothEntity.setToothOperationTime( LocalDateTime.now() );
         toothEntity.setToothDecayed( request.getParameter("Tooth_decayed") );
         toothEntity.setToothHypodontia( request.getParameter("Tooth_hypodontia") );

@@ -2,13 +2,12 @@ package com.company.project.controller;
 
 
 import com.company.project.common.utils.JSONUtil;
-import com.company.project.entity.AssayEntity;
 import com.company.project.entity.ManageEntity;
+import com.company.project.service.HttpSessionService;
 import com.company.project.service.IManageService;
 import com.company.project.service.StuTestService;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,6 +35,9 @@ public class ManageController {
 
     @Resource
     private StuTestService stuTestService;
+
+    @Resource
+    private HttpSessionService httpSessionService;
 
     @RequestMapping("/getStuList")
     public void getList(HttpServletResponse response, @RequestParam(name = "Stu_id", required = false, defaultValue = "-1") int Stu_id) throws JSONException {
@@ -78,6 +80,7 @@ public class ManageController {
     public void insertManageInfo(HttpServletResponse response, ManageEntity manageEntity) throws JSONException{
         System.out.println("--------------------In insertManageInfo Controller--------------------");
 
+        manageEntity.setManageDoctorId(Integer.parseInt(httpSessionService.getCurrentUserId()));
         manageEntity.setManageAll("1");
         manageEntity.setManageError("0");
         manageEntity.setManageOperationTime(LocalDateTime.now());

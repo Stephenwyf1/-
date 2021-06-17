@@ -3,6 +3,7 @@ package com.company.project.controller;
 
 import com.company.project.common.utils.JSONUtil;
 import com.company.project.entity.EyeEntity;
+import com.company.project.service.HttpSessionService;
 import com.company.project.service.IEyeService;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,6 +37,9 @@ public class EyeController {
     @Resource
     private IEyeService iEyeService;
 
+    @Resource
+    private HttpSessionService httpSessionService;
+
     @RequestMapping("/getStuList")
     public void getList(HttpServletResponse response,@RequestParam(name = "Stu_id", required = false, defaultValue = "-1") int Stu_id) throws JSONException{
         List<Map<String, Object>> DataList = iEyeService.getStuInfoList(Stu_id);
@@ -58,7 +62,7 @@ public class EyeController {
     @RequestMapping("/insertEyeInfo")
     public void insertEyeInfo(HttpServletResponse response, HttpServletRequest request,EyeEntity eyeEntity) throws JSONException{
         System.out.println("--------------------In insertEyeInfo Controller--------------------");
-        eyeEntity.setEyeDoctorId(Integer.parseInt(request.getParameter("Eye_doctor_id")));
+        eyeEntity.setEyeDoctorId(Integer.parseInt(httpSessionService.getCurrentUserId()));
         eyeEntity.setEyeOperationTime( LocalDateTime.now());
         BigDecimal Eye_insight_left=new BigDecimal((request.getParameter("Eye_insight_left")));
         eyeEntity.setEyeInsightLeft(Eye_insight_left);

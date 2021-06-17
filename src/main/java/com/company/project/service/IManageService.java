@@ -1,7 +1,6 @@
 package com.company.project.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.company.project.entity.AssayEntity;
 import com.company.project.entity.ManageEntity;
 
 import java.util.List;

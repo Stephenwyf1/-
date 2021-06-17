@@ -1,24 +1,22 @@
 package com.company.project.service.impl;
 
-import com.alibaba.druid.pool.ha.selector.StickyDataSourceHolder;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.company.project.entity.AssayEntity;
 import com.company.project.entity.ManageEntity;
 import com.company.project.entity.StuTestEntity;
-import com.company.project.entity.StudentEntity;
 import com.company.project.mapper.DoctorMapper;
 import com.company.project.mapper.ManageMapper;
 import com.company.project.mapper.StuTestMapper;
-import com.company.project.mapper.StudentMapper;
 import com.company.project.service.IManageService;
-import org.apache.shiro.session.mgt.DelegatingSession;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>

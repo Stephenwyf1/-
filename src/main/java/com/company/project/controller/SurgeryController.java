@@ -6,6 +6,7 @@ import com.company.project.entity.SurgeryEntity;
 import com.company.project.entity.StudentEntity;
 import com.company.project.entity.SysUser;
 import com.company.project.mapper.SysUserMapper;
+import com.company.project.service.HttpSessionService;
 import com.company.project.service.ISurgeryService;
 import com.company.project.service.UserService;
 import com.company.project.vo.resp.UserInfoRespVO;
@@ -39,6 +40,9 @@ public class SurgeryController {
     @Resource
     private ISurgeryService iSurgeryService;
 
+    @Resource
+    private HttpSessionService httpSessionService;
+
     @RequestMapping("/getStuList")
     public void getList(HttpServletResponse response, @RequestParam(name = "Stu_id", required = false, defaultValue = "-1") int Stu_id) throws JSONException{
         List<Map<String, Object>> DataList = iSurgeryService.getStuInfoList(Stu_id);
@@ -62,6 +66,7 @@ public class SurgeryController {
     public void insertSurgeryInfo(HttpServletResponse response, HttpServletRequest request,SurgeryEntity surgeryEntity) throws JSONException{
         System.out.println("--------------------In insertSurgeryInfo Controller--------------------");
 
+        surgeryEntity.setSurgeryDoctorId(Integer.parseInt(httpSessionService.getCurrentUserId()));
         surgeryEntity.setSurgeryDoctorId(Integer.parseInt(request.getParameter("Surgery_doctor_id")));
         surgeryEntity.setSurgeryOperationTime( LocalDateTime.now() );
         surgeryEntity.setSurgeryIdea( request.getParameter("Surgery_idea") );

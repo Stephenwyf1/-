@@ -50,7 +50,6 @@ public class AssayController {
     @RequestMapping("/getAssayInfo")
     public void getAssayInfo(HttpServletResponse response, @RequestParam(name = "Stu_id") int Stu_id) throws JSONException{
         System.out.println("--------------------In getAssayInfo Controller--------------------");
-        System.out.println("User_id:"+httpSessionService.getCurrentUserId());
         List<Map<String, Object>> DataList = iAssayService.getStuAssayInfo(Stu_id);
         JSONObject ResultJSON = JSONUtil.CreateJSON(0,"ok", DataList.size(),DataList);
 
@@ -62,7 +61,7 @@ public class AssayController {
     @RequestMapping("/insertAssayInfo")
     public void insertAssayInfo(HttpServletResponse response, AssayEntity assayEntity) throws JSONException{
         System.out.println("--------------------In insertAssayInfo Controller--------------------");
-
+        assayEntity.setAssayDoctorId(Integer.parseInt(httpSessionService.getCurrentUserId()));
         assayEntity.setAssayAll("1");
         assayEntity.setAssayError("0");
         assayEntity.setAssayOperationTime(LocalDateTime.now());

@@ -3,6 +3,7 @@ package com.company.project.controller;
 
 import com.company.project.common.utils.JSONUtil;
 import com.company.project.entity.OtherEntity;
+import com.company.project.service.HttpSessionService;
 import com.company.project.service.IOtherService;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,6 +33,9 @@ public class OtherController {
     @Resource
     private IOtherService iOtherService;
 
+    @Resource
+    private HttpSessionService httpSessionService;
+
     @RequestMapping("/getStuList")
     public void getList(HttpServletResponse response, @RequestParam(name = "Stu_id", required = false, defaultValue = "-1") int Stu_id) throws JSONException {
         System.out.println("--------------------In getStuList Controller--------------------");
@@ -45,7 +49,7 @@ public class OtherController {
     }
 
     @RequestMapping("/getOtherInfo")
-    public void getAssayInfo(HttpServletResponse response, @RequestParam(name = "Stu_id") int Stu_id) throws JSONException{
+    public void getOtherInfo(HttpServletResponse response, @RequestParam(name = "Stu_id") int Stu_id) throws JSONException{
         System.out.println("--------------------In getOtherInfo Controller--------------------");
 
         List<Map<String, Object>> DataList = iOtherService.getStuOtherInfo(Stu_id);
@@ -57,9 +61,10 @@ public class OtherController {
     }
 
     @RequestMapping("/insertOtherInfo")
-    public void insertAssayInfo(HttpServletResponse response, OtherEntity otherEntity) throws JSONException{
+    public void insertOtherInfo(HttpServletResponse response, OtherEntity otherEntity) throws JSONException{
         System.out.println("--------------------In insertOtherInfo Controller--------------------");
 
+        otherEntity.setOtherDoctorId(Integer.parseInt(httpSessionService.getCurrentUserId()));
         otherEntity.setOtherAll("1");
         otherEntity.setOtherError("0");
         otherEntity.setOtherOperationTime(LocalDateTime.now());

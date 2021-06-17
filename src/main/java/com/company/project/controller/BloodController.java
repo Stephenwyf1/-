@@ -6,6 +6,7 @@ import com.company.project.entity.BloodEntity;
 import com.company.project.entity.StudentEntity;
 import com.company.project.entity.SysUser;
 import com.company.project.mapper.SysUserMapper;
+import com.company.project.service.HttpSessionService;
 import com.company.project.service.IBloodService;
 import com.company.project.service.UserService;
 import com.company.project.vo.resp.UserInfoRespVO;
@@ -38,6 +39,9 @@ public class BloodController {
     @Resource
     private IBloodService iBloodService;
 
+    @Resource
+    private HttpSessionService httpSessionService;
+
     @RequestMapping("/getStuList")
     public void getList(HttpServletResponse response, @RequestParam(name = "Stu_id", required = false, defaultValue = "-1") int Stu_id) throws JSONException{
         List<Map<String, Object>> DataList = iBloodService.getStuInfoList(Stu_id);
@@ -60,16 +64,15 @@ public class BloodController {
     @RequestMapping("/insertBloodInfo")
     public void insertBloodInfo(HttpServletResponse response, HttpServletRequest request,BloodEntity bloodEntity) throws JSONException{
         System.out.println("--------------------In insertBloodInfo Controller--------------------");
-//        BloodEntity bloodEntity = new BloodEntity();
+
         int Stu_id = Integer.parseInt( request.getParameter("Stu_id") );
         List<Map<String, Object>> DataList = iBloodService.getStuBloodInfo(Stu_id);
         String DataListStr = splitDownLineandAfterToUpperCase(DataList.toString());
         System.out.println("DataList1:"+DataList);
         System.out.println("DataStr:"+DataListStr);
         System.out.println("BeforeBloodEntity:"+bloodEntity);
-//        Gson gson = new Gson();
-//        DataList = gson.fromJson(DataListStr,new TypeToken<List<Map<String, Object>>>(){}.getType());
-        bloodEntity.setBloodDoctorId(Integer.parseInt(request.getParameter("Blood_doctor_id")));
+
+        bloodEntity.setBloodDoctorId(Integer.parseInt( httpSessionService.getCurrentUserId() ));
         bloodEntity.setBloodOperationTime( LocalDateTime.now() );
         bloodEntity.setBloodPressure( request.getParameter("Blood_pressure") );
         bloodEntity.setBloodPulse( request.getParameter("Blood_pulse") );

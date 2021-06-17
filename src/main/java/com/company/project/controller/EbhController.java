@@ -6,6 +6,7 @@ import com.company.project.entity.EbhEntity;
 import com.company.project.entity.StudentEntity;
 import com.company.project.entity.SysUser;
 import com.company.project.mapper.SysUserMapper;
+import com.company.project.service.HttpSessionService;
 import com.company.project.service.IEbhService;
 import com.company.project.service.UserService;
 import com.company.project.vo.resp.UserInfoRespVO;
@@ -37,6 +38,9 @@ public class EbhController {
     @Resource
     private IEbhService iEbhService;
 
+    @Resource
+    private HttpSessionService httpSessionService;
+
     @RequestMapping("/getStuList")
     public void getList(HttpServletResponse response, @RequestParam(name = "Stu_id", required = false, defaultValue = "-1") int Stu_id) throws JSONException{
         List<Map<String, Object>> DataList = iEbhService.getStuInfoList(Stu_id);
@@ -59,7 +63,7 @@ public class EbhController {
     @RequestMapping("/insertEbhInfo")
     public void insertEbhInfo(HttpServletResponse response, HttpServletRequest request,EbhEntity ebhEntity) throws JSONException{
         System.out.println("--------------------In insertEbhInfo Controller--------------------");
-        ebhEntity.setEbhDoctorId(Integer.parseInt(request.getParameter("EBH_doctor_id")));
+        ebhEntity.setEbhDoctorId(Integer.parseInt(httpSessionService.getCurrentUserId()));
         ebhEntity.setEbhOperationTime( LocalDateTime.now() );
         ebhEntity.setEbhStammer(request.getParameter("EBH_stammer"));
         ebhEntity.setEbhThroat(request.getParameter("EBH_throat"));

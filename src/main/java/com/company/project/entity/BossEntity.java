@@ -27,7 +27,7 @@ public class BossEntity implements Serializable {
      * 检查的医生ID
      */
     @TableField("Boss_doctor_id")
-    private String bossDoctorId;
+    private int bossDoctorId;
 
     /**
      * 体检信息提交时间

@@ -3,6 +3,7 @@ package com.company.project.controller;
 
 import com.company.project.common.utils.JSONUtil;
 import com.company.project.entity.ChestEntity;
+import com.company.project.service.HttpSessionService;
 import com.company.project.service.IChestService;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,7 +30,10 @@ import java.util.Map;
 public class ChestController {
 
     @Resource
-    IChestService iChestService;
+    private IChestService iChestService;
+
+    @Resource
+    private HttpSessionService httpSessionService;
 
     @RequestMapping("/getStuList")
     public void getList(HttpServletResponse response, @RequestParam(name = "Stu_id", required = false, defaultValue = "-1") int Stu_id) throws JSONException {
@@ -59,6 +63,7 @@ public class ChestController {
     public void insertAssayInfo(HttpServletResponse response, ChestEntity chestEntity) throws JSONException{
         System.out.println("--------------------In insertChestInfo Controller--------------------");
 
+        chestEntity.setChestDoctorId(Integer.parseInt(httpSessionService.getCurrentUserId()));
         chestEntity.setChestAll( "1" );
         chestEntity.setChestError( "0" );
         chestEntity.setChestOperationTime(LocalDateTime.now());
