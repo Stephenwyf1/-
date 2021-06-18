@@ -62,14 +62,14 @@
                                autocomplete="off" placeholder="请输入医师意见" class="layui-input WithUnit">
                     </div>
                 </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">检查医生id</label>
-                    <div class="layui-input-block">
-                        <input id="Assay_doctor_id" type="text" name="circle"
-                               lay-verify="title" autocomplete="off" placeholder="请输入检查医生id"
-                               class="layui-input WithUnit">
-                    </div>
-                </div>
+<!--                <div class="layui-form-item">-->
+<!--                    <label class="layui-form-label">检查医生id</label>-->
+<!--                    <div class="layui-input-block">-->
+<!--                        <input id="Assay_doctor_id" type="text" name="circle"-->
+<!--                               lay-verify="title" autocomplete="off" placeholder="请输入检查医生id"-->
+<!--                               class="layui-input WithUnit">-->
+<!--                    </div>-->
+<!--                </div>-->
 
                 <div class="layui-form-item"  align="center">
                     <div class="layui-input-block">
@@ -84,14 +84,21 @@
 </div>
 <!--搜索-->
 <div class="demoTable">
-    搜索ID：
-    <div class="layui-inline">
-        <input class="layui-input" type="number" name="id" id="demoReload" autocomplete="off">
+    <div class="layui-form-item">
+        <!--        搜索ID：-->
+
+        <div class="layui-input-inline">
+            <input class="layui-input" type="number" name="id" placeholder="请输入学生id" id="demoReload" autocomplete="off">
+        </div>
+        <div class="layui-input-inline ">
+            <button class="layui-btn" data-type="reload" id="searchID">搜索</button>
+        </div>
+        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+            <legend style="font-size: 20px;">化验课体检</legend>
+        </fieldset>
     </div>
-    <button class="layui-btn" data-type="reload" id="searchID">搜索</button>
     <table class="layui-hide" id="useruv" lay-filter="useruv"></table>
 </div>
-
 <!--表单规范-->
 <script>
     layui.use(['form', 'layedit', 'laydate'], function () {
@@ -320,8 +327,8 @@
                         console.log(res.data);
                         var Assay_test = res.data[0].Assay_test;
                         var Assay_idea = res.data[0].Assay_idea;
-                        var Assay_doctor_id = res.data[0].Assay_doctor_id;
-                        $("#Assay_doctor_id").val(Assay_doctor_id);
+                        // var Assay_doctor_id = res.data[0].Assay_doctor_id;
+                        // $("#Assay_doctor_id").val(Assay_doctor_id);
                         $("#Assay_idea").val(Assay_idea);
                         $("#Assay_test").val(Assay_test);
                     } else
@@ -352,7 +359,7 @@
                     method: 'post',
                     headers: {"authorization": token},
                     data: {
-                        "assayDoctorId": $("#Assay_doctor_id").val(),
+                        // "assayDoctorId": $("#Assay_doctor_id").val(),
                         "assayIdea": $("#Assay_idea").val(),
                         "assayTest": $("#Assay_test").val(),
                         "stuId": tabledata.Stu_id
@@ -362,6 +369,7 @@
                     dataType: 'JSON',
                     success: function (res) {
                         if (res.code = '0') {
+                            layer.msg('填写完毕');
                             console.log(res);
                         } else
                             alert(res.msg);
