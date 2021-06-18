@@ -84,16 +84,16 @@ public class StuTestEntity implements Serializable {
 	private String toothIdea;
 
 	/**
-	 * 
+	 *
 	 */
-	@TableField("Tooth_doctor_id")
-	private Integer toothDoctorId;
+	@TableField("Tooth_doctor_name")
+	private String toothDoctorName;
 
 	/**
 	 * 
 	 */
-	@TableField("Tooth_doctor_name")
-	private String toothDoctorName;
+	@TableField("Tooth_doctor_id")
+	private Integer toothDoctorId;
 
 	/**
 	 * 
@@ -108,16 +108,16 @@ public class StuTestEntity implements Serializable {
 	private String surgeryIdea;
 
 	/**
-	 * 
+	 *
 	 */
-	@TableField("Surgery_doctor_id")
-	private Integer surgeryDoctorId;
+	@TableField("Surgery_doctor_name")
+	private String surgeryDoctorName;
 
 	/**
 	 * 
 	 */
-	@TableField("Surgery_doctor_name")
-	private String surgeryDoctorName;
+	@TableField("Surgery_doctor_id")
+	private Integer surgeryDoctorId;
 
 	/**
 	 * 
@@ -132,16 +132,16 @@ public class StuTestEntity implements Serializable {
 	private String bloodIdea;
 
 	/**
-	 * 
+	 *
 	 */
-	@TableField("Blood_doctor_id")
-	private Integer bloodDoctorId;
+	@TableField("Blood_doctor_name")
+	private String bloodDoctorName;
 
 	/**
 	 * 
 	 */
-	@TableField("Blood_doctor_name")
-	private String bloodDoctorName;
+	@TableField("Blood_doctor_id")
+	private Integer bloodDoctorId;
 
 	/**
 	 * 
@@ -156,16 +156,16 @@ public class StuTestEntity implements Serializable {
 	private String internalIdea;
 
 	/**
-	 * 
+	 *
 	 */
-	@TableField("Internal_doctor_id")
-	private Integer internalDoctorId;
+	@TableField("Internal_doctor_name")
+	private String internalDoctorName;
 
 	/**
 	 * 
 	 */
-	@TableField("Internal_doctor_name")
-	private String internalDoctorName;
+	@TableField("Internal_doctor_id")
+	private Integer internalDoctorId;
 
 	/**
 	 * 
@@ -180,16 +180,16 @@ public class StuTestEntity implements Serializable {
 	private String assayIdea;
 
 	/**
-	 * 
+	 *
 	 */
-	@TableField("Assay_doctor_id")
-	private Integer assayDoctorId;
+	@TableField("Assay_doctor_name")
+	private String assayDoctorName;
 
 	/**
 	 * 
 	 */
-	@TableField("Assay_doctor_name")
-	private String assayDoctorName;
+	@TableField("Assay_doctor_id")
+	private Integer assayDoctorId;
 
 	/**
 	 * 
@@ -204,16 +204,16 @@ public class StuTestEntity implements Serializable {
 	private String chestIdea;
 
 	/**
-	 * 
+	 *
 	 */
-	@TableField("Chest_doctor_id")
-	private Integer chestDoctorId;
+	@TableField("Chest_doctor_name")
+	private String chestDoctorName;
 
 	/**
 	 * 
 	 */
-	@TableField("Chest_doctor_name")
-	private String chestDoctorName;
+	@TableField("Chest_doctor_id")
+	private Integer chestDoctorId;
 
 	/**
 	 * 
@@ -228,16 +228,16 @@ public class StuTestEntity implements Serializable {
 	private String otherIdea;
 
 	/**
-	 * 
+	 *
 	 */
-	@TableField("Other_doctor_id")
-	private Integer otherDoctorId;
+	@TableField("Other_doctor_name")
+	private String otherDoctorName;
 
 	/**
 	 * 
 	 */
-	@TableField("Other_doctor_name")
-	private String otherDoctorName;
+	@TableField("Other_doctor_id")
+	private Integer otherDoctorId;
 
 	/**
 	 * 
@@ -252,16 +252,16 @@ public class StuTestEntity implements Serializable {
 	private String manageConclusion;
 
 	/**
-	 * 
+	 *
 	 */
-	@TableField("Manage_doctor_id")
-	private Integer manageDoctorId;
+	@TableField("Manage_doctor_name")
+	private String manageDoctorName;
 
 	/**
 	 * 
 	 */
-	@TableField("Manage_doctor_name")
-	private String manageDoctorName;
+	@TableField("Manage_doctor_id")
+	private Integer manageDoctorId;
 
 	/**
 	 * 
