@@ -27,7 +27,7 @@ public class IndexController {
         if (subject.isAuthenticated()) {
             return "redirect:/index/home";
         }
-        return "login";
+        return "/login/login";
     }
 
     @GetMapping("/home")

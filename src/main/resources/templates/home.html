@@ -228,7 +228,7 @@
                 layer.close(index); //如果设定了yes回调，需进行手工关闭
                 CoreUtil.sendGet("/sys/user/logout", null, function (res) {
                     layui.data('LocalData', null);
-                    top.window.location.href = "/index/login";
+                    top.window.location.href = "/login";
                 });
             }
         });
