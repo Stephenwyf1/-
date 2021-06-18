@@ -3,6 +3,7 @@ package com.company.project.service.impl;
 
 import com.company.project.entity.SysUser;
 
+import com.company.project.entity.UserAccount;
 import com.company.project.service.*;
 import com.company.project.vo.resp.HomeRespVO;
 import com.company.project.vo.resp.PermissionRespNode;
@@ -23,7 +24,7 @@ import java.util.List;
 @Service
 public class HomeServiceImpl implements HomeService {
     @Resource
-    private UserService userService;
+    private IUserAccountService userService;
 
     @Resource
     private PermissionService permissionService;
@@ -32,8 +33,8 @@ public class HomeServiceImpl implements HomeService {
     public HomeRespVO getHomeInfo(String userId) {
 
 
-        SysUser sysUser = userService.getById(userId);
-        UserInfoRespVO vo = new UserInfoRespVO();
+        UserAccount sysUser = userService.getById(userId);
+        UserAccount vo = new UserAccount();
 
         if (sysUser != null) {
             BeanUtils.copyProperties(sysUser, vo);

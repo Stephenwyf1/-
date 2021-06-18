@@ -62,15 +62,15 @@ public class IndexController {
         return "users/user_list";
     }
 
-    @GetMapping("/logs")
-    public String logList() {
-        return "logs/log_list";
-    }
+//    @GetMapping("/logs")
+//    public String logList() {
+//        return "logs/log_list";
+//    }
 
-    @GetMapping("/depts")
-    public String deptList() {
-        return "depts/dept_list";
-    }
+//    @GetMapping("/depts")
+//    public String deptList() {
+//        return "depts/dept_list";
+//    }
 
     @GetMapping("/403")
     public String error403() {
@@ -107,25 +107,25 @@ public class IndexController {
         return "syscontent/list";
     }
 
-    @GetMapping("/sysDict")
-    public String sysDict() {
-        return "sysdict/list";
-    }
-
-    @GetMapping("/sysGenerator")
-    public String sysGenerator() {
-        return "generator/list";
-    }
-
-    @GetMapping("/sysJob")
-    public String sysJob() {
-        return "sysjob/list";
-    }
-
-    @GetMapping("/sysJobLog")
-    public String sysJobLog() {
-        return "sysjoblog/list";
-    }
+//    @GetMapping("/sysDict")
+//    public String sysDict() {
+//        return "sysdict/list";
+//    }
+//
+//    @GetMapping("/sysGenerator")
+//    public String sysGenerator() {
+//        return "generator/list";
+//    }
+//
+//    @GetMapping("/sysJob")
+//    public String sysJob() {
+//        return "sysjob/list";
+//    }
+//
+//    @GetMapping("/sysJobLog")
+//    public String sysJobLog() {
+//        return "sysjoblog/list";
+//    }
 
     @GetMapping("/sysFiles")
     public String sysFiles() {
@@ -141,7 +141,7 @@ public class IndexController {
     @GetMapping("/students")
     @RequiresPermissions("sys:stu:detail")
     public String Student() {
-        return "/student";
+        return "/users/student";
     }
 
     @GetMapping("/internal")

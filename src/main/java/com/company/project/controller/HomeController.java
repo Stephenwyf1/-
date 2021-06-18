@@ -32,7 +32,7 @@ public class HomeController {
     @ApiOperation(value = "获取首页数据接口")
     public DataResult getHomeInfo() {
         //通过access_token拿userId
-        System.out.println("was Capt!\n");
+//        System.out.println("was Capt!\n");
         String userId = httpSessionService.getCurrentUserId();
         DataResult result = DataResult.success();
         result.setData(homeService.getHomeInfo(userId));

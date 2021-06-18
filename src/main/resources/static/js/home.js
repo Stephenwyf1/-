@@ -157,99 +157,18 @@ var buildBgColorHtml = function () {
  function bgColorConfigFun(bgcolorId) {
     var bgColorConfig = [
         {
-            headerRight: '#1aa094',
-            headerRightThis: '#197971',
-            headerLogo: '#243346',
-            menuLeft: '#2f4056',
-            menuLeftThis: '#1aa094',
-            menuLeftHover: '#3b3f4b',
+            headerRight: '#6a79d6',
+            headerRightThis: '#5675dd',
+            headerLogo: '#6f7edd',
+            menuLeft: '#121422',
+            menuLeftThis: '#7766d4',
+            menuLeftHover: '#8ea5ec',
         },
         {
             headerRight: '#23262e',
             headerRightThis: '#0c0c0c',
             headerLogo: '#0c0c0c',
             menuLeft: '#23262e',
-            menuLeftThis: '#1aa094',
-            menuLeftHover: '#3b3f4b',
-        },
-        {
-            headerRight: '#ffa4d1',
-            headerRightThis: '#bf7b9d',
-            headerLogo: '#e694bd',
-            menuLeft: '#1f1f1f',
-            menuLeftThis: '#ffa4d1',
-            menuLeftHover: '#1f1f1f',
-        },
-        {
-            headerRight: '#1aa094',
-            headerRightThis: '#197971',
-            headerLogo: '#0c0c0c',
-            menuLeft: '#23262e',
-            menuLeftThis: '#1aa094',
-            menuLeftHover: '#3b3f4b',
-        },
-        {
-            headerRight: '#1e9fff',
-            headerRightThis: '#0069b7',
-            headerLogo: '#0c0c0c',
-            menuLeft: '#1f1f1f',
-            menuLeftThis: '#1aa094',
-            menuLeftHover: '#3b3f4b',
-        },
-
-        {
-            headerRight: '#ffb800',
-            headerRightThis: '#d09600',
-            headerLogo: '#243346',
-            menuLeft: '#2f4056',
-            menuLeftThis: '#1aa094',
-            menuLeftHover: '#3b3f4b',
-        },
-        {
-            headerRight: '#e82121',
-            headerRightThis: '#ae1919',
-            headerLogo: '#0c0c0c',
-            menuLeft: '#1f1f1f',
-            menuLeftThis: '#1aa094',
-            menuLeftHover: '#3b3f4b',
-        },
-        {
-            headerRight: '#963885',
-            headerRightThis: '#772c6a',
-            headerLogo: '#243346',
-            menuLeft: '#2f4056',
-            menuLeftThis: '#1aa094',
-            menuLeftHover: '#3b3f4b',
-        },
-        {
-            headerRight: '#1e9fff',
-            headerRightThis: '#0069b7',
-            headerLogo: '#0069b7',
-            menuLeft: '#1f1f1f',
-            menuLeftThis: '#1aa094',
-            menuLeftHover: '#3b3f4b',
-        },
-        {
-            headerRight: '#ffb800',
-            headerRightThis: '#d09600',
-            headerLogo: '#d09600',
-            menuLeft: '#2f4056',
-            menuLeftThis: '#1aa094',
-            menuLeftHover: '#3b3f4b',
-        },
-        {
-            headerRight: '#e82121',
-            headerRightThis: '#ae1919',
-            headerLogo: '#d91f1f',
-            menuLeft: '#1f1f1f',
-            menuLeftThis: '#1aa094',
-            menuLeftHover: '#3b3f4b',
-        },
-        {
-            headerRight: '#963885',
-            headerRightThis: '#772c6a',
-            headerLogo: '#772c6a',
-            menuLeft: '#2f4056',
             menuLeftThis: '#1aa094',
             menuLeftHover: '#3b3f4b',
         }
@@ -299,7 +218,7 @@ function hide(){
 
     $('.layui-side cite').hide();
     $('.layui-side').animate({width:'55px'});
-    $('.layui-logo').html("SM")
+    $('.layui-logo').html("体检")
     $('.layui-logo').animate({width:'55px'});
     $('.layui-body').animate({left:'60px'});
     document.getElementById('hide').className="layui-color layui-icon layui-icon-spread-left";
@@ -307,11 +226,10 @@ function hide(){
 }
 function show(){
     $('.layuimini-tool-left').animate({left:'200px'});
-
     $('.layui-side cite').show();
     $('.layui-side').animate({width:'200px'});
     $('.layui-body').animate({left:'200px'});
-    $('.layui-logo').html("Springboot-Manager")
+    $('.layui-logo').html("交大体检系统")
     $('.layui-logo').animate({width:'200px'});
     document.getElementById('hide').className="layui-color layui-icon layui-icon-shrink-right";
     var id = $(".layui-tab-title li.layui-this").attr("lay-id");
