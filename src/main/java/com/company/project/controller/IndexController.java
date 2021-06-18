@@ -23,11 +23,11 @@ public class IndexController {
 
     @GetMapping("/login")
     public String logout() {
-        Subject subject = SecurityUtils.getSubject();
-        if (subject.isAuthenticated()) {
-            return "redirect:/index/home";
-        }
-        return "/login/login";
+//        Subject subject = SecurityUtils.getSubject();
+//        if (subject.isAuthenticated()) {
+//            return "redirect:/index/home";
+//        }
+        return "login";
     }
 
     @GetMapping("/home")
