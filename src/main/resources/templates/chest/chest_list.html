@@ -62,20 +62,20 @@
                                autocomplete="off" placeholder="请输入医师意见" class="layui-input WithUnit">
                     </div>
                 </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">检查医生id</label>
-                    <div class="layui-input-block">
-                        <input id="Chest_doctor_id" type="text" name="circle"
-                               lay-verify="title" autocomplete="off" placeholder="请输入检查医生id"
-                               class="layui-input WithUnit">
-                    </div>
-                </div>
+<!--                <div class="layui-form-item">-->
+<!--                    <label class="layui-form-label">检查医生id</label>-->
+<!--                    <div class="layui-input-block">-->
+<!--                        <input id="Chest_doctor_id" type="text" name="circle"-->
+<!--                               lay-verify="title" autocomplete="off" placeholder="请输入检查医生id"-->
+<!--                               class="layui-input WithUnit">-->
+<!--                    </div>-->
+<!--                </div>-->
 
                 <div class="layui-form-item"  align="center">
                     <div class="layui-input-block">
                         <button type="submit" class="layui-btn" lay-submit="" lay-filter="save" @click="save">保存
                         </button>
-                        <button class="layui-btn layui-btn-primary" id="btn_cancel" onclick="cancel()">返回</button>
+                        <button class="layui-btn layui-btn-primary" id="btn_cancel" >返回</button>
                     </div>
                 </div>
             </form>
@@ -316,8 +316,8 @@
                         console.log(res.data);
                         var Chest_test = res.data[0].Chest_test;
                         var Chest_idea = res.data[0].Chest_idea;
-                        var Chest_doctor_id = res.data[0].Chest_doctor_id;
-                        $("#Chest_doctor_id").val(Chest_doctor_id);
+                        // var Chest_doctor_id = res.data[0].Chest_doctor_id;
+                        // $("#Chest_doctor_id").val(Chest_doctor_id);
                         $("#Chest_idea").val(Chest_idea);
                         $("#Chest_test").val(Chest_test);
                     } else
@@ -348,7 +348,7 @@
                     method: 'post',
                     headers: {"authorization": token},
                     data: {
-                        "chestDoctorId": $("#Chest_doctor_id").val(),
+                        // "chestDoctorId": $("#Chest_doctor_id").val(),
                         "chestIdea": $("#Chest_idea").val(),
                         "chestTest": $("#Chest_test").val(),
                         "stuId": tabledata.Stu_id

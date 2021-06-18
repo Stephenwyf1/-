@@ -92,7 +92,7 @@
     </div>
     <div class="layui-form-item"  align="center">
         <div class="layui-input-block" >
-            <button type="submit" class="layui-btn" lay-submit="" lay-filter="save" @click="save">提交</button>
+<!--            <button type="submit" class="layui-btn" lay-submit="" lay-filter="save" @click="save">提交</button>-->
             <button class="layui-btn layui-btn-primary" id="btn_cancel2" @click="backto">返回</button>
         </div>
     </div>
@@ -356,6 +356,7 @@
         },
         methods: {
             save: function () {
+
                 $.ajax({
                     url: '/chest/insertChestInfo',
                     method: 'post',

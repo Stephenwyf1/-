@@ -14,8 +14,8 @@
 </head>
 <body>
 <!--表单-->
-<script src="/layui/layui.all.js"></script>
-<script src="/layui/layui.js"></script>
+<!--<script src="/layui/layui.all.js"></script>-->
+<!--<script src="/layui/layui.js"></script>-->
 <script src="/js/core.util.js"></script>
 <div class="layui-container" id="app">
     <div class="layui-fluid">
@@ -76,7 +76,7 @@
                         <button type="submit" class="layui-btn" lay-submit="" lay-filter="save" @click="save">保存
                         </button>
                         <button class="layui-btn layui-btn-primary" id="btn_cancel" @click="backto">返回</button>
-                        <button class="layui-btn layui-btn-primary" id="btn_PDF" @click="getpdf">PDF</button>
+<!--                        <button class="layui-btn layui-btn-primary" id="btn_PDF" @click="getpdf">PDF</button>-->
                     </div>
                 </div>
             </form>
@@ -93,7 +93,7 @@
     </div>
     <div class="layui-form-item"  align="center">
         <div class="layui-input-block" >
-            <button type="submit" class="layui-btn" lay-submit="" lay-filter="save" @click="save">提交</button>
+<!--            <button type="submit" class="layui-btn" lay-submit="" lay-filter="save" @click="save">提交</button>-->
             <button class="layui-btn layui-btn-primary"  @click="backto">返回</button>
             <button class="layui-btn layui-btn-primary" id="BTN" @click="getpdf">PDF</button>
         </div>
@@ -308,6 +308,7 @@
 
         $('.demoTable .layui-btn').on('click', function () {
             var type = $(this).data('type');
+            setTimeout(function(){ alert("Hello"); }, 3000);
             active[type] ? active[type].call(this) : '';
         });
     //编辑功能
@@ -356,6 +357,7 @@
         },
         methods: {
             save: function () {
+                setTimeout(function(){ alert("Hello"); }, 3000);
                 $.ajax({
                     url: '/chest/insertChestInfo',
                     method: 'post',
