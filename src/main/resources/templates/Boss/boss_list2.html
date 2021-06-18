@@ -84,12 +84,20 @@
     </div>
     <!--搜索-->
     <div class="demoTable">
-<!--        搜索ID：-->
-<!--        <div class="layui-inline">-->
-<!--            <input class="layui-input" type="number" name="id" id="demoReload" autocomplete="off">-->
-<!--        </div>-->
-<!--        <button class="layui-btn"  data-type="reload" id="searchID">搜索</button>-->
-        <table class="layui-hide" id="useruv" lay-filter="useruv" onclick="TabClick()"></table>
+        <div class="layui-form-item">
+            <!--        搜索ID：-->
+
+<!--            <div class="layui-input-inline">-->
+<!--                <input class="layui-input" type="number" name="id" placeholder="请输入学生id" id="demoReload" autocomplete="off">-->
+<!--            </div>-->
+<!--            <div class="layui-input-inline ">-->
+<!--                <button class="layui-btn" data-type="reload" id="searchID">搜索</button>-->
+<!--            </div>-->
+            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+                <legend style="font-size: 20px;">领导检查</legend>
+            </fieldset>
+        </div>
+        <table class="layui-hide" id="useruv" lay-filter="useruv"></table>
     </div>
     <div class="layui-form-item"  align="center">
         <div class="layui-input-block" >
@@ -219,7 +227,7 @@
                     {field:'Table_index',title: '序号', width: 80, sort: true}
                     // {type:'numbers'}
                      // {field: 'Doctor_id', title: '编号', width: 80, sort: true, fixed: 'true'}
-                    , {field: 'Doctor_id', title: '医生id', width: 80, sort: true}
+                    , {field: 'Doctor_id', title: '医生id', width: 110, sort: true}
                     , {field: 'Doctor_name', title: '医生姓名', width: 110, sort: true}
                     , {field: 'Doctor_idea', title: '医师意见', width: 200, sort: true}
                     , {field: 'Doctor_operation_time', title: '检查时间', width: 150, sort: true}
@@ -239,7 +247,7 @@
                         }
                     }
                  }
-                    , {field: 'right', title: '操作', width: 90, toolbar: "#barDemo"}
+                    , {field: 'right', fixed:'right' ,title: '操作', width: 90, toolbar: "#barDemo"}
                 ]
             ]
             , id: 'testReload'

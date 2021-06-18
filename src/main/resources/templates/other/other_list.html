@@ -208,15 +208,15 @@
             , cols: [
                 [ //表头
                     // {checkbox: true, fixed: true}
-                     {field: 'Stu_id', title: '编号', width: 80, sort: true, fixed: 'true'}
-                    , {field: 'Stu_name', title: '姓名', width: 80, sort: true}
-                    , {field: 'Stu_card', title: '身份证', width: 120, sort: true}
-                    , {field: 'Stu_college', title: '学院', width: 80, sort: true}
-                    , {field: 'Stu_major', title: '专业', width: 80, sort: true}
-                    , {field: 'Stu_class', title: '班级', width: 80, sort: true}
-                    , {field: 'Stu_num', title: '学号', width: 80, sort: true}
-                    , {field: 'Stu_sex', title: '性别', width: 80, sort: true}
-                    , {field: 'Stu_birth', title: '出生年月日', width: 135, sort: true}
+                    {field: 'Stu_id', title: '编号', width:80, sort: true, fixed:true, align:'center'}
+                    ,{field: 'Stu_name', title: '姓名', width:80, align:'center'}
+                    ,{field: 'Stu_card', title: '身份证', width:150, sort: true, align:'center'}
+                    ,{field: 'Stu_college', title: '学院', width:100, align:'center'}
+                    ,{field: 'Stu_major', title: '专业', width: 100, align:'center'}
+                    ,{field: 'Stu_class', title: '班级', width: 100, sort: true, align:'center'}
+                    ,{field: 'Stu_num', title: '学号', width: 100, sort: true, align:'center'}
+                    ,{field: 'Stu_sex', title: '性别', width: 50, align:'center'}
+                    ,{field: 'Stu_birth', title: '出生年月日', width: 120, sort: true, align:'center'}
                     , {
                     field: 'Other_all', title: '状态', width: 80, sort:true,  templet: function (item) {
                         if (item.Other_all === "1") {
@@ -229,8 +229,8 @@
                             return '<button type="button" class="layui-btn layui-btn-xs layui-btn-radius layui-btn-danger">驳回</button>';
                         }
                     }
-                },
-                    , {field: 'right', title: '操作', width: 150, toolbar: "#barDemo"}
+                }
+                    ,{fixed:'right', title: '操作', width:140,toolbar:"#barDemo", align:'center'}
                 ]
             ]
             , id: 'testReload'
