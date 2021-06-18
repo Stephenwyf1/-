@@ -17,8 +17,9 @@
 <body>
 <!--表单-->
 <!--<script src="/layui/layui.all.js"></script>-->
-<!--<script src="/layui/layui.js"></script>-->
+<script src="/layui/layui.js"></script>
 <!--<script src="/js/core.util.js"></script>-->
+<script src="/js/core.util.js"></script>
 <div class="layui-container" id="app">
     <div class="layui-fluid">
         <div class="panel panel-default operation_dept " hidden>
@@ -58,21 +59,21 @@
                     </div>
                 </div>
 
-<!--                <div class="layui-form-item">-->
-<!--                    <label class="layui-form-label">检查医生id</label>-->
-<!--                    <div class="layui-input-block">-->
-<!--                        <input id="Boss_doctor_id" type="text" name="circle"-->
-<!--                               lay-verify="title" autocomplete="off" placeholder="请输入检查医生id"-->
-<!--                               class="layui-input WithUnit">-->
-<!--                    </div>-->
-<!--                </div>-->
+                <!--                <div class="layui-form-item">-->
+                <!--                    <label class="layui-form-label">检查医生id</label>-->
+                <!--                    <div class="layui-input-block">-->
+                <!--                        <input id="Boss_doctor_id" type="text" name="circle"-->
+                <!--                               lay-verify="title" autocomplete="off" placeholder="请输入检查医生id"-->
+                <!--                               class="layui-input WithUnit">-->
+                <!--                    </div>-->
+                <!--                </div>-->
 
                 <div class="layui-form-item" align="center">
                     <div class="layui-input-block">
                         <button type="submit" class="layui-btn" lay-submit="" lay-filter="save">保存
                         </button>
                         <button class="layui-btn layui-btn-primary" id="btn_cancel">返回</button>
-<!--                        <button>ok</button>-->
+                        <!--                        <button>ok</button>-->
                     </div>
                 </div>
             </form>
@@ -105,84 +106,6 @@
 <!--    <table class="layui-hide" id="useruv2" lay-filter="useruv2"></table>-->
 <!--</div>-->
 
-<!--表单规范-->
-<script src="/layui/layui.js"></script>
-<script src="/layui/layui.all.js"></script>
-<script src="/js/core.util.js"></script>
-<script src="/js/jquery.js"></script>
-<script src="/js/jquery.fileDownload.js"></script>
-<script>
-    layui.use(['form', 'layedit', 'laydate'], function () {
-        var form = layui.form
-            , layer = layui.layer
-            , layedit = layui.layedit
-            , laydate = layui.laydate;
-
-        //日期
-        laydate.render({
-            elem: '#date'
-        });
-        laydate.render({
-            elem: '#date1'
-        });
-
-        //创建一个编辑器
-        var editIndex = layedit.build('LAY_demo_editor');
-
-        //自定义验证规则
-        form.verify({
-            title: function (value) {
-                if (value.length < 1) {
-                    return '请填写完所有信息';
-                }
-            }
-            , pass: [
-                /^[\S]{6,12}$/
-                , '密码必须6到12位，且不能出现空格'
-            ]
-            , content: function (value) {
-                layedit.sync(editIndex);
-            }
-        });
-
-        //监听指定开关
-        form.on('switch(switchTest)', function (data) {
-            layer.msg('开关checked：' + (this.checked ? 'true' : 'false'), {
-                offset: '6px'
-            });
-            layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF', data.othis)
-        });
-
-        //监听提交
-        form.on('submit(demo1)', function (data) {
-            layer.alert(JSON.stringify(data.field), {
-                title: '最终的提交信息'
-            })
-            return false;
-        });
-
-        //表单赋值
-        layui.$('#LAY-component-form-setval').on('click', function () {
-            form.val('example', {
-                "username": "贤心" // "name": "value"
-                , "password": "123456"
-                , "interest": 1
-                , "like[write]": true //复选框选中状态
-                , "close": true //开关状态
-                , "sex": "女"
-                , "desc": "我爱 layui"
-            });
-        });
-
-        //表单取值
-        layui.$('#LAY-component-form-getval').on('click', function () {
-            var data = form.val('example');
-            alert(JSON.stringify(data));
-        });
-
-
-    });
-</script>
 
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -207,6 +130,7 @@
 <!--<script src="/js/core.util.js"></script>-->
 
 <script>
+    var check=0;//检查表单是否符合规范
     var tabledata;//表格中的数据
     var token = CoreUtil.getData("access_token");//header的token
     layui.use('table', function () {
@@ -224,15 +148,15 @@
             , cols: [
                 [ //表头
                     // {checkbox: true, fixed: true}
-                    {field: 'Stu_id', title: '编号', width:80, sort: true, fixed:true, align:'center'}
-                    ,{field: 'Stu_name', title: '姓名', width:80, align:'center'}
-                    ,{field: 'Stu_card', title: '身份证', width:150, sort: true, align:'center'}
-                    ,{field: 'Stu_college', title: '学院', width:100, align:'center'}
-                    ,{field: 'Stu_major', title: '专业', width: 100, align:'center'}
-                    ,{field: 'Stu_class', title: '班级', width: 100, sort: true, align:'center'}
-                    ,{field: 'Stu_num', title: '学号', width: 100, sort: true, align:'center'}
-                    ,{field: 'Stu_sex', title: '性别', width: 50, align:'center'}
-                    ,{field: 'Stu_birth', title: '出生年月日', width: 120, sort: true, align:'center'}
+                    {field: 'Stu_id', title: '编号', width: 80, sort: true, fixed: true, align: 'center'}
+                    , {field: 'Stu_name', title: '姓名', width: 80, align: 'center'}
+                    , {field: 'Stu_card', title: '身份证', width: 150, sort: true, align: 'center'}
+                    , {field: 'Stu_college', title: '学院', width: 100, align: 'center'}
+                    , {field: 'Stu_major', title: '专业', width: 100, align: 'center'}
+                    , {field: 'Stu_class', title: '班级', width: 100, sort: true, align: 'center'}
+                    , {field: 'Stu_num', title: '学号', width: 100, sort: true, align: 'center'}
+                    , {field: 'Stu_sex', title: '性别', width: 50, align: 'center'}
+                    , {field: 'Stu_birth', title: '出生年月日', width: 120, sort: true, align: 'center'}
                     , {
                     field: 'Boss_all', title: '状态', width: 80, sort: true, templet: function (item) {
                         if (item.Boss_all === "1") {
@@ -246,7 +170,7 @@
                         }
                     }
                 }
-                    ,{fixed:'right', title: '操作', width:140,toolbar:"#barDemo", align:'center'}
+                    , {fixed: 'right', title: '操作', width: 140, toolbar: "#barDemo", align: 'center'}
                 ]
             ]
             , id: 'testReload'
@@ -368,7 +292,7 @@
 
     });
 
-    layui.use(['form','layer','element'], function () {
+    layui.use(['form', 'layer', 'element'], function () {
         var form = layui.form;
         var layer = layui.layer;
         form.on('submit(save)', function (data) {
@@ -389,17 +313,21 @@
                 },
                 dataType: 'JSON',
                 success: function (res) {
-                    console.log("录入成功:"+res);
-                    if (res.code == '0') {
-                        layer.msg('录入成功',{time: 1000},function(){
+                    console.log("录入成功:" + res);
+                    console.log(check);
+                    if (res.code == '0'&&check==0) {
+
+                        layer.msg('录入成功', {time: 1000}, function () {
                             $(".operation_dept").hide();
                             $(".table_div").show();
                             location.reload();
                         });
 
 
-                    } else
-                        alert(res.msg);
+                    } else{
+
+                        // alert(res.msg);
+                    }
                 },
                 error: function (data) {
 
@@ -410,52 +338,85 @@
         });
     });
 
-    //VUE接受表单中的组件
-    var app = new Vue({
-        el: "#app",
-        data: {
-            // Assay_test: "",
-            // Assay_idea: "",
-            // Assay_doctor_id: ""
-        },
-        methods: {
-            save: function () {
-                $.ajax({
-                    url: '/boss/insertBossInfo',
-                    method: 'post',
-                    headers: {"authorization": token},
-                    data: {
-                        // "bossDoctorId": $("#Boss_doctor_id").val(),
-                        "bossConclusion": $("#Boss_conclusion").val(),
-                        // "chestTest": $("#Chest_test").val(),
-                        "stuId": tabledata.Stu_id
-                        // "assayAll":"1",
-                        // "assayError":"0"
-                    },
-                    dataType: 'JSON',
-                    success: function (res) {
-                        console.log("录入成功:"+res);
-                        if (res.code == '0') {
-                            layer.msg('录入成功',{time: 1000},function(){
-                                $(".operation_dept").hide();
-                                $(".table_div").show();
-                                location.reload();
-                            });
+
+    <!--表单规范-->
 
 
-                        } else
-                            alert(res.msg);
-                    },
-                    error: function (data) {
+    layui.use(['form', 'layedit', 'laydate'], function () {
+        var form = layui.form
+            , layer = layui.layer
+            , layedit = layui.layedit
+            , laydate = layui.laydate;
 
-                    }
-                });
+        //日期
+        laydate.render({
+            elem: '#date'
+        });
+        laydate.render({
+            elem: '#date1'
+        });
 
+        //创建一个编辑器
+        var editIndex = layedit.build('LAY_demo_editor');
+
+        //自定义验证规则
+        form.verify({
+            title: function (value) {
+                if (value.length < 1) {
+                    check=1;
+                    return '请填写完所有信息';
+
+                }else{
+                    check=0;
+                }
             }
+            , pass: [
+                /^[\S]{6,12}$/
+                , '密码必须6到12位，且不能出现空格'
+            ]
+            , content: function (value) {
+                layedit.sync(editIndex);
+            }
+        });
+
+        //监听指定开关
+        form.on('switch(switchTest)', function (data) {
+            layer.msg('开关checked：' + (this.checked ? 'true' : 'false'), {
+                offset: '6px'
+            });
+            layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF', data.othis)
+        });
+
+        //监听提交
+        form.on('submit(demo1)', function (data) {
+            layer.alert(JSON.stringify(data.field), {
+                title: '最终的提交信息'
+            })
+            return false;
+        });
+
+        //表单赋值
+        layui.$('#LAY-component-form-setval').on('click', function () {
+            form.val('example', {
+                "username": "贤心" // "name": "value"
+                , "password": "123456"
+                , "interest": 1
+                , "like[write]": true //复选框选中状态
+                , "close": true //开关状态
+                , "sex": "女"
+                , "desc": "我爱 layui"
+            });
+        });
+
+        //表单取值
+        layui.$('#LAY-component-form-getval').on('click', function () {
+            var data = form.val('example');
+            alert(JSON.stringify(data));
+        });
 
 
-        },
-    })
+    });
+
 </script>
 <!--表单提交-->
 <script>
