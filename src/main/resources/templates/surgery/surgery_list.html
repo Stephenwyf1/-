@@ -73,7 +73,7 @@
                 <div class="layui-inline">
                     <label class="layui-form-label input">皮肤</label>
                     <div class="layui-input-inline">
-                        <input  type="text" name="Surgery_skin" value="正常" lay-verify="" autocomplete="off" placeholder="请输入患者体重" class="layui-input">
+                        <input  type="text" name="Surgery_skin" value="正常" lay-verify="required" autocomplete="off" placeholder="请输入患者体重" class="layui-input">
                     </div>
                 </div>
             </div>
@@ -89,14 +89,14 @@
                 <div class="layui-inline">
                     <label class="layui-form-label input">淋巴情况</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="Surgery_lymph" value="未触及" lay-verify="" autocomplete="off" placeholder="请输入患者淋巴情况" class="layui-input">
+                        <input type="text" name="Surgery_lymph" value="未触及" lay-verify="required" autocomplete="off" placeholder="请输入患者淋巴情况" class="layui-input">
                     </div>
                     <div class="layui-form-mid layui-word-aux">&emsp;&emsp;</div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label input">甲状腺情况</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="Surgery_thyroid" value="正常" lay-verify="" autocomplete="off" placeholder="请输入患者甲状腺情况" class="layui-input">
+                        <input type="text" name="Surgery_thyroid" value="正常" lay-verify="required" autocomplete="off" placeholder="请输入患者甲状腺情况" class="layui-input">
                     </div>
                 </div>
             </div>
@@ -105,21 +105,21 @@
                 <div class="layui-inline">
                     <label class="layui-form-label input">脊柱情况</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="Surgery_spine" value="正常" lay-verify="" autocomplete="off" placeholder="请输入脊柱情况" class="layui-input">
+                        <input type="text" name="Surgery_spine" value="正常" lay-verify="required" autocomplete="off" placeholder="请输入脊柱情况" class="layui-input">
                     </div>
                     <div class="layui-form-mid layui-word-aux">&emsp;&emsp;</div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label input">四肢情况</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="Surgery_fours" value="正常" lay-verify="" autocomplete="off" placeholder="请输入四肢情况" class="layui-input">
+                        <input type="text" name="Surgery_fours" value="正常" lay-verify="required" autocomplete="off" placeholder="请输入四肢情况" class="layui-input">
                     </div>
                     <div class="layui-form-mid layui-word-aux">&emsp;&emsp;</div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label input">关节情况</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="Surgery_joint" value="正常" lay-verify="" autocomplete="off" placeholder="请输入关节情况" class="layui-input">
+                        <input type="text" name="Surgery_joint" value="正常" lay-verify="required" autocomplete="off" placeholder="请输入关节情况" class="layui-input">
                     </div>
                 </div>
             </div>
@@ -129,6 +129,7 @@
 
                 <label class="layui-form-label input" >是否有平拓足?</label>
                 <div class="layui-input-block">
+                    <input type="hidden" name="Surgery_flat_extension_foot" value="0">
                     <input type="checkbox" name="Surgery_flat_extension_foot" lay-skin="switch" lay-text="有|无" value="1" >
                 </div>
             </div>
@@ -138,13 +139,13 @@
                 <lable class="layui-form-label input ">医生意见</lable>
 
                 <div class="layui-input-block">
-                    <textarea  name="Surgery_idea"  placeholder="请输入" lay-verify=""  class="layui-textarea">正常</textarea>
+                    <textarea  name="Surgery_idea"  placeholder="请输入医生意见" lay-verify="required"  class="layui-textarea">正常</textarea>
                 </div>
             </div>
             <div class="layui-form-item " >
                 <label class="layui-form-label input">其他情况</label>
                 <div class="layui-input-block">
-                    <textarea  name="Surgery_other"  placeholder="请输入" lay-verify=""  class="layui-textarea">无</textarea>
+                    <textarea  name="Surgery_other"  placeholder="请输入其他情况" lay-verify="required"  class="layui-textarea">无</textarea>
                 </div>
             </div>
 
@@ -249,7 +250,7 @@
         table.on('tool(stutable)', function(obj){
             var data = obj.data;
             //console.log(obj)
-
+            var form = layui.form;
             /*****************************点击编辑**************************/
             if(obj.event === 'edit'){
                 var tabledata = obj.data;
@@ -272,7 +273,15 @@
                             console.log(res.data[0]);
                             for( var key in res.data[0] ){
                                 console.log( key+' : '+res.data[0][key]);
-                                $('[name='+key+']').val(res.data[0][key]);
+                                if(res.data[0][key] === '1'){
+                                    $('[name='+key+']').prop("checked", true);
+                                }
+                                else if(res.data[0][key] !== '0'){
+                                    $('[name='+key+']').val(res.data[0][key]);
+                                }
+
+                                form.render();
+
                             }
                         } else
                             alert(res.msg);

@@ -39,4 +39,9 @@ public interface IStudentService extends IService<StudentEntity> {
     void deleteStudent(int StuId);
 
     IPage<StudentEntity> pageInfo(StudentEntity vo);
+
+    int getStuCount();
+
+    int getTestedStuCount();
+
 }

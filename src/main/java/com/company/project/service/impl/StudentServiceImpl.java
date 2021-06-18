@@ -113,5 +113,16 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, StudentEntity
         return iPage;
     }
 
+    @Override
+    public int getStuCount() {
+        return this.count();
+    }
+
+    @Override
+    public int getTestedStuCount() {
+        LambdaQueryWrapper<StudentEntity> StuQueryWrapper = Wrappers.lambdaQuery();
+        StuQueryWrapper.eq(StudentEntity::getStuTestAll, '1');
+        return studentMapper.selectCount(StuQueryWrapper);
+    }
 
 }

@@ -5,17 +5,14 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.company.project.entity.ChestEntity;
 import com.company.project.entity.StuTestEntity;
-import com.company.project.entity.StudentEntity;
 import com.company.project.mapper.ChestMapper;
 import com.company.project.mapper.DoctorMapper;
 import com.company.project.mapper.StuTestMapper;
-import com.company.project.mapper.StudentMapper;
 import com.company.project.service.IChestService;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
