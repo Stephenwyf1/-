@@ -341,6 +341,47 @@
 
     });
 
+    layui.use(['form', 'layer', 'element'], function () {
+        var form = layui.form;
+        var layer = layui.layer;
+        form.on('submit(save)', function (data) {
+            console.log("save事件被触发了")
+            // data.field.Stu_id = $("#Stu_id").html();
+            // data = data.field;
+            $.ajax({
+                url: '/other/insertOtherInfo',
+                method: 'post',
+                headers: {"authorization": token},
+                data: {
+                    // "otherDoctorId": $("#Other_doctor_id").val(),
+                    "otherIdea": $("#Other_idea").val(),
+                    "otherTest": $("#Other_test").val(),
+                    "stuId": tabledata.Stu_id
+                    // "assayAll":"1",
+                    // "assayError":"0"
+                },
+                dataType: 'JSON',
+                success: function (res) {
+                    console.log("录入成功:" + res);
+                    if (res.code == '0') {
+                        layer.msg('录入成功', {time: 1000}, function () {
+                            $(".operation_dept").hide();
+                            $(".table_div").show();
+                            location.reload();
+                        });
+
+
+                    } else
+                        alert(res.msg);
+                },
+                error: function (data) {
+
+                }
+            });
+
+            return false;
+        });
+    });
 //VUE接受表单中的组件
     var app = new Vue({
         el: "#app",

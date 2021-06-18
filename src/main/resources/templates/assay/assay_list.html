@@ -73,7 +73,7 @@
 
                 <div class="layui-form-item"  align="center">
                     <div class="layui-input-block">
-                        <button type="submit" class="layui-btn" lay-submit="" lay-filter="save" @click="save">保存
+                        <button type="submit" class="layui-btn" lay-submit="" lay-filter="save">保存
                         </button>
                         <button class="layui-btn layui-btn-primary" id="btn_cancel" onclick="cancel()">返回</button>
                     </div>
@@ -344,7 +344,47 @@
 
 
     });
+    layui.use(['form', 'layer', 'element'], function () {
+        var form = layui.form;
+        var layer = layui.layer;
+        form.on('submit(save)', function (data) {
+            console.log("save事件被触发了")
+            // data.field.Stu_id = $("#Stu_id").html();
+            // data = data.field;
+            $.ajax({
+                url: '/assay/insertAssayInfo',
+                method: 'post',
+                headers: {"authorization": token},
+                data: {
+                    // "assayDoctorId": $("#Assay_doctor_id").val(),
+                    "assayIdea": $("#Assay_idea").val(),
+                    "assayTest": $("#Assay_test").val(),
+                    "stuId": tabledata.Stu_id
+                    // "assayAll":"1",
+                    // "assayError":"0"
+                },
+                dataType: 'JSON',
+                success: function (res) {
+                    console.log("录入成功:" + res);
+                    if (res.code == '0') {
+                        layer.msg('录入成功', {time: 1000}, function () {
+                            $(".operation_dept").hide();
+                            $(".table_div").show();
+                            location.reload();
+                        });
 
+
+                    } else
+                        alert(res.msg);
+                },
+                error: function (data) {
+
+                }
+            });
+
+            return false;
+        });
+    });
 //VUE接受表单中的组件
     var app = new Vue({
         el: "#app",
@@ -370,7 +410,7 @@
                     dataType: 'JSON',
                     success: function (res) {
                         if (res.code = '0') {
-                            layer.msg('填写完毕');
+                            // layer.msg('填写完毕');
                             console.log(res);
                         } else
                             alert(res.msg);

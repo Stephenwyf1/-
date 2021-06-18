@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="/layui/css/layui.css" media="all">
-    <link rel="stylesheet" href="/layui/layui.js" media="all">
+<!--    <link rel="stylesheet" href="/layui/layui.js" media="all">-->
     <link rel="stylesheet" href="/css/custom.form.css">
     <link rel="stylesheet" href="/css/build.css?v=1">
     <script src="/js/jquery.js"></script>
@@ -14,7 +14,7 @@
 </head>
 <body>
 <!--表单-->
-<script src="/layui/layui.all.js"></script>
+<!--<script src="/layui/layui.all.js"></script>-->
 <script src="/layui/layui.js"></script>
 <script src="/js/core.util.js"></script>
 <div class="layui-container" id="app">
@@ -50,8 +50,8 @@
                 <div class="layui-form-item ">
                     <label class="layui-form-label ">胸部放射检查</label>
                     <div class="layui-input-block">
-<!--                         style="  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">-->
-                        <input id="Chest_test" type="text"  name="length" lay-verify="title"
+                        <!--                         style="  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">-->
+                        <input id="Chest_test" type="text" name="length" lay-verify="title"
                                autocomplete="off" placeholder="请输入胸部放射检查" class="layui-input WithUnit">
                     </div>
                 </div>
@@ -62,20 +62,20 @@
                                autocomplete="off" placeholder="请输入医师意见" class="layui-input WithUnit">
                     </div>
                 </div>
-<!--                <div class="layui-form-item">-->
-<!--                    <label class="layui-form-label">检查医生id</label>-->
-<!--                    <div class="layui-input-block">-->
-<!--                        <input id="Chest_doctor_id" type="text" name="circle"-->
-<!--                               lay-verify="title" autocomplete="off" placeholder="请输入检查医生id"-->
-<!--                               class="layui-input WithUnit">-->
-<!--                    </div>-->
-<!--                </div>-->
+                <!--                <div class="layui-form-item">-->
+                <!--                    <label class="layui-form-label">检查医生id</label>-->
+                <!--                    <div class="layui-input-block">-->
+                <!--                        <input id="Chest_doctor_id" type="text" name="circle"-->
+                <!--                               lay-verify="title" autocomplete="off" placeholder="请输入检查医生id"-->
+                <!--                               class="layui-input WithUnit">-->
+                <!--                    </div>-->
+                <!--                </div>-->
 
-                <div class="layui-form-item"  align="center">
+                <div class="layui-form-item" align="center">
                     <div class="layui-input-block">
-                        <button type="submit" class="layui-btn" lay-submit="" lay-filter="save" @click="save">保存
+                        <button type="submit" class="layui-btn" lay-submit="" lay-filter="save">保存
                         </button>
-                        <button class="layui-btn layui-btn-primary" id="btn_cancel" >返回</button>
+                        <button class="layui-btn layui-btn-primary" id="btn_cancel">返回</button>
                     </div>
                 </div>
             </form>
@@ -100,80 +100,6 @@
     <table class="layui-hide" id="useruv" lay-filter="useruv"></table>
 </div>
 
-<!--表单规范-->
-<script>
-    layui.use(['form', 'layedit', 'laydate'], function () {
-        var form = layui.form
-            , layer = layui.layer
-            , layedit = layui.layedit
-            , laydate = layui.laydate;
-
-        //日期
-        laydate.render({
-            elem: '#date'
-        });
-        laydate.render({
-            elem: '#date1'
-        });
-
-        //创建一个编辑器
-        var editIndex = layedit.build('LAY_demo_editor');
-
-        //自定义验证规则
-        form.verify({
-            title: function (value) {
-                if (value.length < 1) {
-                    return '请填写完所有信息';
-                }
-            }
-            , pass: [
-                /^[\S]{6,12}$/
-                , '密码必须6到12位，且不能出现空格'
-            ]
-            , content: function (value) {
-                layedit.sync(editIndex);
-            }
-        });
-
-        //监听指定开关
-        form.on('switch(switchTest)', function (data) {
-            layer.msg('开关checked：' + (this.checked ? 'true' : 'false'), {
-                offset: '6px'
-            });
-            layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF', data.othis)
-        });
-
-        //监听提交
-        form.on('submit(demo1)', function (data) {
-            layer.alert(JSON.stringify(data.field), {
-                title: '最终的提交信息'
-            })
-            return false;
-        });
-
-        //表单赋值
-        layui.$('#LAY-component-form-setval').on('click', function () {
-            form.val('example', {
-                "username": "贤心" // "name": "value"
-                , "password": "123456"
-                , "interest": 1
-                , "like[write]": true //复选框选中状态
-                , "close": true //开关状态
-                , "sex": "女"
-                , "desc": "我爱 layui"
-            });
-        });
-
-        //表单取值
-        layui.$('#LAY-component-form-getval').on('click', function () {
-            var data = form.val('example');
-            alert(JSON.stringify(data));
-        });
-
-
-    });
-</script>
-
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
@@ -181,14 +107,12 @@
     <!--    class="layui-btn layui-btn-xs"-->
     <!--    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>-->
     <a class="layui-btn layui-btn-xs" lay-event="edit">录入体检信息</a>
-<!--    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>-->
+    <!--    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>-->
 </script>
 <table id="demo" lay-filter="test"></table>
 
 <!--<script src="../../static/layui/layui.js" ></script>-->
-<script src="/layui/layui.all.js"></script>
-<script src="/layui/layui.js"></script>
-<script src="/js/core.util.js"></script>
+
 
 <script>
     var tabledata;//表格中的数据
@@ -196,6 +120,7 @@
     layui.use('table', function () {
         var table = layui.table;
         var token = CoreUtil.getData("access_token");
+        var check = 0;//判断是否不符合表单规范
         // var table = layui.table;
         //第一个实例
         table.render({
@@ -208,7 +133,7 @@
             , cols: [
                 [ //表头
                     // {checkbox: true, fixed: true}
-                     {field: 'Stu_id', title: '编号', width: 80, sort: true, fixed: 'true'}
+                    {field: 'Stu_id', title: '编号', width: 80, sort: true, fixed: 'true'}
                     , {field: 'Stu_name', title: '姓名', width: 80, sort: true}
                     , {field: 'Stu_card', title: '身份证', width: 120, sort: true}
                     , {field: 'Stu_college', title: '学院', width: 80, sort: true}
@@ -218,7 +143,7 @@
                     , {field: 'Stu_sex', title: '性别', width: 80, sort: true}
                     , {field: 'Stu_birth', title: '出生年月日', width: 135, sort: true}
                     , {
-                    field: 'Assay_all', title: '状态', width: 80, sort:true,  templet: function (item) {
+                    field: 'Chest_all', title: '状态', width: 80, sort: true, templet: function (item) {
                         if (item.Chest_all === "1") {
                             return ' <button type="button" class="layui-btn layui-btn-xs layui-btn-radius layui-btn-normal">已填</button>';
                         }
@@ -251,7 +176,7 @@
         };
         //回车搜索
         var search = document.getElementById("demoReload");
-        search.addEventListener("keyup", function(event) {
+        search.addEventListener("keyup", function (event) {
             event.preventDefault();
             if (event.keyCode === 13) {
                 console.log("hello");
@@ -300,8 +225,9 @@
             var type = $(this).data('type');
             active[type] ? active[type].call(this) : '';
         });
-    //编辑功能
-        function EidtUv(data,  obj) {
+
+        //编辑功能
+        function EidtUv(data, obj) {
             // var datd = obj.data;
             tabledata = data;
             $(".operation_dept").show();
@@ -341,7 +267,49 @@
 
     });
 
-//VUE接受表单中的组件
+
+    layui.use(['form', 'layer', 'element'], function () {
+        var form = layui.form;
+        var layer = layui.layer;
+        form.on('submit(save)', function (data) {
+            console.log("save事件被触发了")
+            // data.field.Stu_id = $("#Stu_id").html();
+            // data = data.field;
+            $.ajax({
+                url: '/chest/insertChestInfo',
+                method: 'post',
+                headers: {"authorization": token},
+                data: {
+                    // "chestDoctorId": $("#Chest_doctor_id").val(),
+                    "chestIdea": $("#Chest_idea").val(),
+                    "chestTest": $("#Chest_test").val(),
+                    "stuId": tabledata.Stu_id
+                    // "assayAll":"1",
+                    // "assayError":"0"
+                },
+                dataType: 'JSON',
+                success: function (res) {
+                    console.log("录入成功:" + res);
+                    if (res.code == '0' && check == 0) {
+                        layer.msg('录入成功', {time: 1000}, function () {
+                            $(".operation_dept").hide();
+                            $(".table_div").show();
+                            location.reload();
+                        });
+
+
+                    }
+                    // alert(res.msg);
+                },
+                error: function (data) {
+
+                }
+            });
+
+            return false;
+        });
+    });
+    //VUE接受表单中的组件
     var app = new Vue({
         el: "#app",
         data: {
@@ -350,36 +318,115 @@
             // Assay_doctor_id: ""
         },
         methods: {
-            save: function () {
-                $.ajax({
-                    url: '/chest/insertChestInfo',
-                    method: 'post',
-                    headers: {"authorization": token},
-                    data: {
-                        // "chestDoctorId": $("#Chest_doctor_id").val(),
-                        "chestIdea": $("#Chest_idea").val(),
-                        "chestTest": $("#Chest_test").val(),
-                        "stuId": tabledata.Stu_id
-                        // "assayAll":"1",
-                        // "assayError":"0"
-                    },
-                    dataType: 'JSON',
-                    success: function (res) {
-                        if (res.code = '0') {
-                            console.log(res);
-                        } else
-                            alert(res.msg);
-                    },
-                    error: function (data) {
-
-                    }
-                });
-
-            }
+            // save: function () {
+            //     $.ajax({
+            //         url: '/chest/insertChestInfo',
+            //         method: 'post',
+            //         headers: {"authorization": token},
+            //         data: {
+            //             // "chestDoctorId": $("#Chest_doctor_id").val(),
+            //             "chestIdea": $("#Chest_idea").val(),
+            //             "chestTest": $("#Chest_test").val(),
+            //             "stuId": tabledata.Stu_id
+            //             // "assayAll":"1",
+            //             // "assayError":"0"
+            //         },
+            //         dataType: 'JSON',
+            //         success: function (res) {
+            //             if (res.code = '0') {
+            //                 console.log(res);
+            //             } else{
+            //                 // alert(res.msg);
+            //
+            //             }
+            //         },
+            //         error: function (data) {
+            //
+            //         }
+            //     });
+            //
+            // }
 
 
         },
     })
+
+    <!--表单规范-->
+
+    layui.use(['form', 'layedit', 'laydate'], function () {
+        var form = layui.form
+            , layer = layui.layer
+            , layedit = layui.layedit
+            , laydate = layui.laydate;
+
+        //日期
+        laydate.render({
+            elem: '#date'
+        });
+        laydate.render({
+            elem: '#date1'
+        });
+
+        //创建一个编辑器
+        var editIndex = layedit.build('LAY_demo_editor');
+
+        //自定义验证规则
+        form.verify({
+            title: function (value) {
+                if (value.length < 1) {
+                    check = 1;
+                    return '请填写完所有信息';
+                } else {
+                    check = 0;
+                }
+            }
+            , pass: [
+                /^[\S]{6,12}$/
+                , '密码必须6到12位，且不能出现空格'
+            ]
+            , content: function (value) {
+                layedit.sync(editIndex);
+            }
+        });
+
+        //监听指定开关
+        form.on('switch(switchTest)', function (data) {
+            layer.msg('开关checked：' + (this.checked ? 'true' : 'false'), {
+                offset: '6px'
+            });
+            layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF', data.othis)
+        });
+
+        //监听提交
+        form.on('submit(demo1)', function (data) {
+            layer.alert(JSON.stringify(data.field), {
+                title: '最终的提交信息'
+            })
+            return false;
+        });
+
+        //表单赋值
+        layui.$('#LAY-component-form-setval').on('click', function () {
+            form.val('example', {
+                "username": "贤心" // "name": "value"
+                , "password": "123456"
+                , "interest": 1
+                , "like[write]": true //复选框选中状态
+                , "close": true //开关状态
+                , "sex": "女"
+                , "desc": "我爱 layui"
+            });
+        });
+
+        //表单取值
+        layui.$('#LAY-component-form-getval').on('click', function () {
+            var data = form.val('example');
+            alert(JSON.stringify(data));
+        });
+
+
+    });
+
 </script>
 <!--表单提交-->
 <script>
