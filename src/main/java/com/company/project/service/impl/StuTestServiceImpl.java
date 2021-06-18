@@ -1,5 +1,8 @@
 package com.company.project.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.company.project.entity.ChestEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -66,4 +69,10 @@ public class StuTestServiceImpl extends ServiceImpl<StuTestMapper, StuTestEntity
 
         return StuTestList;
     }
+
+    @Override
+    public int getTestingStuCount() {
+        return this.count();
+    }
+
 }
