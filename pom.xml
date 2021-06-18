@@ -68,7 +68,7 @@
         <dependency>
             <groupId>com.itextpdf</groupId>
             <artifactId>itextpdf</artifactId>
-            <version>5.5.10</version>
+            <version>5.2.1</version>
         </dependency>
 
         <dependency>
@@ -266,6 +266,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.3.5.RELEASE</version>
                 <configuration>
                     <fork>true</fork>
                 </configuration>

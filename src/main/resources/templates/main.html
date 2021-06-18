@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="/layui/css/layui.css" media="all">
 </head>
+<script src="/js/jquery.js"></script>
 <style>
     .layui-top-box {padding:40px 20px 20px 20px;color:#fff}
     .panel {margin-bottom:17px;background-color:#fff;border:1px solid transparent;border-radius:3px;-webkit-box-shadow:0 1px 1px rgba(0,0,0,.05);box-shadow:0 1px 1px rgba(0,0,0,.05)}
@@ -29,12 +30,12 @@
                         <div class="panel-body">
                             <div class="panel-title">
                                 <span class="label pull-right layui-bg-blue">实时</span>
-                                <h5>用户统计</h5>
+                                <h5 >体检学生数</h5>
                             </div>
                             <div class="panel-content">
-                                <h1 class="no-margins">1234</h1>
-                                <div class="stat-percent font-bold text-gray"><i class="fa fa-commenting"></i> 1234</div>
-                                <small>当前分类总记录数</small>
+                                <h1 class="no-margins" id="StuCount">1234</h1>
+<!--                                <div class="stat-percent font-bold text-gray"><i class="fa fa-commenting"></i> 1234</div>-->
+<!--                                <small>当前分类总记录数</small>-->
                             </div>
                         </div>
                     </div>
@@ -47,12 +48,12 @@
                         <div class="panel-body">
                             <div class="panel-title">
                                 <span class="label pull-right layui-bg-cyan">实时</span>
-                                <h5>商品统计</h5>
+                                <h5 >正在体检学生数</h5>
                             </div>
                             <div class="panel-content">
-                                <h1 class="no-margins">1234</h1>
-                                <div class="stat-percent font-bold text-gray"><i class="fa fa-commenting"></i> 1234</div>
-                                <small>当前分类总记录数</small>
+                                <h1 class="no-margins" id="TestingStuCount">1234</h1>
+<!--                                <div class="stat-percent font-bold text-gray"><i class="fa fa-commenting"></i> 1234</div>-->
+<!--                                <small>当前分类总记录数</small>-->
                             </div>
                         </div>
                     </div>
@@ -65,12 +66,12 @@
                         <div class="panel-body">
                             <div class="panel-title">
                                 <span class="label pull-right layui-bg-orange">实时</span>
-                                <h5>浏览统计</h5>
+                                <h5 >体检异常学生数</h5>
                             </div>
                             <div class="panel-content">
-                                <h1 class="no-margins">1234</h1>
-                                <div class="stat-percent font-bold text-gray"><i class="fa fa-commenting"></i> 1234</div>
-                                <small>当前分类总记录数</small>
+                                <h1 class="no-margins" id="ErrorStuCount">1234</h1>
+<!--                                <div class="stat-percent font-bold text-gray"><i class="fa fa-commenting"></i> 1234</div>-->
+<!--                                <small>当前分类总记录数</small>-->
                             </div>
                         </div>
                     </div>
@@ -82,12 +83,12 @@
                         <div class="panel-body">
                             <div class="panel-title">
                                 <span class="label pull-right layui-bg-green">实时</span>
-                                <h5>订单统计</h5>
+                                <h5 >体检完成学生数</h5>
                             </div>
                             <div class="panel-content">
-                                <h1 class="no-margins">1234</h1>
-                                <div class="stat-percent font-bold text-gray"><i class="fa fa-commenting"></i> 1234</div>
-                                <small>当前分类总记录数</small>
+                                <h1 class="no-margins" id="TestedStuCount">1234</h1>
+<!--                                <div class="stat-percent font-bold text-gray"><i class="fa fa-commenting"></i> 1234</div>-->
+<!--                                <small>当前分类总记录数</small>-->
                             </div>
                         </div>
                     </div>
@@ -96,62 +97,62 @@
         </div>
     </div>
 
-    <div class="layui-box">
-        <div class="layui-row layui-col-space10">
-            <div class="layui-col-md12">
-                <blockquote class="layui-elem-quote main_btn">
-                    <p>喜欢此后台模板的可以给我的Gitee加个Star支持一下</p>
-                    <p>Gitee地址：<a target="_blank" href='https://gitee.com/zwens/springboot-manager'><img src='https://gitee.com/zwens/springboot-manager/badge/star.svg?theme=dark' alt='star'></img></a></p>
-                    <p style="float:left;">GitHub地址：
-                        <div style="float:left;">
-                   <iframe src="https://ghbtns.com/github-btn.html?user=aitangbao&repo=springboot-manager&type=star&count=true" frameborder="0" scrolling="0" width="100px" height="20px"></iframe>
-                        </div>
-                    </p>
-                </blockquote>
-            </div>
-        </div>
-    </div>
+<!--    <div class="layui-box">-->
+<!--        <div class="layui-row layui-col-space10">-->
+<!--            <div class="layui-col-md12">-->
+<!--                <blockquote class="layui-elem-quote main_btn">-->
+<!--                    <p>喜欢此后台模板的可以给我的Gitee加个Star支持一下</p>-->
+<!--                    <p>Gitee地址：<a target="_blank" href='https://gitee.com/zwens/springboot-manager'><img src='https://gitee.com/zwens/springboot-manager/badge/star.svg?theme=dark' alt='star'></img></a></p>-->
+<!--                    <p style="float:left;">GitHub地址：-->
+<!--                        <div style="float:left;">-->
+<!--                   <iframe src="https://ghbtns.com/github-btn.html?user=aitangbao&repo=springboot-manager&type=star&count=true" frameborder="0" scrolling="0" width="100px" height="20px"></iframe>-->
+<!--                        </div>-->
+<!--                    </p>-->
+<!--                </blockquote>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
 
     <div class="layui-box">
         <div class="layui-row layui-col-space10">
-            <div class="layui-col-md6">
-                <table class="layui-table">
-                    <colgroup>
-                        <col width="150">
-                        <col width="200">
-                        <col>
-                    </colgroup>
-                    <thead>
-                    <tr>
-                        <th>昵称</th>
-                        <th>加入时间</th>
-                        <th>签名</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>wenbin</td>
-                        <td>2020-03-18</td>
-                        <td>人生就像是一场修行</td>
-                    </tr>
-                    <tr>
-                        <td>wenbin</td>
-                        <td>2020-03-18</td>
-                        <td>于千万人之中遇见你所遇见的人，于千万年之中，时间的无涯的荒野里…</td>
-                    </tr>
-                    <tr>
-                        <td>wenbin</td>
-                        <td>2020-03-18</td>
-                        <td>于千万人之中遇见你所遇见的人，于千万年之中，时间的无涯的荒野里…</td>
-                    </tr>
-                    <tr>
-                        <td>wenbin</td>
-                        <td>2020-03-18</td>
-                        <td>于千万人之中遇见你所遇见的人，于千万年之中，时间的无涯的荒野里…</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+<!--            <div class="layui-col-md6">-->
+<!--                <table class="layui-table">-->
+<!--                    <colgroup>-->
+<!--                        <col width="150">-->
+<!--                        <col width="200">-->
+<!--                        <col>-->
+<!--                    </colgroup>-->
+<!--                    <thead>-->
+<!--                    <tr>-->
+<!--                        <th>昵称</th>-->
+<!--                        <th>加入时间</th>-->
+<!--                        <th>签名</th>-->
+<!--                    </tr>-->
+<!--                    </thead>-->
+<!--                    <tbody>-->
+<!--                    <tr>-->
+<!--                        <td>wenbin</td>-->
+<!--                        <td>2020-03-18</td>-->
+<!--                        <td>人生就像是一场修行</td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td>wenbin</td>-->
+<!--                        <td>2020-03-18</td>-->
+<!--                        <td>于千万人之中遇见你所遇见的人，于千万年之中，时间的无涯的荒野里…</td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td>wenbin</td>-->
+<!--                        <td>2020-03-18</td>-->
+<!--                        <td>于千万人之中遇见你所遇见的人，于千万年之中，时间的无涯的荒野里…</td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td>wenbin</td>-->
+<!--                        <td>2020-03-18</td>-->
+<!--                        <td>于千万人之中遇见你所遇见的人，于千万年之中，时间的无涯的荒野里…</td>-->
+<!--                    </tr>-->
+<!--                    </tbody>-->
+<!--                </table>-->
+<!--            </div>-->
             <div class="layui-col-md6">
                 <ul class="layui-timeline">
                     <li class="layui-timeline-item">
@@ -177,5 +178,64 @@
     </div>
 </div>
 <script src="/layui/layui.js" charset="utf-8"></script>
+<script src="/js/core.util.js"></script>
+<script>
+    var token = CoreUtil.getData("access_token");
+    window.onload=function (){
+        console.log("页面刷新");
+        $.ajax({
+            headers: {"authorization": token},
+            url: "/dv/getErrorStuCount",
+            type: "POST",
+            // data: {"uvid": data.id, "memthodname": "deleteuv", "aid": data.aid},
+            dataType: "json",
+            success: function (data) {
+                // console.log(data);
+                $("#ErrorStuCount").html(data.data[0].ErrorStuCount);
+            }
+
+        });
+
+        $.ajax({
+            headers: {"authorization": token},
+            url: "/dv/getStuCount",
+            type: "POST",
+            // data: {"uvid": data.id, "memthodname": "deleteuv", "aid": data.aid},
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                $("#StuCount").html(data.data[0].StuCount);
+            }
+
+        });
+
+        $.ajax({
+            headers: {"authorization": token},
+            url: "/dv/getTestedStuCount",
+            type: "POST",
+            // data: {"uvid": data.id, "memthodname": "deleteuv", "aid": data.aid},
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                $("#TestedStuCount").html(data.data[0].TestedStuCount);
+            }
+
+        });
+
+        $.ajax({
+            headers: {"authorization": token},
+            url: "/dv/getTestingStuCount",
+            type: "POST",
+            // data: {"uvid": data.id, "memthodname": "deleteuv", "aid": data.aid},
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                $("#TestingStuCount").html(data.data[0].TestingStuCount);
+            }
+
+        });
+
+    }
+</script>
 </body>
 </html>
