@@ -32,27 +32,6 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, StudentEntity
     private StudentMapper studentMapper;
 
     @Override
-    public IPage<SysDictDetailEntity> listByPage(Page<SysDictDetailEntity> page, String dictId) {
-
-////        SysDictEntity sysDictEntity = sysDictMapper.selectById(dictId);
-////        if (sysDictEntity == null) {
-////            throw new BusinessException("获取字典数据失败!");
-////        }
-//
-//        LambdaQueryWrapper<StudentEntity> wrapper = Wrappers.lambdaQuery();
-////        wrapper.eq(SysDictDetailEntity::getDictId, dictId);
-//        wrapper.orderByAsc(StudentEntity::getStuId);
-////        wrapper.orderByAsc(SysDictDetailEntity::getSort);
-//        IPage<StudentEntity> result = studentMapper.selectPage(page, wrapper);
-////        IPage<SysDictDetailEntity> result = sysDictDetailMapper.selectPage(page, wrapper);
-//        if (!CollectionUtils.isEmpty(result.getRecords())) {
-//            result.getRecords().parallelStream().forEach(entity -> entity.setDictName(sysDictEntity.getName()));
-//        }
-//        return result;
-        return null;
-    }
-
-    @Override
     public void addStudent(StudentEntity stu) {
         StudentEntity StuOne = studentMapper.selectOne(Wrappers.<StudentEntity>lambdaQuery().eq(StudentEntity::getStuCard, stu.getStuCard()));
         if (StuOne != null) {

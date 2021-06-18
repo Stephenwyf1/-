@@ -9,10 +9,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.company.project.common.exception.BusinessException;
 import com.company.project.common.exception.code.BaseResponseCode;
 import com.company.project.common.utils.PasswordUtils;
-import com.company.project.entity.SysDept;
 import com.company.project.entity.SysRole;
 import com.company.project.entity.SysUser;
-import com.company.project.mapper.SysDeptMapper;
 import com.company.project.mapper.SysUserMapper;
 import com.company.project.service.*;
 import com.company.project.vo.req.UserRoleOperationReqVO;
@@ -46,8 +44,7 @@ public class UserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impleme
     private PermissionService permissionService;
     @Resource
     private UserRoleService userRoleService;
-    @Resource
-    private SysDeptMapper sysDeptMapper;
+
     @Resource
     private HttpSessionService httpSessionService;
 
@@ -89,10 +86,7 @@ public class UserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impleme
             httpSessionService.abortUserById(sysUser.getId());
         }
         if (StringUtils.isNotBlank(sysUser.getDeptId())) {
-            SysDept sysDept = sysDeptMapper.selectById(sysUser.getDeptId());
-            if (sysDept != null) {
-                sysUser.setDeptNo(sysDept.getDeptNo());
-            }
+
         }
         String token = httpSessionService.createTokenAndUser(sysUser, roleService.getRoleNames(sysUser.getId()), permissionService.getPermissionsByUserId(sysUser.getId()));
         respVO.setAccessToken(token);
@@ -174,22 +168,10 @@ public class UserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impleme
         if (null != vo.getStatus()) {
             queryWrapper.eq(SysUser::getStatus, vo.getStatus());
         }
-        if (!StringUtils.isEmpty(vo.getDeptNo())) {
-            LambdaQueryWrapper<SysDept> queryWrapperDept = Wrappers.lambdaQuery();
-            queryWrapperDept.select(SysDept::getId).like(SysDept::getRelationCode, vo.getDeptNo());
-            List<Object> list = sysDeptMapper.selectObjs(queryWrapperDept);
-            queryWrapper.in(SysUser::getDeptId, list);
-        }
+
         queryWrapper.orderByDesc(SysUser::getCreateTime);
         IPage<SysUser> iPage = sysUserMapper.selectPage(page, queryWrapper);
-        if (!CollectionUtils.isEmpty(iPage.getRecords())) {
-            for (SysUser sysUser : iPage.getRecords()) {
-                SysDept sysDept = sysDeptMapper.selectById(sysUser.getDeptId());
-                if (sysDept != null) {
-                    sysUser.setDeptName(sysDept.getName());
-                }
-            }
-        }
+
         return iPage;
     }
 
