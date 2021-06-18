@@ -1,8 +1,8 @@
 package com.company.project.service.impl;
 
-import com.company.project.entity.SysDept;
+
 import com.company.project.entity.SysUser;
-import com.company.project.entity.UserAccount;
+
 import com.company.project.service.*;
 import com.company.project.vo.resp.HomeRespVO;
 import com.company.project.vo.resp.PermissionRespNode;
@@ -24,8 +24,7 @@ import java.util.List;
 public class HomeServiceImpl implements HomeService {
     @Resource
     private UserService userService;
-    @Resource
-    private DeptService deptService;
+
     @Resource
     private PermissionService permissionService;
 
@@ -38,11 +37,6 @@ public class HomeServiceImpl implements HomeService {
 
         if (sysUser != null) {
             BeanUtils.copyProperties(sysUser, vo);
-            SysDept sysDept = deptService.getById(sysUser.getDeptId());
-            if (sysDept != null) {
-                vo.setDeptId(sysDept.getId());
-                vo.setDeptName(sysDept.getName());
-            }
         }
 
         List<PermissionRespNode> menus = permissionService.permissionTreeList(userId);

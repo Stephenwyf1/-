@@ -7,14 +7,11 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.company.project.common.exception.BusinessException;
 import com.company.project.common.exception.code.BaseResponseCode;
 import com.company.project.common.utils.PasswordUtils;
-import com.company.project.entity.SysDept;
 import com.company.project.entity.SysRole;
 import com.company.project.entity.UserAccount;
-import com.company.project.mapper.SysDeptMapper;
 import com.company.project.mapper.UserAccountMapper;
 import com.company.project.service.*;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.company.project.vo.req.UserRoleOperationReqVO;
 import com.company.project.vo.resp.LoginRespVO;
 import com.company.project.vo.resp.UserOwnRoleRespVO;
 import org.springframework.beans.BeanUtils;
@@ -43,8 +40,6 @@ public class UserAccountServiceImpl extends ServiceImpl<UserAccountMapper, UserA
     private PermissionService permissionService;
     @Resource
     private UserRoleService userRoleService;
-    @Resource
-    private SysDeptMapper sysDeptMapper;
     @Resource
     private HttpSessionService httpSessionService;
 

@@ -4,10 +4,7 @@ package com.company.project.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.company.project.entity.DoctorEntity;
 import com.company.project.entity.StudentEntity;
-import com.company.project.entity.SysDictDetailEntity;
-import java.util.List;
 
 /**
  * <p>
@@ -25,7 +22,7 @@ public interface IStudentService extends IService<StudentEntity> {
      * @param dictId dictId
      * @return IPage
      */
-    IPage<SysDictDetailEntity> listByPage(Page<SysDictDetailEntity> page, String dictId);
+
 
     /**
      * 添加学生
