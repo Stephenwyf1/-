@@ -6,7 +6,9 @@
     <link rel="stylesheet" href="/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="/css/custom.form.css">
     <style>
-        .custom-tree-item-clicked{color:#FC9003}
+        .Impact{
+            background-color: #6a79d6;
+        }
     </style>
 </head>
 <body>
@@ -118,7 +120,7 @@
             </div>
             <div class="layui-form-item">
                 <div class="layui-input-block">
-                    <button type="submit" class="layui-btn" lay-submit="" lay-filter="submit">保存</button>
+                    <button type="submit" class="layui-btn Impact" lay-submit="" lay-filter="submit">保存</button>
                     <button class="layui-btn layui-btn-primary" id="btn_cancel">返回</button>
                 </div>
             </div>
@@ -140,7 +142,7 @@
 <!--                    <input type="text" readonly class="layui-input" id="createTime" placeholder="创建时间">-->
 <!--                </div>-->
                 <div class="layui-input-inline ">
-                    <button class="layui-btn" onclick="search()" id="search">查询</button>
+                    <button class="layui-btn Impact" onclick="search()" id="search">搜索</button>
                 </div>
             </div>
 
@@ -156,14 +158,14 @@
 </body>
 <script type="text/html" id="toolbar">
     <div class="layui-btn-container">
-        <button class="layui-btn layui-btn-sm" lay-event="addByImport" shiro:hasPermission="sys:stu:detail">导入学生</button>
-        <button class="layui-btn layui-btn-sm" lay-event="addNewUser" shiro:hasPermission="sys:stu:detail">添加</button>
-        <button class="layui-btn layui-btn-sm" lay-event="batchDeleted" shiro:hasPermission="sys:stu:detail">删除</button>
+        <button class="layui-btn layui-btn-sm Impact" lay-event="addByImport" shiro:hasPermission="sys:stu:detail">导入学生</button>
+        <button class="layui-btn layui-btn-sm Impact" lay-event="addNewUser" shiro:hasPermission="sys:stu:detail">添加</button>
+        <button class="layui-btn layui-btn-sm Impact" lay-event="batchDeleted" shiro:hasPermission="sys:stu:detail">删除</button>
         <input type="file" id="btn_file" accept=".xlsx" style="display: none">
     </div>
 </script>
 <script type="text/html" id="tool">
-    <a class="layui-btn layui-btn-xs" lay-event="edit" shiro:hasPermission="sys:stu:detail">编辑</a>
+    <a class="layui-btn layui-btn-xs Impact" lay-event="edit" shiro:hasPermission="sys:stu:detail">编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" shiro:hasPermission="sys:stu:detail">删除</a>
 </script>
 <script src="/layui/layui.all.js"></script>

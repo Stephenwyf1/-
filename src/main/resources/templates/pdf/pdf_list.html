@@ -12,6 +12,11 @@
     <!--    <script src="../../static/layui/layui.js"></script>-->
     <!--    <link rel="stylesheet" href="..css/layui/layui.css">-->
 </head>
+<style>
+    .Impact{
+        background-color: #6a79d6;
+    }
+</style>
 <body>
 <!--表单-->
 <script src="/layui/layui.all.js"></script>
@@ -73,9 +78,9 @@
 
                 <div class="layui-form-item"  align="center">
                     <div class="layui-input-block">
-                        <button type="submit" class="layui-btn" lay-submit="" lay-filter="save" @click="save">保存
+                        <button type="submit" class="layui-btn Impact" lay-submit="" lay-filter="save" @click="save">保存
                         </button>
-                        <button class="layui-btn layui-btn-primary" id="btn_cancel" onclick="cancel()">返回</button>
+                        <button class="layui-btn layui-btn-primary " id="btn_cancel" onclick="cancel()">返回</button>
                     </div>
                 </div>
             </form>
@@ -88,7 +93,7 @@
     <div class="layui-inline">
         <input class="layui-input" type="number" name="id" id="demoReload" autocomplete="off">
     </div>
-    <button class="layui-btn"  data-type="reload" id="searchID">搜索</button>
+    <button class="layui-btn Impact"  data-type="reload" id="searchID">搜索</button>
     <table class="layui-hide" id="useruv" lay-filter="useruv"></table>
 </div>
 
@@ -172,7 +177,7 @@
 <script type="text/html" id="barDemo">
     <!--    class="layui-btn layui-btn-xs"-->
     <!--    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>-->
-    <a class="layui-btn layui-btn-xs" lay-event="edit" >打印学生体检信息表</a>
+    <a class="layui-btn layui-btn-xs Impact" lay-event="edit" >打印学生体检信息表</a>
     <!--    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>-->
 </script>
 <table id="demo" lay-filter="test"></table>

@@ -7,6 +7,12 @@
     <link rel="stylesheet" href="/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="/css/custom.form.css">
 </head>
+<style>
+    .Impact{
+    background-color: #6a79d6;
+}
+
+</style>
 <body>
 <div class="panel panel-default operation_role" hidden>
     <div class="panel-heading title"></div>
@@ -45,7 +51,7 @@
             </div>
             <div class="layui-form-item">
                 <div class="layui-input-block">
-                    <button type="submit" class="layui-btn" lay-submit="" lay-filter="submit">保存</button>
+                    <button type="submit" class="layui-btn Impact" lay-submit="" lay-filter="submit">保存</button>
                     <button class="layui-btn layui-btn-primary" id="btn_cancel">返回</button>
                 </div>
             </div>
@@ -69,7 +75,7 @@
                 </select>
             </div>
             <div class="layui-input-inline ">
-                <button class="layui-btn" onclick="search()" id="search">查询</button>
+                <button class="layui-btn Impact" onclick="search()" id="search">搜索</button>
             </div>
         </div>
 
@@ -79,11 +85,11 @@
 </body>
 <script type="text/html" id="toolbar">
     <div class="layui-btn-container">
-        <button class="layui-btn layui-btn-sm" lay-event="addNewRole" shiro:hasPermission="sys:role:add">添加</button>
+        <button class="layui-btn layui-btn-sm Impact" lay-event="addNewRole" shiro:hasPermission="sys:role:add">添加</button>
     </div>
 </script>
 <script type="text/html" id="tool">
-    <a class="layui-btn layui-btn-xs" lay-event="edit" shiro:hasPermission="sys:role:update">编辑</a>
+    <a class="layui-btn layui-btn-xs Impact" lay-event="edit" shiro:hasPermission="sys:role:update">编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" shiro:hasPermission="sys:role:deleted">删除</a>
 </script>
 <script src="/layui/layui.all.js"></script>
